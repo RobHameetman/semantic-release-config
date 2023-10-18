@@ -5,16 +5,16 @@
 *** customizing certain parts of this README file.
 -->
 
-# 📦 @{{scope}}/{{name}}
+# 📦 @rob.hameetman/semantic-release-config
 
 <div align="center">
-  <a href="https://github.com/{{org}}/{{repo}}">
+  <a href="https://github.com/RobHameetman/semantic-release-config">
     <img src="./.github/img/logo.png" alt="Logo" width="75" height="112">
   </a>
 
   <p align="center">
     <br />
-    {{description}}
+    A package for centralized release management configuration.
     <!-- TODO: Delete lines 33–46 -->
     <br />
     <br />
@@ -25,29 +25,29 @@
     <br />
   </p>
   <a href="https://reactjs.org/">
-    <img src="https://img.shields.io/badge/React-v{{react}}-%236ADEFE.svg?&logo=react&logoColor=%2361DAFB" alt="React v{{react}}">
+    <img src="https://img.shields.io/badge/React-v18.2.0-%236ADEFE.svg?&logo=react&logoColor=%2361DAFB" alt="React v18.2.0">
   </a>
   <a href="https://www.typescriptlang.org/">
-    <img src="https://img.shields.io/badge/TypeScript-v{{typescript}}-%23007ACC.svg?&logo=typescript&logoColor=007ACC" alt="TypeScript v{{typescript}}">
+    <img src="https://img.shields.io/badge/TypeScript-v5.2.2-%23007ACC.svg?&logo=typescript&logoColor=007ACC" alt="TypeScript v5.2.2">
   </a>
   <a href="https://rollupjs.org/">
-    <img src="https://img.shields.io/badge/Rollup-v{{rollup}}-EC4A3F.svg?&logo=rollup.js&logoColor=8DD6F9" alt="Rollup v{{rollup}}">
+    <img src="https://img.shields.io/badge/Rollup-v4.1.4-EC4A3F.svg?&logo=rollup.js&logoColor=8DD6F9" alt="Rollup v4.1.4">
   </a>
   <br />
-  <img src="https://img.shields.io/github/actions/workflow/status/{{org}}/{{repo}}/build.yml?branch=main" alt="Build">
-  <img src="https://img.shields.io/github/actions/workflow/status/{{org}}/{{repo}}/test.yml?branch=main" alt="Tests">
-  <img src="https://img.shields.io/github/actions/workflow/status/{{org}}/{{repo}}/deploy.yml?branch=main" alt="w">
-	<img src="https://img.shields.io/github/v/release/{{org}}/{{repo}}?display_name=tag" alt="CI/CD">
+  <img src="https://img.shields.io/github/actions/workflow/status/RobHameetman/semantic-release-config/build.yml?branch=main" alt="Build">
+  <img src="https://img.shields.io/github/actions/workflow/status/RobHameetman/semantic-release-config/test.yml?branch=main" alt="Tests">
+  <img src="https://img.shields.io/github/actions/workflow/status/RobHameetman/semantic-release-config/deploy.yml?branch=main" alt="w">
+	<img src="https://img.shields.io/github/v/release/RobHameetman/semantic-release-config?display_name=tag" alt="CI/CD">
   <br />
   <p align="center">
     <br />
-    <a href="https://www.npmjs.org/package/@{{scope}}/{{name}}">
+    <a href="https://www.npmjs.org/package/@{{scope}}/semantic-release-config">
       <img src="https://img.shields.io/badge/Check%20It%20Out-%239CB0B2.svg?style=for-the-badge" alt="Check It Out">
     </a>
-    <a href="https://www.github.com/{{org}}/{{repo}}">
+    <a href="https://www.github.com/RobHameetman/semantic-release-config">
       <img src="https://img.shields.io/badge/Request%20A%20Feature-%23AECCB3.svg?style=for-the-badge" alt="Request A Feature">
     </a>
-    <a href="https://www.github.com/{{org}}/{{repo}}">
+    <a href="https://www.github.com/RobHameetman/semantic-release-config">
       <img src="https://img.shields.io/badge/Report%20A%20Defect-%23FFD0CA.svg?style=for-the-badge" alt="Report A Defect">
     </a>
     <br />
@@ -143,14 +143,14 @@ Follow these steps to get the project up and running on your local machine:
 
 ### 1. Prerequisites
 
-- Node v{{node}}+
-- NPM v{{npm}}+
+- Node v20+
+- NPM v9+
 
 ### 2. Installation
 
 ```bash
-git clone git@github.com:{{org}}/{{repo}}
-cd {{repo}}
+git clone git@github.com:RobHameetman/semantic-release-config
+cd semantic-release-config
 npm run setup
 ```
 
@@ -246,14 +246,14 @@ by vising the _Actions_ tab in Github.
 ### Versioning
 
 This project uses [SemVer](http://semver.org/) for versioning. For the versions
-available, see the [tags on this repository](https://github.com/{{org}}/{{repo}}/tags).
+available, see the [tags on this repository](https://github.com/RobHameetman/semantic-release-config/tags).
 
 An `beta` pre-release version will be published whenever you create a PR and
 incremented as you update your changes. Once the PR is merged, a release version
 is created automatically. This is handled with `semantic-release`.
 
 Major versions should have a corresponding release in Github. Click
-[here](https://github.com/{{org}}/{{repo}}/releases/new) to create a new release
+[here](https://github.com/RobHameetman/semantic-release-config/releases/new) to create a new release
 once your version meets acceptance criteria.
 
 <p align="right"><a href="#top">⬆️ back to top</a></p>

@@ -10,8 +10,8 @@ on:
 
 env:
   # General Options
-  name: {{name}}
-  node: '{{node}}'
+  name: semantic-release-config
+  node: '20'
   debug: false
   # Skip
   skip-tests: false

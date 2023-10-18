@@ -17,7 +17,7 @@ on:
         type: boolean
       node:
         description: The version of Node.js used
-        default: '{{node}}'
+        default: '20'
         required: false
         type: string
       skip:
@@ -33,9 +33,9 @@ on:
 
 env:
   # General Options
-  name: {{name}}
+  name: semantic-release-config
   version: ${{ github.ref_name }}
-  node: '{{node}}'
+  node: '20'
   debug: false
   type: canary
   # Timeouts (in minutes)

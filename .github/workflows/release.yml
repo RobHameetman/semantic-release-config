@@ -11,9 +11,9 @@ on:
 
 env:
   # General Options
-  name: {{name}}
+  name: semantic-release-config
   version: ${{ github.ref_name }}
-  node: '{{node}}'
+  node: '20'
   debug: false
   type: canary
   # Timeouts (in minutes)

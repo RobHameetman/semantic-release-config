@@ -66,9 +66,6 @@ devDependencies=(
   @commitlint/config-conventional
 	@faker-js/faker
   @rbnlffl/rollup-plugin-eslint
-	@rob.hameetman/eslint-plugin
-	@rob.hameetman/semantic-release-config
-	@rob.hameetman/stylelint-plugin
   @rollup/plugin-commonjs
   @rollup/plugin-node-resolve
   @testing-library/jest-dom
@@ -97,24 +94,24 @@ devDependencies=(
 )
 
 packageJsonOrder='{
-	name, 
-	version, 
-	description, 
-	author, 
-	homepage, 
-	license, 
-	private, 
-	main, 
-	repository, 
-	bugs, 
-	scripts, 
-	dependencies, 
-	devDependencies, 
-	browserslist, 
-	eslintConfig, 
-	prettier, 
-	stylelint, 
-	jest, 
+	name,
+	version,
+	description,
+	author,
+	homepage,
+	license,
+	private,
+	main,
+	repository,
+	bugs,
+	scripts,
+	dependencies,
+	devDependencies,
+	browserslist,
+	eslintConfig,
+	prettier,
+	stylelint,
+	jest,
 	postcss
 }'
 
@@ -133,7 +130,7 @@ node="${nodejs%%.*}"
 npmjs=$(npm -v)
 npm="${npmjs%%.*}"
 
-# These are initialized to an empty string because we can only get the once 
+# These are initialized to an empty string because we can only get the once
 # we've finished installing our dependencies.
 react=""
 typescript=""
