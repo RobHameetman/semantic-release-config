@@ -1,28 +1,45 @@
 {
   "compilerOptions": {
-	"strict": true,
-    "allowJs": true,
+		"allowJs": false,
     "allowSyntheticDefaultImports": true,
-	"baseUrl": ".",
-	"rootDir": "./lib",
-	"declaration": true,
-	"declarationDir": "./dist",
-	"esModuleInterop": true,
-	"experimentalDecorators": true,
-	"forceConsistentCasingInFileNames": true,
-	"jsx": "react-jsx",
-    "module": "esnext",
-	"moduleResolution": "node",
-    "noImplicitAny": true,
-	"noImplicitThis": true,
-	"resolveJsonModule": true,
+		"baseUrl": ".",
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"outDir": "./dist",
+		"paths": {
+			"@branches/*": ["./lib/branches/*"],
+			"@plugins/*": ["./lib/plugins/*"],
+			"@rules/*": ["./lib/rules/*"],
+			"@templates/*": ["./lib/templates/*"],
+			"@utils/*": ["./lib/utils/*"],
+			"@test/*": ["./test/resources/*"]
+		},
+		"removeComments": true,
+		"resolveJsonModule": true,
+		"rootDir": "./lib",
+		"strict": true
   },
-  "files": ["./lib/index.ts"],
+  "files": [
+		"./lib/canary.ts",
+		"./lib/gitflow.ts",
+		"./lib/modular.ts",
+		"./lib/recommended.ts",
+		"./lib/staged.ts",
+		"./lib/streamlined.ts"
+	],
 	"include": [
-		"./lib",
-		"./typings",
+		"./typings"
 	],
 	"exclude": [
-		"./node_modules"
-	],
+		"./node_modules",
+		"./lib/*.spec.ts",
+		"./lib/**/*.spec.ts",
+		"./test",
+		"**/__test__/**/*"
+	]
 }

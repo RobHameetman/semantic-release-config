@@ -15,17 +15,12 @@ env:
   version: ${{ github.ref_name }}
   node: '20'
   debug: false
-  type: canary
   # Timeouts (in minutes)
   timeout-setup: 10
   timeout-tests: 30
   timeout-deployments: 60
   timeout-cache-invalidations: 10
   # Environment Variables
-  APP_DEBUG: ${{ vars.APP_DEBUG }}
-  APP_ENV: PROD
-  APP_VERSION: ${{ github.ref_name }}
-  APP_ENDPOINT: ${{ vars.APP_ENDPOINT }}
   CI_DEBUG: ${{ vars.CI_DEBUG }}
   CI_TYPE: ${{ vars.CI_TYPE }}
   NODE_ENV: production

@@ -72,70 +72,6 @@
 
 ## §1: Overview
 
-This project includes the following features:
-
-**Accessibility**
-
-- [ ] Accessibility testing
-- [ ] WCAG compliance
-
-**Architecture**
-
-- [ ] Framework agnosticism (WebComponents)
-- [ ] Module Federation (micro-frontend architecture)
-- [X] Zero-trust architecture
-
-**Design**
-
-- [x] Atomic Design principles
-- [X] Design tokens
-- [x] Mobile-first styling
-- [X] Responsive layouts
-- [ ] View Transitions API
-
-**Development**
-
-- [ ] Automated scaffolding
-- [X] ESLint/Stylelint editor integration (VSCode, Webstorm/IntelliJ)
-- [X] Component-driven UI Library
-- [X] Just-In-Time CSS compilation
-- [X] Centralized build pipeline
-- [ ] Plug'n'play
-- [X] Intrinsic CI/CD pipeline
-- [X] Strong type-checking
-
-**Infrastructure**
-
-- [X] Bucket versioning
-- [X] Managed services
-- [ ] Multi-regional redundancy
-- [X] Zero-downtime deployment strategy (e.g. blue/green, canary)
-
-**Performance**
-
-- [X] Code splitting
-- [X] Edge caching
-- [X] Lazy-loading
-- [ ] Static/Server-side Rendering
-- [X] Web Vitals
-
-**Project Management**
-
-- [X] Clean commit history
-- [ ] Demoable PRs
-- [ ] Issue template
-- [X] Pull request template
-- [X] Semantically versioned releases
-
-**Testing**
-
-- [ ] Enforced coverage thresholds (80% functional)
-- [X] Unit/integration testing (Jest, @testing-library/react)
-- [ ] Snapshot testing
-- [X] Visual regression testing (Playwrite)
-- [ ] Coverage reporting
-
-<p align="right"><a href="#top">⬆️ back to top</a></p>
 
 ## §2: Getting Started
 
@@ -188,33 +124,61 @@ directory:
 - `npm run build`: Create a production build artifact.
 - `npm run format`: Perform static analysis and auto-fix errors.
 - `npm run reset`: Perform a full `node_modules/` reset.
-- `npm run setup`: Set up the project for development.
 - `npm test`: Execute the Jest test suite.
 
 ### Environment Variables
 
-#### App
+**General Options**
 
-| Variable           | Required | Description                                                                                                |
-|--------------------|----------|------------------------------------------------------------------------------------------------------------|
-| **`APP_NAME`**     | Yes      | The name of this service. Used as the namespace for exposed remotes, as well as for logging and rendering. |
-| `APP_DEBUG`        | No       | Print extra information to the browser console to debug redundant re-rendering issues.[^1]                 |
-| **`APP_ENDPOINT`** | Yes      | Used as the base URL for fetching data from the backend. Add more env variables below.                     |
+| Variable                    | Description                                                                               |
+|-----------------------------|-------------------------------------------------------------------------------------------|
+| `RELEASE_PLUGIN_PRESET`     | Change the preset used for plugins. Defaults to `conventionalcommits`.[^1]                |
+| `RELEASE_PUBLISH_FROM_DIST` | Set to `true` if your build pipeline copies `package.json` into your `dist` folder.       |
+| `RELEASE_DEBUG`             | Enable debug mode in `semantic-release`.                                                  |
+| `RELEASE_REPOSITORY_URL`    | Set the repo URL used by `semantic-release`. Defaults to your settings in `package.json`. |
+| `RELEASE_DRY_RUN`           | Perform a dry run of the release.                                                         |
+| `RELEASE_LOCALLY`           | Run `semantic-release` outside of your CI/CD pipeline.                                    |
 
-#### Build
+**Release Rules**
 
-| Variable          | Required | Description                                                                                                          |
-|-------------------|----------|----------------------------------------------------------------------------------------------------------------------|
-| `HOST`            | No       | The host used by Webpack Dev Server to serve the application for local development. Default host is `localhost`.[^2] |
-| `PORT`            | No       | The port used by Webpack Dev Server to serve the application for local development. Default port is `8080`.          |
-| `PUBLIC_PATH`     | No       | Used by Wepback Dev Server to retrieve chunks from the chunk graph.                                                  |
-| `ANALYZE_BUNDLE`  | No       | Set to `true` to enable [`webpack-bundle-analyzer`](https://www.npmjs.com/package/webpack-bundle-analyzer).          |
-| `SERVE_FROM_DISK` | No       | Set to `true` to write to disk when running Webpack Dev Server.                                                      |
+| Variable                             | Description                                                                                              |
+|--------------------------------------|----------------------------------------------------------------------------------------------------------|
+| `RELEASE_SKIP_README_UPDATES`        | Set to `true` to skip patch increments for README updates if they don't appear in your private registry. |
+| `RELEASE_DEPRECATE_AS_MINOR_VERSION` | If `true` the `deprecate: ...` commit type will increment a minor version instead of a patch version.    |
+| `RELEASE_VERSION_AS_TYPE`            | Allows you to use a specific version as a commit type (e.g. `1.2.1(release): ...`).                       |
 
-[^1]: `NODE_ENV` must also be `development`, meaning this works when the app is
-  run with `npm start` but not `npm run prod`.
-[^2]: In order to run cypress tests in Firefox, set this var to `127.0.0.1`
-  locally.
+**Custom Commands**
+| Variable                             | Description                                                                         |
+|--------------------------------------|-------------------------------------------------------------------------------------|
+| `RELEASE_EXEC_ANALYZE_COMMITS_CMD`   | A custom shell command to execute during the analyze commits step.                  |
+| `RELEASE_EXEC_GENERATE_NOTES_CMD`    | A custom shell command to execute during the generate notes step.                   |
+| `RELEASE_EXEC_ADD_CHANNEL_CMD`       | A custom shell command to execute during the add channel step.                      |
+| `RELEASE_EXEC_VERIFY_ARTIFACTS_CMD`  | A custom shell command to execute during the verify release step.                   |
+| `RELEASE_EXEC_CWD`                   | The path to use as current working directory when executing the shell commands.[^2] |
+| `RELEASE_EXEC_FAIL_CMD`              | A custom shell command to execute during the fail step.                             |
+| `RELEASE_EXEC_PREPARE_CMD`           | A custom shell command to execute during the prepare step.                          |
+| `RELEASE_EXEC_PUBLISH_CMD`           | A custom shell command to execute during the publish step.                          |
+| `RELEASE_EXEC_SHELL`                 | The shell to use to run the command. If `true`, runs file inside of a shell.[^3]     |
+| `RELEASE_EXEC_SUCCESS_CMD`           | A custom shell command to execute during the success step.                          |
+| `RELEASE_EXEC_VERIFY_CONDITIONS_CMD` | A custom shell command to execute during the verify condition step.                 |
+
+**Configuration-specific**
+
+| Variable                 | Config   | Description                                                                                                |
+|--------------------------|---------|------------------------------------------------------------------------------------------------------------|
+| `RELEASE_CANARY_BRANCH`  | Canary  | The name of your pre-release branch. |
+| `RELEASE_CANARY_CHANNEL` | Canary  | The name of the channel your pre-releases are tagged by. |
+| `RELEASE_BRANCHES`       | Modular | Used as the base URL for fetching data from the backend. Add more env variables below.                     |
+| `RELEASE_MAIN_IS_LATEST` | Modular | Used as the base URL for fetching data from the backend. Add more env variables below.                     |
+
+[^1]: Release rules for the `angular` preset are already included.
+[^2]: This path is relative to the path from which semantic-release is running.
+      For example if semantic-release runs from `/my-project` and `execCwd` is
+      set to `buildScripts` then the shell command will be executed
+      from `/my-project/buildScripts`.
+[^3]: Uses `/bin/sh` on UNIX and `cmd.exe` on Windows. A different shell can be
+      specified as a string. The shell should understand the `-c` switch on UNIX
+      or `/d /s /c` on Windows.
 
 <p align="right"><a href="#top">⬆️ back to top</a></p>
 

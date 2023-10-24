@@ -5,79 +5,75 @@
   "author": "Robert H. Hameetman (https://www.robhameetman.com/)",
   "homepage": "https://www.npmjs.org/package/@rob.hameetman/semantic-release-config",
   "license": "MIT",
-  "private": true,
   "main": "dist/index.min.js",
+  "module": "dist/index.min.js",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RobHameetman/semantic-release-config"
+    "url": "https://github.com/RobHameetman/semantic-release-config"
   },
   "bugs": {
     "url": "https://github.com/RobHameetman/semantic-release-config/issues"
   },
+  "engines": {
+    "node": ">=20.6.1",
+    "npm": ">=9.8.1"
+  },
   "scripts": {
-    "build": "rm -rf ./dist/ && NODE_ENV=production webpack --config=./config/webpack.config.js --mode=production --node-env=production",
-    "format": "NODE_ENV=production eslint ./src --ext=ts,tsx --fix && stylelint src --fix --cache",
+    "build": "rm -rf ./dist/ && tsc && rollup -c rollup.config.js && ./scripts/cleanup.sh",
+    "e2e": "./scripts/e2e.sh",
+    "format": "eslint ./src --ext=ts,tsx --fix",
     "prepare": "husky install",
     "reset": "rm -rf node_modules/ && npm cache clear --force && npm ci --legacy-peer-deps",
     "setup": "sh scripts/setup.sh",
     "test": "NODE_ENV=test jest --maxWorkers=50%"
   },
   "dependencies": {
-    "@datadog/browser-logs": "5.0.0",
-    "@datadog/browser-rum": "5.0.0",
-    "@nextui-org/react": "2.1.13",
-    "@universe/address-parser": "3.2.0",
-    "@welldone-software/why-did-you-render": "7.0.1",
-    "core-js": "3.33.0",
-    "history": "5.3.0",
-    "lodash": "4.17.21",
-    "path-browserify": "1.0.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-helmet": "6.1.0",
-    "react-router-dom": "6.17.0",
-    "regenerator-runtime": "0.14.0",
-    "tailwindcss": "3.3.3"
+    "@rob.hameetman/type-guards": "1.0.0-alpha.4",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/exec": "6.0.3",
+    "@semantic-release/git": "10.0.1",
+    "semantic-release-npm-deprecate": "1.0.34",
+    "semantic-release-slack-bot": "4.0.2"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "17.8.0",
     "@faker-js/faker": "8.2.0",
     "@rbnlffl/rollup-plugin-eslint": "5.0.0",
+    "@rollup/plugin-alias": "5.0.1",
     "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-node-resolve": "15.2.3",
+    "@semantic-release/commit-analyzer": "11.0.0",
+    "@semantic-release/error": "4.0.0",
+    "@semantic-release/github": "9.2.1",
+    "@semantic-release/npm": "11.0.0",
+    "@semantic-release/release-notes-generator": "12.0.0",
     "@testing-library/jest-dom": "6.1.4",
+    "@types/jest": "29.5.6",
+    "@types/lodash": "4.14.200",
     "@types/node": "20.8.7",
+    "@types/semantic-release": "20.0.4",
     "@typescript-eslint/eslint-plugin": "6.8.0",
     "commitlint": "17.8.0",
     "dotenv": "16.3.1",
     "dotenv-conversion": "3.0.0",
+    "eslint": "8.51.0",
     "husky": "8.0.3",
-    "identity-obj-proxy": "3.0.0",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
-    "node-sass": "9.0.0",
-    "postcss": "8.4.31",
+    "lodash": "4.17.21",
     "rollup": "4.1.4",
     "rollup-plugin-copy": "3.5.0",
+    "rollup-plugin-delete": "2.0.0",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-typescript2": "0.36.0",
-    "stylelint": "15.11.0",
-    "stylelint-config-recommended": "13.0.0",
-    "stylelint-webpack-plugin": "4.1.1",
-    "terser-webpack-plugin": "5.3.9",
+    "semver": "7.5.4",
     "ts-jest": "29.1.1",
-    "ts-loader": "9.5.0",
     "typescript": "5.2.2"
   },
-  "browserslist": [
-    "defaults"
-  ],
   "eslintConfig": {
     "extends": "@rob.hameetman",
     "ignorePatterns": [
-      "tailwind.config.js",
-      "webpack.config.js",
-      "src/forecast/types/SevenDayForecast",
       "typings/"
     ],
     "rules": {
@@ -110,39 +106,12 @@
     "useTabs": true,
     "endOfLine": "auto"
   },
-  "stylelint": {
-    "extends": "stylelint-config-recommended",
-    "ignoreFiles": [
-      "dist/**/*.css",
-      "coverage/**/*.css",
-      "**/*.ts",
-      "**/*.tsx",
-      "**/*.json",
-      "**/*.spec.*",
-      "**/*.snap.*",
-      "**/*.jpg",
-      "**/*.png",
-      "**/*.md"
-    ],
-    "rules": {
-      "indentation": "tab",
-      "at-rule-no-unknown": [
-        true,
-        {
-          "ignoreAtRules": [
-            "tailwind"
-          ]
-        }
-      ],
-      "font-family-no-missing-generic-family-keyword": false
-    }
-  },
   "jest": {
     "roots": [
-      "<rootDir>/src"
+      "<rootDir>/lib"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
+      "src/**/*.ts",
       "!src/**/*.d.ts"
     ],
     "coverageReporters": [
@@ -151,15 +120,15 @@
     "moduleFileExtensions": [
       "js",
       "ts",
-      "tsx",
-      "json",
-      "css",
-      "scss"
+      "json"
     ],
     "moduleNameMapper": {
-      "^@app/(.*)$": "<rootDir>/src/$1",
-      "^@test/(.*)$": "<rootDir>/test/resources/$1",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^@branches/(.*)$": "<rootDir>/lib/branches/$1",
+      "^@rules/(.*)$": "<rootDir>/lib/rules/$1",
+      "^@plugins/(.*)$": "<rootDir>/lib/plugins/$1",
+      "^@templates/(.*)$": "<rootDir>/lib/templates/$1",
+      "^@utils/(.*)$": "<rootDir>/lib/utils/$1",
+      "^@test/(.*)$": "<rootDir>/test/resources/$1"
     },
     "preset": "ts-jest",
     "reporters": [
@@ -168,24 +137,15 @@
     "setupFilesAfterEnv": [
       "<rootDir>/test/jest/config/setupTests.ts"
     ],
-    "testEnvironment": "jsdom",
     "testMatch": [
-      "<rootDir>/src/**/*.spec.{ts,tsx}"
+      "<rootDir>/lib/**/*.spec.ts"
     ],
     "transform": {
-      "\\.ts?(x)$": "ts-jest",
-      "\\.(css|scss)$": "<rootDir>/test/jest/config/styleTransform.ts",
-      "^(?!.*\\.(ts|tsx|css|json|cjs)$)": "ts-jest"
-    },
-    "transformIgnorePatterns": [
-      "^.+\\.module\\.(css|sass|scss)$",
-      "node_modules/@adobe/css-tools"
-    ]
-  },
-  "postcss": {
-    "plugins": {
-      "tailwindcss": {},
-      "autoprefixer": {}
+      "\\.ts$": "ts-jest",
+      "^(?!.*\\.(ts|json)$)": "ts-jest"
     }
+  },
+  "release": {
+    "extends": "./dist/recommended"
   }
 }

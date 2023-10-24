@@ -16,17 +16,6 @@ trim_trailing_whitespace = true
 indent_size = 2
 indent_style = tab
 
-# CSS, SCSS
-[*.{css,scss}]
-indent_size = 2
-indent_style = tab
-trim_trailing_whitespace = true
-
-# GraphQL
-[*.{gql,graphql}]
-indent_size = 2
-indent_style = tab
-
 # YAML
 [*.{yml,yaml}]
 indent_size = 2
