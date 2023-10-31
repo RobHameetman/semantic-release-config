@@ -13,7 +13,7 @@ jobs:
   build:
     name: BUILD
     if: github.repository.archived != true
-    uses: ./build.yml
+    uses: ./.github/workflows/build.yml
     with:
       node: '20'
 
@@ -21,6 +21,6 @@ jobs:
     name: PUBLISH
     needs: [build]
     if: github.repository.archived != true
-    uses: ./publish.yml
+    uses: ./.github/workflows/publish.yml
     with:
       dist: 'dist'
