@@ -24,10 +24,10 @@ on:
 env:
   # Timeouts (in minutes)
   timeout-setup: 10
-  timeout-deployments: 60
+  timeout-build: 60
   # Environment Variables
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
-  CI_TIMEOUT_DEPLOYMENTS: ${{ vars.CI_TIMEOUT_DEPLOYMENTS }}
+  CI_TIMEOUT_BUILD: ${{ vars.CI_TIMEOUT_BUILD }}
   NODE_ENV: production
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
           echo "__SKIP=${{ inputs.skip }}" >> $GITHUB_ENV
           echo "__DEBUG=${{ inputs.debug }}" >> $GITHUB_ENV
           echo "__TIMEOUT_SETUP=${{ env.CI_TIMEOUT_SETUP || fromJSON(env.timeout-setup) }}" >> $GITHUB_ENV
-          echo "__TIMEOUT_DEPLOYMENTS=${{ env.CI_TIMEOUT_DEPLOYMENTS || fromJSON(env.timeout-deployments) }}" >> $GITHUB_ENV
+          echo "__TIMEOUT_BUILD=${{ env.CI_TIMEOUT_BUILD || fromJSON(env.timeout-build) }}" >> $GITHUB_ENV
 
       - name: Debug
         id: debug
@@ -53,15 +53,7 @@ jobs:
           fromJSON(inputs.skip) != true
         run: |
           echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
-          echo "APP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
-
-      - name: Variables
-        id: secrets
-        if: fromJSON(env.secrets-failover) == true
-        run: |
-          echo "APP_NAME=${{ secrets.APP_NAME || env.name }}" >> $GITHUB_ENV &&
-          echo "APP_GEOCODING_SERVICE_ENDPOINT=${{ secrets.APP_GEOCODING_SERVICE_ENDPOINT || env.geocoding-api }}" >> $GITHUB_ENV &&
-          echo "APP_FORECAST_SERVICE_ENDPOINT=${{ secrets.APP_FORECAST_SERVICE_ENDPOINT || env.forecasting-api }}" >> $GITHUB_ENV
+          echo "DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
 
       - name: Checkout
         id: clone
@@ -80,13 +72,13 @@ jobs:
 
       - name: Build
         id: build
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_DEPLOYMENTS) }}
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_BUILD) }}
         if: fromJSON(env.__SKIP) != true
         run: npm run build
 
       - name: Cache
         id: cache
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_BUILD) }}
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
