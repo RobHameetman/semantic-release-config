@@ -107,7 +107,7 @@ jobs:
           fromJSON(env.__SKIP) != true
         run: |
           echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
-          echo "DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
+          echo "DEBUG=semantic-release:*" >> $GITHUB_ENV
 
       - name: Setup
         id: setup
