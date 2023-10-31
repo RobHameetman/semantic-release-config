@@ -1,11 +1,20 @@
-/**
- * `jest-dom` adds custom Jest matchers for asserting on DOM nodes.
- * This allows you to do things like:
- *
- * ```
- * expect(element).toHaveTextContent(/hello/i);
- * ```
- *
- * @see https://github.com/testing-library/jest-dom
- */
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
+import { jest } from '@jest/globals';
 import '../matchers';
+
+global.jest = jest;
+
+Object.assign(process.env, {
+	CONFIG_TEST_TIMEOUT: '10000',
+});
+
+beforeAll(() => {
+	jest.useFakeTimers();
+});
+
+afterAll(() => {
+	jest.restoreAllMocks();
+	jest.resetModules();
+	jest.useRealTimers();
+});

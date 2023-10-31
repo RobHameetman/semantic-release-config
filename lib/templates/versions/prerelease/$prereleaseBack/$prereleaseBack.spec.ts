@@ -1,5 +1,5 @@
 import { isFunction, isString } from '@rob.hameetman/type-guards';
-import { render } from '@test/utils/render';
+import { render } from '@@/utils/render';
 import { $prereleaseBack } from './$prereleaseBack';
 
 describe('$prereleaseBack()', () => {

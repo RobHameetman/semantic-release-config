@@ -1,10 +1,5 @@
 <div id="top"></div>
 
-<!--
-*** Comments prefixed with "TODO" will provide further instructions for
-*** customizing certain parts of this README file.
--->
-
 # 📦 @rob.hameetman/semantic-release-config
 
 <div align="center">
@@ -15,13 +10,6 @@
   <p align="center">
     <br />
     A package for centralized release management configuration.
-    <!-- TODO: Delete lines 33–46 -->
-    <br />
-    <br />
-    <blockquote>
-      ⚠️ NOTE: This README file is templatized and does not include information
-      about how to use this repository template.
-    </blockquote>
     <br />
   </p>
   <a href="https://reactjs.org/">
@@ -72,6 +60,62 @@
 
 ## §1: Overview
 
+This is a semantic-release config used in NPM packages designed for
+automation and easier prerelease management. Configs create a prerelease version
+with each PR/branch and allow flexible configuration through environment variables.
+
+### PR Prerelease Strategies
+
+Default preid/channel types can be configured by setting the
+`RELEASE_PR_PRERELEASE_STRATEGY` environment variable to one of the following
+values:
+
+| RELEASE_PR_PRERELEASE_STRATEGY | Example Version                                                                | Channel                                     |
+|:-------------------------------|:-------------------------------------------------------------------------------|:--------------------------------------------|
+| `"branch"`                     | `@rhh/example-package@1.6.8-branch.hotfix-buy-now-button.7`                     | `@rhh/example-package@hotfix-buy-now-button` |
+| `"branch.date"`                | `@rhh/example-package@1.6.8-branch.hotfix-buy-now-button.20240613.7`            | `@rhh/example-package@hotfix-buy-now-button` |
+| `"commit"`                     | `@rhh/example-package@1.6.8-commit.f73dc97d.1`                                 | `@rhh/example-package@hotfix-buy-now-button` |
+| `"commitfull"`                 | `@rhh/example-package@1.6.8-commit.f73dc97d01d31ca7fad272d80a25b651bab81990.1` | `@rhh/example-package@hotfix-buy-now-button` |
+| `"date"`                       | `@rhh/example-package@1.6.8-date.20240613.4`                                   | `@rhh/example-package@20240613`             |
+| `"datetime"`                   | `@rhh/example-package@1.6.8-date.20240613000001.1`                             | `@rhh/example-package@20240613`             |
+| `"default"`                    | `@rhh/example-package@1.6.8-pr.613.7`                                          | `@rhh/example-package@pr-613`               |
+| `"default.date"`               | `@rhh/example-package@1.6.8-pr.613.20240613.7`                                 | `@rhh/example-package@pr-613`               |
+
+### Customizable Preids & Channels
+
+Preids and channels can be easily customized by setting the
+`RELEASE_PR_PRERELEASE_PREID` and `RELEASE_PR_PRERELEASE_CHANNEL` environment
+variables. Each has access to the following dictionary for
+customization:
+
+| Template        | Example                                    |
+|:----------------|:-------------------------------------------|
+| `${branch}`     | `hotfix-buy-now-button`                     |
+| `${commit}`     | `f73dc97d`                                 |
+| `${commitfull}` | `f73dc97d01d31ca7fad272d80a25b651bab81990` |
+| `${date}`       | `20240613`                                 |
+| `${datetime}`   | `20240613000001`                           |
+| `${pr}`         | `613`                                      |
+
+This table shows examples of each as well as the resulting preid/channel:
+
+| RELEASE_PR_PRERELEASE_PREID        | RELEASE_PR_PRERELEASE_CHANNEL | Example Version                                           | Channel                       |
+|:-----------------------------------|:------------------------------|:----------------------------------------------------------|:------------------------------|
+| `"experimental--${commit}"`        | --                            | `1.6.8-experimental--f73dc97d.1`                          | `pr-613`                      |
+| `"${branch}.${commit}--${pr}"`     | `"x-${pr}--${branch}"`        | `1.6.8-hotfix-buy-now-button.f73dc97d--613.1`              | `x-613--hotfix-buy-now-button` |
+
+### Optional Labels
+
+The preid label can be customized with the RELEASE_PR_PRERELEASE_LABEL
+environment variable. Setting the value to "omit" will remove the label from the
+prerelease preid.
+
+| RELEASE_PR_PRERELEASE_LABEL | RELEASE_PR_PRERELEASE_STRATEGY | Example Version                                    |
+|:----------------------------|:-------------------------------|:---------------------------------------------------|
+| `"cr"`                      | --                             | `1.6.8-cr.613.7`                                   |
+| `"changereq"`               | --                             | `1.6.8-changereq.613.7`                            |
+| `"web"`                     | `"branch"`                     | `1.6.8-web.hotfix-buy-now-button.7`                 |
+| `"omit"`                    | `"commitfull"`                 | `1.6.8-f73dc97d01d31ca7fad272d80a25b651bab81990.1` |
 
 ## §2: Getting Started
 
@@ -128,18 +172,17 @@ directory:
 
 ### Environment Variables
 
-**General Options**
+#### **General Options**
 
 | Variable                    | Description                                                                               |
 |-----------------------------|-------------------------------------------------------------------------------------------|
 | `RELEASE_PLUGIN_PRESET`     | Change the preset used for plugins. Defaults to `conventionalcommits`.[^1]                |
 | `RELEASE_PUBLISH_FROM_DIST` | Set to `true` if your build pipeline copies `package.json` into your `dist` folder.       |
 | `RELEASE_DEBUG`             | Enable debug mode in `semantic-release`.                                                  |
-| `RELEASE_REPOSITORY_URL`    | Set the repo URL used by `semantic-release`. Defaults to your settings in `package.json`. |
 | `RELEASE_DRY_RUN`           | Perform a dry run of the release.                                                         |
 | `RELEASE_LOCALLY`           | Run `semantic-release` outside of your CI/CD pipeline.                                    |
 
-**Release Rules**
+#### **Release Rules**
 
 | Variable                             | Description                                                                                              |
 |--------------------------------------|----------------------------------------------------------------------------------------------------------|
@@ -147,7 +190,8 @@ directory:
 | `RELEASE_DEPRECATE_AS_MINOR_VERSION` | If `true` the `deprecate: ...` commit type will increment a minor version instead of a patch version.    |
 | `RELEASE_VERSION_AS_TYPE`            | Allows you to use a specific version as a commit type (e.g. `1.2.1(release): ...`).                       |
 
-**Custom Commands**
+#### **Custom Commands**
+
 | Variable                             | Description                                                                         |
 |--------------------------------------|-------------------------------------------------------------------------------------|
 | `RELEASE_EXEC_ANALYZE_COMMITS_CMD`   | A custom shell command to execute during the analyze commits step.                  |
@@ -162,7 +206,7 @@ directory:
 | `RELEASE_EXEC_SUCCESS_CMD`           | A custom shell command to execute during the success step.                          |
 | `RELEASE_EXEC_VERIFY_CONDITIONS_CMD` | A custom shell command to execute during the verify condition step.                 |
 
-**Configuration-specific**
+#### **Configuration-specific**
 
 | Variable                 | Config   | Description                                                                                                |
 |--------------------------|---------|------------------------------------------------------------------------------------------------------------|

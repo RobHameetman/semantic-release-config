@@ -15,6 +15,13 @@ on:
         default: true
         required: false
         type: boolean
+      ref:
+        description: >
+          The branch, tag or SHA to checkout. When checking out the repository
+          that triggered a workflow, this defaults to the reference or SHA for
+          that event.  Otherwise, uses the default branch.
+        required: false
+        type: string
       skip:
         description: Skip jobs
         default: false
@@ -63,13 +70,16 @@ jobs:
           echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
           echo "ACTIONS_RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
           echo "ACTIONS_STEP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
-          echo "APP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV\
+          echo "APP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
 
       - name: Checkout
         id: clone
         uses: actions/checkout@v3
         timeout-minutes: ${{ fromJSON(env.timeout-setup) }}
         if: fromJSON(env.__SKIP) != true
+        with:
+          token: ${{ secrets.GH_TOKEN || github.token }}
+          ref: ${{ inputs.ref || github.event.pull_request.base.ref || github.head_ref }}
 
       - name: Dependencies
         id: setup
@@ -102,86 +112,3 @@ jobs:
         timeout-minutes: ${{ fromJSON(env.timeout-tests) }}
         if: fromJSON(env.__SKIP) != true
         run: npm test -- --coverage --silent --watchAll=false --maxWorkers=${{ steps.cpu.outputs.count }}
-
-  e2e:
-    name: E2E
-    needs: [test]
-    if: github.repository.archived != true
-    environment:
-      name: E2E
-    runs-on: ubuntu-20.04
-    container:
-      image: cypress/browsers:node16.16.0-chrome105-ff104-edge
-      options: --user 1001
-    strategy:
-      fail-fast: false
-      max-parallel: 16
-      matrix:
-        browser: [chrome, firefox, edge]
-        config:
-          [
-            { breakpoint: XL, config: 'viewportWidth=1920,viewportHeight=1080' },
-            { breakpoint: LG, config: 'viewportWidth=1400,viewportHeight=1080' },
-            { breakpoint: 'MD', config: 'viewportWidth=1280,viewportHeight=720' },
-            { breakpoint: 'SM', config: 'viewportWidth=960,viewportHeight=720' },
-            { breakpoint: 'XS', config: 'viewportWidth=650,viewportHeight=720' },
-          ]
-    steps:
-      - name: Init
-        id: init
-        run: |
-          echo "__SKIP=${{ env.CI_SKIP_E2E || fromJSON(env.skip-e2e) || fromJSON(inputs.skip) || fromJSON(!inputs.e2e) }}" >> $GITHUB_ENV
-          echo "__DEBUG=${{ env.CI_DEBUG || fromJSON(inputs.debug) }}" >> $GITHUB_ENV
-
-      - name: Debug
-        id: debug
-        if: >-
-          fromJSON(env.__DEBUG) == true &&
-          fromJSON(env.__SKIP) != true
-        run: |
-          echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
-          echo "APP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
-          echo "DEBUG=cypress:*" >> $GITHUB_ENV
-
-      - name: Checkout
-        id: clone
-        uses: actions/checkout@v3
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
-        if: fromJSON(env.__SKIP) != true
-
-      - name: Dependencies
-        id: setup
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
-        if: fromJSON(env.__SKIP) != true
-        env:
-          # 'development' is required instead of 'production' here so that NPM includes devDependencies (like Cypress).
-          NODE_ENV: development
-        run: npm ci --legacy-peer-deps
-
-      - name: Test
-        id: test
-        uses: cypress-io/github-action@v5
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_TESTS) }}
-        if: fromJSON(env.__SKIP) != true
-        env:
-          # 'development' is required instead of 'production' here so that NPM includes devDependencies (like Cypress).
-          NODE_ENV: development
-        with:
-          install: false
-          start: npm run prod
-          wait-on: http://127.0.0.1:8080
-          browser: ${{ matrix.browser }}
-          config: ${{ matrix.config.config }}
-          spec: test/e2e/specs/*
-          config-file: test/e2e/cypress.config.js
-          wait-on-timeout: 180
-
-      - name: Report
-        id: report
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: E2E-${{matrix.browser}}-${{matrix.config.type}}
-          path: |
-            test/e2e/reports/*
-            test/e2e/screenshots/*

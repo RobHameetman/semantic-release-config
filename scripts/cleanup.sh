@@ -22,9 +22,11 @@ function removeFileIfExists() {
 	fi
 }
 
-removeFileIfExists ./dist/canary.d.ts
-removeFileIfExists ./dist/gitflow.d.ts
-removeFileIfExists ./dist/modular.d.ts
-removeFileIfExists ./dist/recommended.d.ts
-removeFileIfExists ./dist/staged.d.ts
-removeFileIfExists ./dist/streamlined.d.ts
+# Commenting out for now as I reconfigure the build pipeline for ESM support
+# removeFileIfExists ./dist/canary.d.ts
+# removeFileIfExists ./dist/gitflow.d.ts
+# removeFileIfExists ./dist/modular.d.ts
+# removeFileIfExists ./dist/react.d.ts
+# removeFileIfExists ./dist/recommended.d.ts
+# removeFileIfExists ./dist/staged.d.ts
+# removeFileIfExists ./dist/streamlined.d.ts

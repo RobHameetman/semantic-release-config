@@ -4,9 +4,21 @@ name: Publish
 
 on:
   workflow_call:
+    secrets:
+      GH_TOKEN:
+        description: 'A token used for authorized access to Github'
+        required: true
+      NPM_TOKEN:
+        description: 'A token used for authorized access to NPM'
+        required: true
     inputs:
+      debug:
+        description: Debug jobs
+        default: false
+        required: false
+        type: boolean
       dist:
-        description: The directory from which the package will be publish
+        description: The directory from which the package will be published
         default: ./
         required: false
         type: string
@@ -20,35 +32,69 @@ on:
         default: '20'
         required: false
         type: string
+      ref:
+        description: >
+          The branch, tag or SHA to checkout. When checking out the repository
+          that triggered a workflow, this defaults to the reference or SHA for
+          that event.  Otherwise, uses the default branch.
+        required: false
+        type: string
       skip:
         description: Skip jobs
         default: false
         required: false
         type: boolean
-      debug:
-        description: Debug jobs
-        default: false
-        required: false
-        type: boolean
+
+permissions:
+  contents: read
 
 env:
   # General Options
   name: semantic-release-config
-  version: ${{ github.ref_name }}
   node: '20'
   debug: false
   # Timeouts (in minutes)
   timeout-setup: 10
-  timeout-tests: 30
   timeout-release: 10
   # Environment Variables
+  CI: true
+  CI_COMMIT_BRANCH: ${{ github.ref_name }}
   CI_DEBUG: ${{ vars.CI_DEBUG }}
+  CI_PR_NUMBER: ${{ github.event.pull_request.number }}
   CI_TIMEOUT_RELEASE: ${{ vars.CI_TIMEOUT_RELEASE }}
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
-  CI_TYPE: ${{ vars.CI_TYPE }}
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
   NODE_ENV: production
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  RELEASE_DEBUG: ${{ vars.RELEASE_DEBUG }}
+  RELEASE_DEPRECATE_AS_MINOR_VERSION: ${{ vars.RELEASE_DEPRECATE_AS_MINOR_VERSION }}
+  RELEASE_DISABLE_CHANGELOG: ${{ vars.RELEASE_DISABLE_CHANGELOG }}
+  RELEASE_DRY_RUN: ${{ vars.RELEASE_DRY_RUN }}
+  RELEASE_EXEC_ADD_CHANNEL_CMD: ${{ vars.RELEASE_EXEC_ADD_CHANNEL_CMD }}
+  RELEASE_EXEC_ANALYZE_COMMITS_CMD: ${{ vars.RELEASE_EXEC_ANALYZE_COMMITS_CMD }}
+  RELEASE_EXEC_CWD: ${{ vars.RELEASE_EXEC_CWD }}
+  RELEASE_EXEC_FAIL_CMD: ${{ vars.RELEASE_EXEC_FAIL_CMD }}
+  RELEASE_EXEC_GENERATE_NOTES_CMD: ${{ vars.RELEASE_EXEC_GENERATE_NOTES_CMD }}
+  RELEASE_EXEC_PREPARE_CMD: ${{ vars.RELEASE_EXEC_PREPARE_CMD }}
+  RELEASE_EXEC_PUBLISH_CMD: ${{ vars.RELEASE_EXEC_PUBLISH_CMD }}
+  RELEASE_EXEC_SHELL: ${{ vars.RELEASE_EXEC_SHELL }}
+  RELEASE_EXEC_SUCCESS_CMD: ${{ vars.RELEASE_EXEC_SUCCESS_CMD }}
+  RELEASE_EXEC_VERIFY_ARTIFACTS_CMD: ${{ vars.RELEASE_EXEC_VERIFY_ARTIFACTS_CMD }}
+  RELEASE_EXEC_VERIFY_CONDITIONS_CMD: ${{ vars.RELEASE_EXEC_VERIFY_CONDITIONS_CMD }}
+  RELEASE_LOCALLY: ${{ vars.RELEASE_LOCALLY }}
+  RELEASE_NOTIFICATION_SLACK_CHANNEL: ${{ vars.RELEASE_NOTIFICATION_SLACK_CHANNEL }}
+  RELEASE_NOTIFICATION_SLACK_ICON: ${{ vars.RELEASE_NOTIFICATION_SLACK_ICON }}
+  RELEASE_NOTIFICATION_SLACK_NAME: ${{ vars.RELEASE_NOTIFICATION_SLACK_NAME }}
+  RELEASE_NOTIFICATION_SLACK_TOKEN: ${{ vars.RELEASE_NOTIFICATION_SLACK_TOKEN }}
+  RELEASE_NOTIFICATION_SLACK_WEBHOOK: ${{ vars.RELEASE_NOTIFICATION_SLACK_WEBHOOK }}
+  RELEASE_PLUGIN_PRESET: ${{ vars.RELEASE_PLUGIN_PRESET }}
+  RELEASE_PUBLISH_FROM_DIST: ${{ vars.RELEASE_PUBLISH_FROM_DIST }}
+  RELEASE_REPOSITORY_URL: ${{ vars.RELEASE_REPOSITORY_URL }}
+  RELEASE_SKIP_README_UPDATES: ${{ vars.RELEASE_SKIP_README_UPDATES }}
+  RELEASE_VERSION_AS_TYPE: ${{ vars.RELEASE_VERSION_AS_TYPE }}
+  SLACK_CHANNEL: ${{ vars.SLACK_CHANNEL }}
+  SLACK_ICON: ${{ vars.SLACK_ICON }}
+  SLACK_NAME: ${{ vars.SLACK_NAME }}
+  SLACK_TOKEN: ${{ vars.SLACK_TOKEN }}
+  SLACK_WEBHOOK: ${{ vars.SLACK_WEBHOOK }}
 
 jobs:
   publish:
@@ -57,23 +103,55 @@ jobs:
     runs-on: ubuntu-20.04
     container:
       image: node:20
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     steps:
       - name: Init
         id: init
         run: |
           echo "__SKIP=${{ inputs.skip }}" >> $GITHUB_ENV
-          echo "__DEBUG=${{ inputs.debug }}" >> $GITHUB_ENV
+          echo "__DEBUG=${{ env.CI_DEBUG || env.debug || inputs.debug }}" >> $GITHUB_ENV
           echo "__TIMEOUT_SETUP=${{ env.CI_TIMEOUT_SETUP || fromJSON(env.timeout-setup) }}" >> $GITHUB_ENV
           echo "__TIMEOUT_RELEASE=${{ env.CI_TIMEOUT_RELEASE || fromJSON(env.timeout-release) }}" >> $GITHUB_ENV
 
       - name: Debug
         id: debug
         if: >-
-          fromJSON(inputs.debug) == true &&
+          fromJSON(env.__DEBUG) == true &&
           fromJSON(env.__SKIP) != true
         run: |
           echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
-          echo "DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
+          echo "ACTIONS_RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
+          echo "ACTIONS_STEP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
+          echo "DEBUG=semantic-release:*" >> $GITHUB_ENV
+
+      - name: Checkout
+        id: clone
+        uses: actions/checkout@v3
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        with:
+          token: ${{ secrets.GH_TOKEN || github.token }}
+          fetch-depth: 0
+          ref: ${{ inputs.ref || github.event.pull_request.base.ref || github.head_ref }}
+
+      - name: Dependencies
+        id: install
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        env:
+          NODE_ENV: production
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm ci --legacy-peer-deps --ignore-scripts
+
+      - name: Verify
+        id: verify
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        run: npm audit signatures
 
       - name: Setup
         id: setup
@@ -84,8 +162,33 @@ jobs:
           name: build-artifacts
           path: ${{ inputs.dist }}
 
+      - name: Authorize
+        id: authorize
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        run: git config --global --add safe.directory '*'
+
+      - name: List
+        id: list
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        run: |
+          if [ -z "${{ inputs.dist }}/recommended.js" ]; then
+            echo "No configuration ${{ inputs.dist }}/recommended.js found."
+            exit 1
+          else
+            echo "Configuration ${{ inputs.dist }}/recommended.js found."
+          fi
+          ls -lah
+          ls -lah dist
+
       - name: Publish
         id: publish
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_PUBLISH) }}
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_RELEASE) }}
         if: fromJSON(env.__SKIP) != true
-        run: npx semantic-release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          pwd
+          npx semantic-release

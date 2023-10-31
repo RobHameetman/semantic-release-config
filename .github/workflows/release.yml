@@ -4,52 +4,27 @@ name: Release
 
 on:
   push:
-    tags:
-      - '*.*.*'
-      - '*.*.*-alpha.*'
-      - '*.*.*-beta.*'
-
-env:
-  # General Options
-  name: semantic-release-config
-  version: ${{ github.ref_name }}
-  node: '20'
-  debug: false
-  # Timeouts (in minutes)
-  timeout-setup: 10
-  timeout-tests: 30
-  timeout-deployments: 60
-  timeout-cache-invalidations: 10
-  # Environment Variables
-  CI_DEBUG: ${{ vars.CI_DEBUG }}
-  CI_TYPE: ${{ vars.CI_TYPE }}
-  NODE_ENV: production
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    branches:
+      - '**'
 
 jobs:
   build:
     name: BUILD
     if: github.repository.archived != true
-    uses: ./.github/workflows/deploy.yml
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    uses: ./.github/workflows/build.yml
     with:
-      node: ${{ env.node }}
-      skip: ${{ env.CI_SKIP_DEV || env.CI_SKIP_EAST || fromJSON(env.skip-dev) || fromJSON(env.skip-east) }}
-      debug: ${{ env.CI_DEBUG || fromJSON(env.debug) }}
+      dist: 'dist'
+      node: '20'
 
   publish:
     name: PUBLISH
     needs: [build]
     if: github.repository.archived != true
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     uses: ./.github/workflows/publish.yml
     with:
-      env: DEV
-      region: east
-      type: ${{ env.CI_TYPE || fromJSON(env.type) }}
-      stack: ${{ github.event.repository.name }}-deployment-dev
-      domain: $${{ env.dev-hostname }}
-      subdomain: $${{ env.dev-subdomain }}
-      skip: ${{ env.CI_SKIP_DEV || env.CI_SKIP_EAST || fromJSON(env.skip-dev) || fromJSON(env.skip-east) }}
-      debug: ${{ env.CI_DEBUG || fromJSON(env.debug) }}
-      auditor: ${{ jobs.tag.outputs.auditor }}
-      project: ${{ jobs.tag.outputs.project }}
-      repo: ${{ jobs.tag.outputs.repo }}
+      dist: 'dist'

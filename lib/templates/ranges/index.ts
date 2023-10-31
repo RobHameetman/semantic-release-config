@@ -1,4 +1,4 @@
-export * from './$deprecatePrereleasesOnRelease';
+export * from './$prereleasesForVersion';
 export * from './$supportLatestMajorRelease';
 export * from './$supportLatestMinorRelease';
 export * from './$supportLatestPatchRelease';
