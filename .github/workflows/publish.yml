@@ -132,6 +132,12 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm ci --legacy-peer-deps --ignore-scripts
 
+      - name: Verify
+        id: verify
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        run: npm audit signatures
+
       - name: Setup
         id: setup
         uses: actions/download-artifact@v3
@@ -140,6 +146,12 @@ jobs:
         with:
           name: build-artifacts
           path: ${{ inputs.dist }}
+
+      - name: Authorize
+        id: authorize
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        run: git config --global --add safe.directory '*'
 
       - name: Publish
         id: publish
