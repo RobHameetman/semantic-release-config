@@ -45,7 +45,6 @@ env:
   CI_DEBUG: ${{ vars.CI_DEBUG }}
   CI_TIMEOUT_RELEASE: ${{ vars.CI_TIMEOUT_RELEASE }}
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
-  DEBUG: ${{ vars.DEBUG }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   NODE_ENV: production
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
