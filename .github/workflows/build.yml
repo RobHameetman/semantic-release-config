@@ -30,6 +30,9 @@ on:
         required: false
         type: boolean
 
+permissions:
+  contents: read
+
 env:
   # Timeouts (in minutes)
   timeout-setup: 10
