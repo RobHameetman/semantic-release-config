@@ -17,7 +17,7 @@ import {
 
 module.exports = createConfig({
 	branches: [
-		{ name: '@(main|master)', prerelease: false, channel: 'latest' },
+		{ name: 'main|master', prerelease: false, channel: 'latest' },
 		{ name: 'next-major', prerelease: 'rc', channel: 'next-major' },
 		{ name: 'next', prerelease: 'rc', channel: 'next' },
 		{ name: 'beta', prerelease: true, channel: 'beta' },
