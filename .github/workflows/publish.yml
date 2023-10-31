@@ -39,7 +39,6 @@ env:
   debug: false
   # Timeouts (in minutes)
   timeout-setup: 10
-  timeout-tests: 30
   timeout-release: 10
   # Environment Variables
   CI_DEBUG: ${{ vars.CI_DEBUG }}
@@ -114,7 +113,7 @@ jobs:
 
       - name: Publish
         id: publish
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_PUBLISH) }}
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_RELEASE) }}
         if: fromJSON(env.__SKIP) != true
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
