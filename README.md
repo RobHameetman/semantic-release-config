@@ -15,13 +15,6 @@
   <p align="center">
     <br />
     A package for centralized release management configuration.
-    <!-- TODO: Delete lines 33–46 -->
-    <br />
-    <br />
-    <blockquote>
-      ⚠️ NOTE: This README file is templatized and does not include information
-      about how to use this repository template.
-    </blockquote>
     <br />
   </p>
   <a href="https://reactjs.org/">
