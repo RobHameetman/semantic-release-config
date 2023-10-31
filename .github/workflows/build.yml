@@ -26,13 +26,9 @@ env:
   timeout-setup: 10
   timeout-deployments: 60
   # Environment Variables
-  APP_DEBUG: ${{ vars.APP_DEBUG }}
-  APP_VERSION: ${{ github.ref_name }}
-  APP_ENDPOINT: ${{ vars.APP_ENDPOINT }}
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
   CI_TIMEOUT_DEPLOYMENTS: ${{ vars.CI_TIMEOUT_DEPLOYMENTS }}
   NODE_ENV: production
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   build:

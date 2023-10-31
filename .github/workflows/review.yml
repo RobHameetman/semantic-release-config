@@ -21,8 +21,6 @@ env:
   timeout-tests: 30
   timeout-deployment: 60
   # Environment Variables
-  APP_DEBUG: ${{ vars.APP_DEBUG }}
-  APP_ENDPOINT: ${{ vars.APP_ENDPOINT }}
   CI_DEBUG: ${{ vars.CI_DEBUG }}
   CI_PR_TIMEOUT_SETUP: ${{ vars.CI_PR_TIMEOUT_SETUP }}
   CI_PR_TIMEOUT_TESTS: ${{ vars.CI_PR_TIMEOUT_TESTS }}

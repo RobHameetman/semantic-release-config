@@ -9,25 +9,6 @@ on:
       - beta
       - alpha
 
-env:
-  # General Options
-  name: semantic-release-config
-  version: ${{ github.ref_name }}
-  node: '20'
-  debug: false
-  dry: false
-  # Timeouts (in minutes)
-  timeout-setup: 10
-  timeout-tests: 30
-  timeout-deployments: 60
-  timeout-cache-invalidations: 10
-  # Environment Variables
-  CI_DEBUG: ${{ vars.CI_DEBUG }}
-  CI_DRY_RUN: ${{ vars.CI_DRY_RUN }}
-  CI_TYPE: ${{ vars.CI_TYPE }}
-  NODE_ENV: production
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
 jobs:
   build:
     name: BUILD
@@ -35,7 +16,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       node: '20'
-      debug: ${{ env.CI_DEBUG || fromJSON(env.debug) }}
 
   publish:
     name: PUBLISH
@@ -43,8 +23,4 @@ jobs:
     if: github.repository.archived != true
     uses: ./.github/workflows/publish.yml
     with:
-      debug: ${{ env.CI_DEBUG || fromJSON(env.debug) }}
       dist: 'dist'
-      dry: ${{ env.CI_DRY_RUN || fromJSON(env.dry) }}
-      node: '20'
-      skip: ${{ env.CI_SKIP_DEV || env.CI_SKIP_EAST || fromJSON(env.skip-dev) || fromJSON(env.skip-east) }}
