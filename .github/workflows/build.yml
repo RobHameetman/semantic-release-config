@@ -36,7 +36,7 @@ jobs:
     if: github.repository.archived != true
     runs-on: ubuntu-20.04
     container:
-      image: node:18
+      image: node:20
     steps:
       - name: Init
         id: init
