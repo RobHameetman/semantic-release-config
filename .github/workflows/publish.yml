@@ -13,7 +13,7 @@ on:
         required: true
     inputs:
       dist:
-        description: The directory from which the package will be publish
+        description: The directory from which the package will be published
         default: ./
         required: false
         type: string
@@ -122,6 +122,7 @@ jobs:
         id: publish
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_RELEASE) }}
         if: fromJSON(env.__SKIP) != true
+        working-directory: ${{ inputs.dist }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

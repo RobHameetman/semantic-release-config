@@ -9,6 +9,11 @@ on:
         description: 'A token used for authorized access to NPM'
         required: true
     inputs:
+      dist:
+        description: The directory where the package will be built
+        default: dist
+        required: false
+        type: string
       node:
         description: The version of Node.js used
         default: '20'
@@ -88,4 +93,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: dist
+          path: ${{ inputs.dist }}
