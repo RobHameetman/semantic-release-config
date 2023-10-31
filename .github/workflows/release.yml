@@ -13,6 +13,8 @@ jobs:
   build:
     name: BUILD
     if: github.repository.archived != true
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     uses: ./.github/workflows/build.yml
     with:
       node: '20'
@@ -21,6 +23,9 @@ jobs:
     name: PUBLISH
     needs: [build]
     if: github.repository.archived != true
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     uses: ./.github/workflows/publish.yml
     with:
       dist: 'dist'
