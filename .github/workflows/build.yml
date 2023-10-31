@@ -42,15 +42,15 @@ jobs:
         id: init
         run: |
           echo "__SKIP=${{ inputs.skip }}" >> $GITHUB_ENV
-          echo "__DEBUG=${{ inputs.debug }}" >> $GITHUB_ENV
+          echo "__DEBUG=${{ env.CI_DEBUG || env.debug || inputs.debug }}" >> $GITHUB_ENV
           echo "__TIMEOUT_SETUP=${{ env.CI_TIMEOUT_SETUP || fromJSON(env.timeout-setup) }}" >> $GITHUB_ENV
           echo "__TIMEOUT_BUILD=${{ env.CI_TIMEOUT_BUILD || fromJSON(env.timeout-build) }}" >> $GITHUB_ENV
 
       - name: Debug
         id: debug
         if: >-
-          fromJSON(inputs.debug) == true &&
-          fromJSON(inputs.skip) != true
+          fromJSON(env.__DEBUG) == true &&
+          fromJSON(env.__SKIP) != true
         run: |
           echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
           echo "DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
@@ -80,6 +80,7 @@ jobs:
       - name: Cache
         id: cache
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_BUILD) }}
+        if: fromJSON(env.__SKIP) != true
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts

@@ -89,14 +89,14 @@ jobs:
         id: init
         run: |
           echo "__SKIP=${{ inputs.skip }}" >> $GITHUB_ENV
-          echo "__DEBUG=${{ inputs.debug }}" >> $GITHUB_ENV
+          echo "__DEBUG=${{ env.CI_DEBUG || env.debug || inputs.debug }}" >> $GITHUB_ENV
           echo "__TIMEOUT_SETUP=${{ env.CI_TIMEOUT_SETUP || fromJSON(env.timeout-setup) }}" >> $GITHUB_ENV
           echo "__TIMEOUT_RELEASE=${{ env.CI_TIMEOUT_RELEASE || fromJSON(env.timeout-release) }}" >> $GITHUB_ENV
 
       - name: Debug
         id: debug
         if: >-
-          fromJSON(inputs.debug) == true &&
+          fromJSON(env.__DEBUG) == true &&
           fromJSON(env.__SKIP) != true
         run: |
           echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
