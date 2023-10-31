@@ -30,7 +30,7 @@ jobs:
   build:
     name: BUILD
     if: github.repository.archived != true
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/build.yml
     with:
       node: ${{ env.node }}
       skip: ${{ env.CI_SKIP_DEV || env.CI_SKIP_EAST || fromJSON(env.skip-dev) || fromJSON(env.skip-east) }}
