@@ -153,7 +153,7 @@ jobs:
         id: authorize
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
-        run: git config --global --add safe.directory '${{ github.workspace }}'
+        run: git config --global --add safe.directory '*'
 
       - name: Publish
         id: publish
