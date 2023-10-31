@@ -1,2 +1,2 @@
-export * from './deprecations';
-export * from './versions';
+export * from './deprecate';
+export * from './release';

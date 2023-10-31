@@ -1,25 +1,20 @@
 import {
+	CHANGELOG_ENABLED,
+	PLUGIN_PRESET,
+	PUBLISH_FROM_DIST,
+	SLACK_ENABLED,
 	VERSIONED_RELEASE_BRANCHES,
-	PluginPresets,
-	analyzeCommits,
 	createConfig,
-	commitUpdatesAndPush,
 	env,
-	executeCustomCommands,
-	deprecatePreviousVersions,
-	generateReleaseNotes,
+	envOr,
 	getEnvBooleanOrValue,
 	isEnvDefined,
-	isEnvTrue,
 	latestMajorVersionOnly,
 	latestMinorVersionOnly,
 	latestPatchVersionOnly,
 	latestPrereleaseOnly,
-	notifySlackChannel,
-	prepareChangelog,
-	publishGithubRelease,
+	plugin,
 	releaseRules,
-	updateVersionAndPublishToRegistry,
 } from '.';
 
 /**
@@ -35,60 +30,64 @@ module.exports = createConfig({
 		...VERSIONED_RELEASE_BRANCHES,
 	],
 	plugins: [
-		['@semantic-release/commit-analyzer', {
-			preset: env('RELEASE_PLUGIN_PRESET') || PluginPresets.default,
+		plugin(['@semantic-release/commit-analyzer', {
+			preset: PLUGIN_PRESET,
 			releaseRules,
-		}],
-		['@semantic-release/changelog', {
-			changelogFile: env('RELEASE_CHANGELOG_FILE') || './CHANGELOG.md',
-			changelogTitle: env('RELEASE_CHANGELOG_TITLE'),
-		}],
-		['@semantic-release/release-notes-generator', {
-			preset: env('RELEASE_PLUGIN_PRESET') || PluginPresets.default,
-		}],
-		['@semantic-release/npm', {
-			pkgRoot: env('RELEASE_PUBLISH_FROM_DIST', isEnvTrue)
-				? 'dist'
-				: '.',
-		}],
-		['semantic-release-npm-deprecate', {
+		}]),
+		plugin(['@semantic-release/changelog', {
+			changelogFile: 'CHANGELOG.md',
+			changelogTitle: '# Changelog',
+		}]),
+		plugin(['@semantic-release/release-notes-generator', {
+			preset: PLUGIN_PRESET,
+		}]),
+		plugin(['@semantic-release/npm', {
+			pkgRoot: PUBLISH_FROM_DIST ? 'dist' : '.',
+		}]),
+		plugin(['semantic-release-npm-deprecate', {
 			deprecations: [
 				latestMajorVersionOnly(),
 				latestMinorVersionOnly(),
 				latestPatchVersionOnly(),
 				latestPrereleaseOnly(),
 			]
-		}],
-		['@semantic-release/git', {
-			message: 'release(${nextRelease.version}): Update package.json to new version [SKIP CI]\n\n${nextRelease.notes}'
-		}],
-		['@semantic-release/github', {
-			assets: [],
+		}]),
+		plugin(['@semantic-release/git', {
+			message: 'release(${nextRelease.version}): Update package.json to new version [SKIP CI]\n\n${nextRelease.notes}',
+			assets: ['package.json', 'package-lock.json'].concat(CHANGELOG_ENABLED ? ['CHANGELOG.md'] : []),
+		}]),
+		plugin(['@semantic-release/github', {
 			successComment: ':tada: This issue has been resolved in version ${nextRelease.version}.\n\nThe release is available [here](<github_release_url>)',
 			failComment: 'This release from branch ${branch.name} had failed due to the following errors:\n- ${errors.map(err => err.message).join(\'\n- \')}',
 			failTitle: '🚨 The automated release is failing',
-		}],
-		['@semantic-release/exec', {
+		}]),
+		plugin(['@semantic-release/exec', {
+			addChannelCmd: env('RELEASE_EXEC_ADD_CHANNEL_CMD'),
 			analyzeCommitsCmd: env('RELEASE_EXEC_ANALYZE_COMMITS_CMD'),
-			addChannelCmd: env('RELEASE_EXEC_GENERATE_NOTES_CMD'),
-			execCwd: env('RELEASE_EXEC_ADD_CHANNEL_CMD'),
-			failCmd: env('RELEASE_EXEC_VERIFY_ARTIFACTS_CMD'),
-			generateNotesCmd: env('RELEASE_EXEC_CWD'),
-			prepareCmd: env('RELEASE_EXEC_FAIL_CMD'),
-			publishCmd: env('RELEASE_EXEC_PREPARE_CMD'),
-			shell: env('RELEASE_EXEC_PUBLISH_CMD'),
+			execCwd: env('RELEASE_EXEC_CWD'),
+			failCmd: env('RELEASE_EXEC_FAIL_CMD'),
+			generateNotesCmd: env('RELEASE_EXEC_GENERATE_NOTES_CMD'),
+			prepareCmd: env('RELEASE_EXEC_PREPARE_CMD'),
+			publishCmd: env('RELEASE_EXEC_PUBLISH_CMD'),
+			shell: env('RELEASE_EXEC_SHELL', getEnvBooleanOrValue),
 			successCmd: env('RELEASE_EXEC_SUCCESS_CMD'),
-			verifyConditionsCmd: env('RELEASE_EXEC_SHELL', getEnvBooleanOrValue),
-			verifyReleaseCmd: env('RELEASE_EXEC_VERIFY_CONDITIONS_CMD'),
-		}],
-		['semantic-release-slack-bot', {
-			notifyOnSuccess: false,
-			notifyOnFail: false,
-			slackWebhookEnVar: 'RELEASE_NOTIFICATION_SLACK_WEBHOOK',
-			slackTokenEnVar: 'RELEASE_NOTIFICATION_SLACK_TOKEN',
-			slackIconEnVar: 'RELEASE_NOTIFICATION_SLACK_ICON',
-			slackNameEnVar: 'RELEASE_NOTIFICATION_SLACK_NAME',
-			slackChannel: env('RELEASE_NOTIFICATION_SLACK_CHANNEL') || env('RELEASE_NOTIFICATION_PUBLIC_SLACK_CHANNEL') || env('RELEASE_NOTIFICATION_PRIVATE_SLACK_CHANNEL'),
+			verifyConditionsCmd: env('RELEASE_EXEC_VERIFY_CONDITIONS_CMD'),
+			verifyReleaseCmd: env('RELEASE_EXEC_VERIFY_ARTIFACTS_CMD'),
+		}]),
+		plugin(['semantic-release-slack-bot', {
+			notifyOnSuccess: SLACK_ENABLED,
+			notifyOnFail: SLACK_ENABLED,
+			onSuccessTemplate: {
+				text: '✅ Success! Version $npm_package_version of $package_name has been published.',
+			},
+			onFailTemplate: {
+				text: '❌ Oh no! Version $npm_package_version of $package_name failed to publish.',
+			},
+			slackChannel: env('RELEASE_NOTIFICATION_SLACK_CHANNEL', envOr('SLACK_CHANNEL')),
+			slackIcon: env('RELEASE_NOTIFICATION_SLACK_ICON', envOr('SLACK_ICON')),
+			slackName: env('RELEASE_NOTIFICATION_SLACK_NAME', envOr('SLACK_NAME')),
+			slackToken: env('RELEASE_NOTIFICATION_SLACK_TOKEN', envOr('SLACK_TOKEN')),
+			slackWebhook: env('RELEASE_NOTIFICATION_SLACK_WEBHOOK', envOr('SLACK_WEBHOOK')),
 			branchesConfig: [
 				{
 					pattern: 'main|master',
@@ -143,6 +142,6 @@ module.exports = createConfig({
 					},
 				},
 			]
-		}],
+		}]),
 	],
 });
