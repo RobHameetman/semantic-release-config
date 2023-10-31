@@ -29,7 +29,6 @@ env:
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
   CI_TIMEOUT_BUILD: ${{ vars.CI_TIMEOUT_BUILD }}
   NODE_ENV: production
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   build:
@@ -67,8 +66,9 @@ jobs:
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
         env:
-          # 'development' is required instead of 'production' here so that NPM includes devDependencies (like Webpack).
+          # 'development' is required instead of 'production' here so that NPM includes devDependencies (like Rollup).
           NODE_ENV: development
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm ci --legacy-peer-deps --ignore-scripts
 
       - name: Build

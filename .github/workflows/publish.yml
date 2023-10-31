@@ -45,9 +45,7 @@ env:
   CI_DEBUG: ${{ vars.CI_DEBUG }}
   CI_TIMEOUT_RELEASE: ${{ vars.CI_TIMEOUT_RELEASE }}
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
   NODE_ENV: production
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   RELEASE_DEBUG: ${{ vars.RELEASE_DEBUG }}
   RELEASE_DEPRECATE_AS_MINOR_VERSION: ${{ vars.RELEASE_DEPRECATE_AS_MINOR_VERSION }}
   RELEASE_DISABLE_CHANGELOG: ${{ vars.RELEASE_DISABLE_CHANGELOG }}
@@ -118,4 +116,7 @@ jobs:
         id: publish
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_PUBLISH) }}
         if: fromJSON(env.__SKIP) != true
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
