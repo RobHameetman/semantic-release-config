@@ -19,6 +19,9 @@
     "node": ">=20.6.1",
     "npm": ">=9.8.1"
   },
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
   "scripts": {
     "build": "rm -rf ./dist/ && tsc && rollup -c rollup.config.js && ./scripts/cleanup.sh",
     "e2e": "./scripts/e2e.sh",
