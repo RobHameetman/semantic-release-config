@@ -122,6 +122,8 @@ jobs:
         uses: actions/checkout@v3
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
+        with:
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Dependencies
         id: install
@@ -147,11 +149,11 @@ jobs:
           name: build-artifacts
           path: ${{ inputs.dist }}
 
-      - name: Authorize
-        id: authorize
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
-        if: fromJSON(env.__SKIP) != true
-        run: git config --global --add safe.directory '*'
+      # - name: Authorize
+      #   id: authorize
+      #   timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+      #   if: fromJSON(env.__SKIP) != true
+      #   run: git config --global --add safe.directory '${{ github.workspace }}'
 
       - name: Publish
         id: publish
