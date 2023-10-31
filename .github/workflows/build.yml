@@ -4,6 +4,10 @@ name: Build
 
 on:
   workflow_call:
+    secrets:
+      NPM_TOKEN:
+        description: 'A token used for authorized access to NPM'
+        required: true
     inputs:
       node:
         description: The version of Node.js used
