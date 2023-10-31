@@ -149,11 +149,11 @@ jobs:
           name: build-artifacts
           path: ${{ inputs.dist }}
 
-      # - name: Authorize
-      #   id: authorize
-      #   timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
-      #   if: fromJSON(env.__SKIP) != true
-      #   run: git config --global --add safe.directory '${{ github.workspace }}'
+      - name: Authorize
+        id: authorize
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        run: git config --global --add safe.directory '${{ github.workspace }}'
 
       - name: Publish
         id: publish
