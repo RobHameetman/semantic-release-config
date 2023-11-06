@@ -37,7 +37,6 @@ const config = () => ({
 	plugins: [
 		alias({
 			entries: [
-				{ find: '@branches', replacement: `${src}/branches` },
 				{ find: '@plugins', replacement: `${src}/plugins` },
 				{ find: '@rules', replacement: `${src}/rules` },
 				{ find: '@templates', replacement: `${src}/templates` },
@@ -118,11 +117,4 @@ const config = () => ({
 	],
 });
 
-module.exports = [
-	config(),
-	// config('canary'),
-	// config('gitflow'),
-	// config('modular'),
-	// config('staged'),
-	// config('streamlined'),
-];
+module.exports = [config()];

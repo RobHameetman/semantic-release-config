@@ -1,31 +1,68 @@
-import { PLUGIN_NPM } from './config';
-import { releaseRules } from '@rules/index';
-import { env } from '@utils/functions/environment/env';
+import { onTest } from '@test/utils/onTest';
+import { streamlineConfig } from './streamlineConfig';
 
-jest.mock('@utils/functions/environment/env', () => ({
-	__esModule: true,
-	env: jest.fn(),
-}));
+describe('streamlineConfig()', () => {
+	let error: Error | null = null;
+	let result: unknown = null;
+	let index = 1;
 
-describe('PLUGIN_NPM', () => {
-	it('should be an array with a plugin name and a config object', () => {
-		expect(PLUGIN_NPM).toBeInstanceOf(Array);
-		expect(PLUGIN_NPM).toHaveLength(2);
+	beforeEach(() => {
+		try {
+			onTest(index, {
+				1: () => {
+					result = streamlineConfig(['test-config', {
+						foo: 'foo.js',
+						bar: 'setToThis',
+					}]);
+				},
+				2: () => {
+					result = streamlineConfig(['test-config', {
+						foo: undefined,
+						bar: 'setToThis',
+					}]);
+				},
+				3: () => {
+					result = streamlineConfig(['test-config', {
+						foo: undefined,
+						bar: '',
+					}]);
+				}
+			});
+		} catch (thrown) {
+			error = !(thrown instanceof Error) ? (thrown as Error) : new Error();
+			console.error(thrown);
+		}
 	});
 
-	it('should be used for the commit analyzer plugin', () => {
-		expect(PLUGIN_NPM).toContain('@semantic-release/commit-analyzer');
+	afterEach(() => {
+		result = null;
+		index++;
 	});
 
-	it('should be configured to include the release rules from this package', () => {
-		expect(PLUGIN_NPM).toContainEqual(expect.objectContaining({
-			releaseRules,
-		}));
+	it('should return an array given a plugin name and a configuration with defined options', () => {
+		expect(index).toBe(1);
+		expect(error).toBeNull();
+
+		expect(result).toBeInstanceOf(Array);
+		expect(result).toHaveLength(2);
+		expect((result as [string, object]).at(0)).toEqual(expect.any(String));
+		expect((result as [string, object]).at(1)).toEqual(expect.any(Object));
 	});
 
-	it('should be able to accept a custom preset through an environment variable', () => {
-		expect(env).toBeCalledWith('RELEASE_PLUGIN_PRESET', expect.any(Function));
-		expect(PLUGIN_NPM[1]?.preset).not.toBeUndefined();
+	it('should remove undefined configuration options given a configuration with undefined options', () => {
+		expect(index).toBe(2);
+		expect(error).toBeNull();
+
+		expect((result as [string, object]).at(1)).toEqual(expect.objectContaining(
+			{ bar: 'setToThis' },
+		));
+	});
+
+	it('should return a string given a plugin name and a configuration with no defined options', () => {
+		expect(index).toBe(3);
+		expect(error).toBeNull();
+
+		expect(result).toBe('test-config');
 	});
 });
 

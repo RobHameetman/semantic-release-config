@@ -1,18 +1,20 @@
 import {
 	CHANGELOG_ENABLED,
 	PLUGIN_PRESET,
+	PR_PRERELEASE_CHANNEL,
+	PR_PRERELEASE_TYPE,
 	PUBLISH_FROM_DIST,
 	SLACK_ENABLED,
 	createConfig,
 	env,
 	envOr,
 	getEnvBooleanOrValue,
-	latestMajorVersionOnly,
-	latestMinorVersionOnly,
-	latestPatchVersionOnly,
-	latestPrereleaseOnly,
 	plugin,
 	releaseRules,
+	supportLatestMinorRelease,
+	supportLatestPatchRelease,
+	supportLatestPrerelease,
+	supportPrereleasesBeforeRelease,
 } from '.';
 
 module.exports = createConfig({
@@ -22,6 +24,8 @@ module.exports = createConfig({
 		{ name: 'next', prerelease: 'rc', channel: 'next' },
 		{ name: 'beta', prerelease: true, channel: 'beta' },
 		{ name: 'alpha', prerelease: true, channel: 'alpha' },
+		{ name: `[1-9]*([0-9]).X.X`, range: '${name.split(".")[0]}.x.x', prerelease: false, channel: '${name.split(".")[0]}' },
+		{ name: '@(!(main|master|next-major|next|beta|alpha|[1-9]*([0-9]).X.X))', prerelease: PR_PRERELEASE_TYPE, channel: PR_PRERELEASE_CHANNEL },
 	],
 	plugins: [
 		plugin(['@semantic-release/commit-analyzer', {
@@ -40,10 +44,10 @@ module.exports = createConfig({
 		}]),
 		plugin(['semantic-release-npm-deprecate', {
 			deprecations: [
-				latestMajorVersionOnly(),
-				latestMinorVersionOnly(),
-				latestPatchVersionOnly(),
-				latestPrereleaseOnly(),
+				supportLatestPatchRelease(),
+				supportLatestMinorRelease(),
+				supportPrereleasesBeforeRelease(['rc', 'beta', 'alpha', env('RELEASE_PR_PREID') || ''].filter(Boolean)),
+				supportLatestPrerelease(['rc', 'beta', 'alpha', env('RELEASE_PR_PREID') || ''].filter(Boolean)),
 			]
 		}]),
 		plugin(['@semantic-release/git', {

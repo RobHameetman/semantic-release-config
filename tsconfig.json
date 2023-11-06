@@ -12,7 +12,6 @@
 		"noImplicitThis": true,
 		"outDir": "./dist",
 		"paths": {
-			"@branches/*": ["./lib/branches/*"],
 			"@plugins/*": ["./lib/plugins/*"],
 			"@rules/*": ["./lib/rules/*"],
 			"@templates/*": ["./lib/templates/*"],
@@ -28,6 +27,7 @@
 		"./lib/canary.ts",
 		"./lib/gitflow.ts",
 		"./lib/modular.ts",
+		"./lib/react.ts",
 		"./lib/recommended.ts",
 		"./lib/staged.ts",
 		"./lib/streamlined.ts"

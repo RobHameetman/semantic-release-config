@@ -1,4 +1,3 @@
-import { minor } from '@templates/versions/minor/minor';
+import { minorBack } from '@templates/versions/minor/minorBack';
 
-export const $minorBack = (offset = 1) =>
-	`\${Number(${minor()}) - ${Math.abs(offset)} >= 0 ? Number(${minor()}) - ${Math.abs(offset)} : 0}`;
+export const $minorBack = (offset = 1) => `\${${minorBack(offset)}}`;

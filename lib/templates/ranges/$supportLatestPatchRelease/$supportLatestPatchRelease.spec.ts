@@ -19,9 +19,9 @@ describe('$supportLatestPatchRelease()', () => {
 	});
 
 	it('should range from the first minor release in the current major version to the current patch version', async () => {
-		expect(render($supportLatestPatchRelease(), { type: 'patch', version: '6.1.12' })).toBe('>= 6.1.X < 6.1.12');
+		expect(render($supportLatestPatchRelease(), { type: 'patch', version: '6.1.10' })).toBe('>= 6.1.9 < 6.1.10');
 
-		await expect(versionsOf($supportLatestPatchRelease(), { version: '6.1.12' })).resolves.toContain('6.1.0');
-		await expect(versionsOf($supportLatestPatchRelease(), { version: '6.1.12' })).resolves.not.toContain('6.1.12');
+		await expect(versionsOf($supportLatestPatchRelease(), { type: 'patch', version: '6.1.10' })).resolves.toContain('6.1.9');
+		await expect(versionsOf($supportLatestPatchRelease(), { type: 'patch', version: '6.1.10' })).resolves.not.toContain('6.1.10');
 	});
 });

@@ -1,4 +1,3 @@
-export * from './branches';
 export * from './plugins';
 export * from './rules';
 export * from './templates';

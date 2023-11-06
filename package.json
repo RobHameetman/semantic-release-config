@@ -126,7 +126,6 @@
       "json"
     ],
     "moduleNameMapper": {
-      "^@branches/(.*)$": "<rootDir>/lib/branches/$1",
       "^@rules/(.*)$": "<rootDir>/lib/rules/$1",
       "^@plugins/(.*)$": "<rootDir>/lib/plugins/$1",
       "^@templates/(.*)$": "<rootDir>/lib/templates/$1",

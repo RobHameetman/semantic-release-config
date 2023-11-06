@@ -1,4 +1,3 @@
-declare module '@branches';
 declare module '@plugins';
 declare module '@rules';
 declare module '@templates';

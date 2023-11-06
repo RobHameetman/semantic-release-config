@@ -13,15 +13,15 @@ describe('$supportLatestMinorRelease()', () => {
 	});
 
 	it('should resolve to a range', () => {
-		expect(render($supportLatestMinorRelease(), { version: '7.2.15' })).toStrictEqual(
+		expect(render($supportLatestMinorRelease(), { version: '7.2.0', type: 'minor' })).toStrictEqual(
 			expect.stringMatching(/>|>=|<|<=|=|\^|~| - |\|\||\d+\.\d+\.\d+(?:-\w+\.\d+)?/)
 		);
 	});
 
 	it('should range from the first release in the previous minor version to the current minor version', async () => {
-		expect(render($supportLatestMinorRelease(), { version: '7.2.15' })).toBe('>= 7.X.X < 7.2.X');
+		expect(render($supportLatestMinorRelease(), { version: '7.2.0', type: 'minor' })).toBe('>= 7.1.0 < 7.2.0');
 
-		await expect(versionsOf($supportLatestMinorRelease(), { version: '7.2.15' })).resolves.toContain('7.0.0');
-		await expect(versionsOf($supportLatestMinorRelease(), { version: '7.2.15' })).resolves.not.toContain('7.2.0');
+		await expect(versionsOf($supportLatestMinorRelease(), { version: '7.2.0', type: 'minor' })).resolves.toContain('7.1.0');
+		await expect(versionsOf($supportLatestMinorRelease(), { version: '7.2.0', type: 'minor' })).resolves.not.toContain('7.2.0');
 	});
 });

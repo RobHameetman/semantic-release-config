@@ -4,22 +4,22 @@ import {
 	PUBLISH_FROM_DIST,
 	PLUGIN_PRESET,
 	SLACK_ENABLED,
-	VERSIONED_RELEASE_BRANCHES,
 	createConfig,
 	env,
 	envOr,
 	getEnvBooleanOrValue,
 	isEnvTrue,
-	latestMajorVersionOnly,
-	latestMinorVersionOnly,
-	latestPatchVersionOnly,
-	latestPrereleaseOnly,
 	plugin,
 	releaseRules,
+	supportLatestMinorRelease,
+	supportLatestPatchRelease,
+	supportLatestPrerelease,
+	supportPrereleasesBeforeRelease,
 } from '.';
 
 const USE_MASTER = env('RELEASE_MAIN_IS_LATEST', isEnvTrue);
 const RELEASE_BRANCHES = env('RELEASE_BRANCHES', (value = '') => value.split(','));
+const RELEASE_BRANCH = env('RELEASE_BRANCH');
 
 /**
  * @beta - WIP. The idea is to have a release strategy that supports multiple
@@ -47,10 +47,10 @@ module.exports = createConfig({
 		}]),
 		plugin(['semantic-release-npm-deprecate', {
 			deprecations: [
-				latestMajorVersionOnly(),
-				latestMinorVersionOnly(),
-				latestPatchVersionOnly(),
-				latestPrereleaseOnly(),
+				supportLatestPatchRelease(),
+				supportLatestMinorRelease(),
+				// supportPrereleasesBeforeRelease(),
+				// supportLatestPrerelease(),
 			]
 		}]),
 		plugin(['@semantic-release/git', {

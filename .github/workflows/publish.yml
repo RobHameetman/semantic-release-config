@@ -12,6 +12,11 @@ on:
         description: 'A token used for authorized access to NPM'
         required: true
     inputs:
+      debug:
+        description: Debug jobs
+        default: false
+        required: false
+        type: boolean
       dist:
         description: The directory from which the package will be published
         default: ./
@@ -27,13 +32,13 @@ on:
         default: '20'
         required: false
         type: string
+      pr:
+        description: The PR number used for PR prerelease versions
+        default: ${{ github.event.pull_request.number }}
+        required: false
+        type: number
       skip:
         description: Skip jobs
-        default: false
-        required: false
-        type: boolean
-      debug:
-        description: Debug jobs
         default: false
         required: false
         type: boolean
@@ -44,7 +49,6 @@ permissions:
 env:
   # General Options
   name: semantic-release-config
-  version: ${{ github.ref_name }}
   node: '20'
   debug: false
   # Timeouts (in minutes)
@@ -52,6 +56,7 @@ env:
   timeout-release: 10
   # Environment Variables
   CI_DEBUG: ${{ vars.CI_DEBUG }}
+  CI_PR_NUMBER: ${{ github.event.pull_request.number }}
   CI_TIMEOUT_RELEASE: ${{ vars.CI_TIMEOUT_RELEASE }}
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
   NODE_ENV: production

@@ -1,6 +1,6 @@
 import { isBoolean } from '@rob.hameetman/type-guards';
 import { env } from '@utils/functions/environment/env';
-import { isEnvDefinedOr } from '@utils/functions/environment/environment/isEnvDefinedOr';
+import { isEnvDefinedOr } from '@utils/functions/environment/isEnvDefinedOr';
 import { SLACK_ENABLED } from './SLACK_ENABLED';
 
 jest.mock('@utils/functions/environment/env', () => ({
@@ -8,7 +8,7 @@ jest.mock('@utils/functions/environment/env', () => ({
 	env: jest.fn(() => true),
 }));
 
-jest.mock('@utils/functions/environment/environment/isEnvDefinedOr', () => ({
+jest.mock('@utils/functions/environment/isEnvDefinedOr', () => ({
 	__esModule: true,
 	isEnvDefinedOr: jest.fn(() => true),
 }));

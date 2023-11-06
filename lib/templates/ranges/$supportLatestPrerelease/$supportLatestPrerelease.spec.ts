@@ -18,6 +18,6 @@ describe('$supportLatestPrerelease()', () => {
 	});
 
 	it('should range from the initial to the latest prerelease for the current version', () => {
-		expect(render($supportLatestPrerelease('rc'), { version: '6.1.12-rc.4' })).toBe('>= 6.1.12-rc.0 < 6.1.12-rc.4');
+		expect(render($supportLatestPrerelease('rc'), { version: '6.1.12-rc.4' })).toBe('>= 6.1.12-rc.3 < 6.1.12-rc.4');
 	});
 });

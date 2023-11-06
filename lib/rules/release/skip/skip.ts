@@ -29,4 +29,9 @@ export const SKIP_RELEASE_RULES = [
 	 * "chore: Add clarity to some of our inline documentation [PROJ-1234]"
 	 */
 	{ type: 'chore', release: false },
+	/**
+	 * @example
+	 * "test: Add missing unit tests [PROJ-1234]"
+	 */
+	{ type: 'test', release: false },
 ];
