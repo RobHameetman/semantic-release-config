@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.2](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.1...1.0.0-alpha.2) (2023-11-06)
+
+
+### Features
+
+* Improve deprecation template strings ([1db5c7e](https://github.com/RobHameetman/semantic-release-config/commit/1db5c7e508a62063d78ce220b6ed0842cd208259))
+
 ## 1.0.0-alpha.1 (2023-10-31)
 
 
