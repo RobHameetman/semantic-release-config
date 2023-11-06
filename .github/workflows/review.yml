@@ -2,8 +2,6 @@
 
 name: Review
 
-concurrency: pr-build-${{ github.event.pull_request.number }}
-
 on:
   pull_request:
     types: [opened, reopened, synchronize]
@@ -13,7 +11,6 @@ env:
   name: semantic-release-config
   node: '20'
   debug: false
-  preid: 'pr.${{ github.event.pull_request.number }}'
   # Skip
   skip-tests: false
   skip-publish: true
@@ -60,4 +57,3 @@ jobs:
     with:
       skip: ${{ env.CI_SKIP_PRERELEASE || fromJSON(env.skip-publish) }}
       debug: ${{ env.CI_DEBUG || env.DEBUG || fromJSON(env.debug) }}
-      preid: '${{ env.preid }}'

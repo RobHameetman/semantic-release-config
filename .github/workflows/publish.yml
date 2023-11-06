@@ -32,11 +32,6 @@ on:
         default: '20'
         required: false
         type: string
-      pr:
-        description: The PR number used for PR prerelease versions
-        default: ${{ github.event.pull_request.number }}
-        required: false
-        type: number
       skip:
         description: Skip jobs
         default: false
@@ -55,6 +50,7 @@ env:
   timeout-setup: 10
   timeout-release: 10
   # Environment Variables
+  CI: true
   CI_DEBUG: ${{ vars.CI_DEBUG }}
   CI_PR_NUMBER: ${{ github.event.pull_request.number }}
   CI_TIMEOUT_RELEASE: ${{ vars.CI_TIMEOUT_RELEASE }}
@@ -120,6 +116,8 @@ jobs:
           fromJSON(env.__SKIP) != true
         run: |
           echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
+          echo "ACTIONS_RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
+          echo "ACTIONS_STEP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
           echo "DEBUG=semantic-release:*" >> $GITHUB_ENV
 
       - name: Checkout

@@ -63,7 +63,7 @@ jobs:
           echo "RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
           echo "ACTIONS_RUNNER_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
           echo "ACTIONS_STEP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
-          echo "APP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV\
+          echo "APP_DEBUG=${{ fromJSON(env.__DEBUG) }}" >> $GITHUB_ENV
 
       - name: Checkout
         id: clone
