@@ -9,5 +9,5 @@ import { $supportLatestPatchRelease } from '@templates/ranges/$supportLatestPatc
  */
 export const supportLatestPatchRelease = () => ({
 	version: $supportLatestPatchRelease(),
-	message: 'This pre-release version is deprecated. Please use ^${nextRelease.version}',
+	message: 'This patch version is deprecated. Please use ^${nextRelease.version}',
 });

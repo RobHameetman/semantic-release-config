@@ -40,7 +40,9 @@ module.exports = createConfig({
 			preset: PLUGIN_PRESET,
 		}]),
 		plugin(['@semantic-release/npm', {
-			pkgRoot: PUBLISH_FROM_DIST ? 'dist' : '.',
+			pkgRoot: PUBLISH_FROM_DIST
+				? env('RELEASE_BUILD_DIRECTORY') || 'dist'
+				: '.',
 		}]),
 		plugin(['semantic-release-npm-deprecate', {
 			deprecations: [

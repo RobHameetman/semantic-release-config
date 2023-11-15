@@ -8,6 +8,8 @@ on:
       - main
       - beta
       - alpha
+      - '*.X.X'
+      - '*'
 
 jobs:
   build:

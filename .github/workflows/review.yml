@@ -35,25 +35,4 @@ jobs:
     if: github.repository.archived != true
     uses: ./.github/workflows/test.yml
     with:
-      node: ${{ env.node }}
-      skip: ${{ env.CI_SKIP_TESTS || fromJSON(env.skip-tests) }}
-      debug: ${{ env.CI_DEBUG || env.DEBUG || fromJSON(env.debug) }}
-
-  build:
-    name: BUILD
-    needs: [test]
-    if: github.repository.archived != true
-    uses: ./.github/workflows/build.yml
-    with:
-      node: ${{ env.node }}
-      skip: ${{ env.CI_SKIP_TESTS || fromJSON(env.skip-tests) }}
-      debug: ${{ env.CI_DEBUG || env.DEBUG || fromJSON(env.debug) }}
-
-  publish:
-    name: PUBLISH
-    needs: [test, build]
-    if: github.repository.archived != true
-    uses: ./.github/workflows/deploy.yml
-    with:
-      skip: ${{ env.CI_SKIP_PRERELEASE || fromJSON(env.skip-publish) }}
-      debug: ${{ env.CI_DEBUG || env.DEBUG || fromJSON(env.debug) }}
+      dist: dist
