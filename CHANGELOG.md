@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.5](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.4...1.0.0-alpha.5) (2023-11-15)
+
+
+### Features
+
+* Skip releases with subject tag ([9f60529](https://github.com/RobHameetman/semantic-release-config/commit/9f60529910bcfe67cdb4176b7459f2242f21b291))
+
 ## [1.0.0-alpha.4](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.3...1.0.0-alpha.4) (2023-11-15)
 
 
