@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.4](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.3...1.0.0-alpha.4) (2023-11-15)
+
+
+### Bug Fixes
+
+* Skip CI after version commit correctly ([89c26b8](https://github.com/RobHameetman/semantic-release-config/commit/89c26b807fd25c0ae79afee07c3fbc9b346cdb59))
+
 ## [1.0.0-alpha.3](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.2...1.0.0-alpha.3) (2023-11-15)
 
 ## [1.0.0-alpha.2](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.1...1.0.0-alpha.2) (2023-11-06)
