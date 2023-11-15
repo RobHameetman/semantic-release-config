@@ -11,6 +11,12 @@ export const SKIP_RELEASE_RULES = [
 	{ type: 'release', scope: 'skip|none', release: false },
 	/**
 	 * @example
+	 * "release: Update package.json to new version [SKIP RELEASE]"
+	 * "feat: Update package.json to new version [ci skip]"
+	 */
+	{ subject: '* \[@(@(SKIP|skip) @(RELEASE|CI|ACTION|VERSION|release|ci|action|version)|@(RELEASE|CI|ACTION|VERSION|release|ci|action|version) @(SKIP|skip))\]', release: false },
+	/**
+	 * @example
 	 * "feat(skip-release): Errata [PROJ-1234]"
 	 */
 	{ scope: 'skip-release', release: false },

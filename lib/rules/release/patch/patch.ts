@@ -25,12 +25,12 @@ export const PATCH_RELEASE_RULES = [
 	 * @example
 	 * "release(1.2.1): Fix email validation error on signup page [PROJ-1234]"
 	 */
-	{ type: 'release', scope: '?([1-9])+([0-9]).?([1-9])+([0-9]).+([1-9])*([0-9])', release: 'patch' },
+	{ type: 'release', scope: '?([1-9])+([0-9]).+([0-9]).?([1-9])+([0-9])', release: 'patch' },
 	/**
 	 * @example
 	 * "release: 1.2.1 - Fix email validation error on signup page [PROJ-1234]"
 	 */
-	{ type: 'release', subject: '?([1-9])+([0-9]).?([1-9])+([0-9]).+([1-9])*([0-9])?( - *)?([])', release: 'patch' },
+	{ type: 'release', subject: '?([1-9])+([0-9]).+([0-9]).?([1-9])+([0-9])?( - *)', release: 'patch' },
 	/**
 	 * @example
 	 * "bug: Fix email validation error on signup page [PROJ-1234]"

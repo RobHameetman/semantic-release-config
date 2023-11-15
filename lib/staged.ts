@@ -53,7 +53,7 @@ module.exports = createConfig({
 			]
 		}]),
 		plugin(['@semantic-release/git', {
-			message: 'release(${nextRelease.version}): Update package.json to new version [SKIP RELEASE]\n\n${nextRelease.notes}',
+			message: 'version(${nextRelease.version}): Update package.json to new version [SKIP CI]\n\n${nextRelease.notes}',
 			assets: ['package.json', 'package-lock.json'].concat(CHANGELOG_ENABLED ? ['CHANGELOG.md'] : []),
 		}]),
 		plugin(['@semantic-release/github', {
