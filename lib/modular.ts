@@ -4,6 +4,10 @@ import {
 	PUBLISH_FROM_DIST,
 	PLUGIN_PRESET,
 	SLACK_ENABLED,
+	VERSION_COMMIT_MESSAGE,
+	VERSION_COMMIT_MODIFIER,
+	VERSION_COMMIT_TYPE,
+	branches,
 	createConfig,
 	env,
 	envOr,
@@ -26,10 +30,10 @@ const RELEASE_BRANCH = env('RELEASE_BRANCH');
  * release branches in a multi-package monorepo.
  */
 module.exports = createConfig({
-	branches: [
+	branches: branches([
 		USE_MASTER ? { name: 'major|latest', prerelease: false, channel: 'latest' } : null,
 		...RELEASE_BRANCHES.map((name) => ({ name, prerelease: false, channel: 'latest' })),
-	].filter(Boolean) as Array<BranchObject>,
+	].filter(Boolean) as Array<BranchObject>),
 	plugins: [
 		plugin(['@semantic-release/commit-analyzer', {
 			preset: PLUGIN_PRESET,
@@ -54,7 +58,7 @@ module.exports = createConfig({
 			]
 		}]),
 		plugin(['@semantic-release/git', {
-			message: 'version(${nextRelease.version}): Update package.json to new version [SKIP CI]\n\n${nextRelease.notes}',
+			message: `${VERSION_COMMIT_TYPE}(\${nextRelease.version}): ${VERSION_COMMIT_MESSAGE} [${VERSION_COMMIT_MODIFIER}]\n\n\${nextRelease.notes}`,
 			assets: ['package.json', 'package-lock.json'].concat(CHANGELOG_ENABLED ? ['CHANGELOG.md'] : []),
 		}]),
 		plugin(['@semantic-release/github', {

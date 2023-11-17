@@ -20,8 +20,9 @@
 		},
 		"removeComments": true,
 		"resolveJsonModule": true,
-		"rootDir": "./lib",
-		"strict": true
+		"rootDir": ".",
+		"strict": true,
+		"target": "esnext"
   },
   "files": [
 		"./lib/canary.ts",
@@ -36,10 +37,6 @@
 		"./typings"
 	],
 	"exclude": [
-		"./node_modules",
-		"./lib/*.spec.ts",
-		"./lib/**/*.spec.ts",
-		"./test",
-		"**/__test__/**/*"
+		"./node_modules"
 	]
 }

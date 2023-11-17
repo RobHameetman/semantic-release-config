@@ -4,14 +4,17 @@ import {
 	DATE_HASH,
 	PLUGIN_PRESET,
 	PR_PRERELEASE_CHANNEL,
-	PR_PRERELEASE_TYPE,
+	PR_PRERELEASE_PREID,
 	PUBLISH_FROM_DIST,
 	SLACK_ENABLED,
+	VERSION_COMMIT_MESSAGE,
+	VERSION_COMMIT_MODIFIER,
+	VERSION_COMMIT_TYPE,
+	branches,
 	createConfig,
 	env,
 	envOr,
 	getEnvBooleanOrValue,
-	isEnvDefined,
 	plugin,
 	releaseRules,
 	supportLatestMinorRelease,
@@ -31,12 +34,12 @@ const PRERELEASE_TYPE = `${env('RELEASE_CANARY_TYPE') || 'canary'}-${COMMIT_SHA_
  * release branch and should reflect the `latest` stable major release.
  */
 module.exports = createConfig({
-	branches: [
+	branches: branches([
 		{ name: '@(latest|lts|stable)', prerelease: false, channel: 'latest' },
 		{ name: '@(main|master)', prerelease: PRERELEASE_TYPE, channel: CHANNEL_NAME },
 		{ name: `[1-9]*([0-9]).X.X`, range: '${name.split(".")[0]}.x.x', prerelease: false, channel: '${name.split(".")[0]}' },
-		{ name: `@(!(main|master|latest|lts|stable|[1-9]*([0-9]).X.X))`, prerelease: PR_PRERELEASE_TYPE, channel: PR_PRERELEASE_CHANNEL },
-	],
+		{ name: `@(!(main|master|latest|lts|stable|[1-9]*([0-9]).X.X))`, prerelease: PR_PRERELEASE_PREID, channel: PR_PRERELEASE_CHANNEL },
+	]),
 	plugins: [
 		plugin(['@semantic-release/commit-analyzer', {
 			preset: PLUGIN_PRESET,
@@ -61,7 +64,7 @@ module.exports = createConfig({
 			]
 		}]),
 		plugin(['@semantic-release/git', {
-			message: 'version(${nextRelease.version}): Update package.json to new version [SKIP CI]\n\n${nextRelease.notes}',
+			message: `${VERSION_COMMIT_TYPE}(\${nextRelease.version}): ${VERSION_COMMIT_MESSAGE} [${VERSION_COMMIT_MODIFIER}]\n\n\${nextRelease.notes}`,
 			assets: ['package.json', 'package-lock.json'].concat(CHANGELOG_ENABLED ? ['CHANGELOG.md'] : []),
 		}]),
 		plugin(['@semantic-release/github', {

@@ -6,9 +6,10 @@ import { $supportLatestMinorRelease } from '@templates/ranges/$supportLatestMino
  * release, then this will deprecate any patch versions for 1.2.X with the range
  * '>= 1.2.0 < 1.3.0'.
  *
- * @returns
+ * @returns A deprecation rule for any patch versions in any previous minor
+ * versions for the current major release.
  */
 export const supportLatestMinorRelease = () => ({
 	version: $supportLatestMinorRelease(),
-	message: 'This minor version is deprecated. Please use ^${nextRelease.version}',
+	message: 'This version is deprecated. Please use ^${nextRelease.version}',
 });

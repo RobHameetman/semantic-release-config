@@ -1,15 +1,18 @@
 import {
 	CHANGELOG_ENABLED,
 	PR_PRERELEASE_CHANNEL,
-	PR_PRERELEASE_TYPE,
+	PR_PRERELEASE_PREID,
 	PUBLISH_FROM_DIST,
 	PLUGIN_PRESET,
 	SLACK_ENABLED,
+	VERSION_COMMIT_MESSAGE,
+	VERSION_COMMIT_MODIFIER,
+	VERSION_COMMIT_TYPE,
+	branches,
 	createConfig,
 	env,
 	envOr,
 	getEnvBooleanOrValue,
-	isEnvDefined,
 	plugin,
 	releaseRules,
 	supportLatestMinorRelease,
@@ -24,11 +27,11 @@ import {
  * and should reflect the `latest` stable major release.
  */
 module.exports = createConfig({
-	branches: [
+	branches: branches([
 		{ name: '@(main|master)', prerelease: false, channel: 'latest' },
 		{ name: `[1-9]*([0-9]).X.X`, range: '${name.split(".")[0]}.x.x', prerelease: false, channel: '${name.split(".")[0]}' },
-		{ name: '@(!(main|master|[1-9]*([0-9]).X.X))', prerelease: PR_PRERELEASE_TYPE, channel: PR_PRERELEASE_CHANNEL },
-	],
+		{ name: '@(!(main|master|[1-9]*([0-9]).X.X))', prerelease: PR_PRERELEASE_PREID, channel: PR_PRERELEASE_CHANNEL },
+	]),
 	plugins: [
 		plugin(['@semantic-release/commit-analyzer', {
 			preset: PLUGIN_PRESET,
@@ -53,7 +56,7 @@ module.exports = createConfig({
 			]
 		}]),
 		plugin(['@semantic-release/git', {
-			message: 'version(${nextRelease.version}): Update package.json to new version [SKIP CI]\n\n${nextRelease.notes}',
+			message: `${VERSION_COMMIT_TYPE}(\${nextRelease.version}): ${VERSION_COMMIT_MESSAGE} [${VERSION_COMMIT_MODIFIER}]\n\n\${nextRelease.notes}`,
 			assets: ['package.json', 'package-lock.json'].concat(CHANGELOG_ENABLED ? ['CHANGELOG.md'] : []),
 		}]),
 		plugin(['@semantic-release/github', {

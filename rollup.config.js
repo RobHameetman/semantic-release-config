@@ -18,12 +18,8 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 const src = `${process.cwd()}/lib`;
 const test = `${process.cwd()}/test`;
 
-const excludes = [
-	'./node_modules',
-	'./lib/*.spec.ts',
-	'./lib/**/*.spec.ts',
-	'**/__test__/**/*'
-];
+const paths = tsconfig?.compilerOptions?.paths;
+const hasPaths = paths && Object.keys(paths).length > 0;
 
 const config = () => ({
 	input: `${process.cwd()}/lib/index.ts`,
@@ -35,16 +31,14 @@ const config = () => ({
 	},
 	external: ['lib/index.ts'],
 	plugins: [
-		alias({
-			entries: [
-				{ find: '@plugins', replacement: `${src}/plugins` },
-				{ find: '@rules', replacement: `${src}/rules` },
-				{ find: '@templates', replacement: `${src}/templates` },
-				{ find: '@utils', replacement: `${src}/utils` },
-			],
+		hasPaths && alias({
+			entries: Object.fromEntries(Object.entries(paths).map(([key, value]) => ([
+				key.replace('/*', ''),
+				value.at(0).replace('/*', '').replace('./', `${process.cwd()}/`),
+			]))),
 		}),
 		resolve({
-			extensions: ['.ts', '.tsx', '.js', '.jsx'],
+			extensions: ['.ts', '.js', 'json'],
 		}),
 		// eslint({
 		// 	extensions: ['js', 'jsx', 'ts', 'tsx', 'gql', 'graphql'],
@@ -56,7 +50,7 @@ const config = () => ({
 			tsconfigOverride: {
 				compilerOptions: {
 					declaration: true,
-					module: 'esnext',
+					module: 'esnext'
 				},
 				files: [`${process.cwd()}/lib/index.ts`],
 				exclude: [
@@ -114,7 +108,7 @@ const config = () => ({
 				},
 			],
 		}),
-	],
+	].filter(Boolean),
 });
 
 module.exports = [config()];

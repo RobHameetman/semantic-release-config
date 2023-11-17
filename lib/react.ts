@@ -5,6 +5,10 @@ import {
 	PLUGIN_PRESET,
 	PUBLISH_FROM_DIST,
 	SLACK_ENABLED,
+	VERSION_COMMIT_MESSAGE,
+	VERSION_COMMIT_MODIFIER,
+	VERSION_COMMIT_TYPE,
+	branches,
 	createConfig,
 	env,
 	envOr,
@@ -24,11 +28,11 @@ const EXPERIMENTAL_PRERELEASE_TYPE = `experimental-${COMMIT_SHA_SHORT}-${DATE_HA
  * versions are always 0.0.0 whereas canary versions are the current version.
  */
 module.exports = createConfig({
-	branches: [
+	branches: branches([
 		{ name: '[1-9]*([0-9]).+([0-9]).+([0-9])', prerelease: false, channel: 'latest' },
 		{ name: '@(main|master)', prerelease: CANARY_PRERELEASE_TYPE, channel: 'canary' },
 		{ name: `@(!(main|master|[1-9]*([0-9]).+([0-9]).+([0-9])))`, prerelease: EXPERIMENTAL_PRERELEASE_TYPE, channel: 'experimental' },
-	],
+	]),
 	plugins: [
 		plugin(['@semantic-release/commit-analyzer', {
 			preset: PLUGIN_PRESET,
@@ -45,7 +49,7 @@ module.exports = createConfig({
 			pkgRoot: PUBLISH_FROM_DIST ? 'dist' : '.',
 		}]),
 		plugin(['@semantic-release/git', {
-			message: 'version(${nextRelease.version}): Update package.json to new version [SKIP CI]\n\n${nextRelease.notes}',
+			message: `${VERSION_COMMIT_TYPE}(\${nextRelease.version}): ${VERSION_COMMIT_MESSAGE} [${VERSION_COMMIT_MODIFIER}]\n\n\${nextRelease.notes}`,
 			assets: ['package.json', 'package-lock.json'].concat(CHANGELOG_ENABLED ? ['CHANGELOG.md'] : []),
 		}]),
 		plugin(['@semantic-release/github', {

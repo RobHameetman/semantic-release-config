@@ -7,6 +7,11 @@ jest.mock('@utils/constants/PR_NUMBER', () => ({
 	PR_NUMBER: 42,
 }));
 
+jest.mock('@utils/constants/PR_PRERELEASE_TYPE', () => ({
+	__esModule: true,
+	PR_PRERELEASE_TYPE: 'pr',
+}));
+
 jest.mock('@utils/functions/environment/env', () => ({
 	__esModule: true,
 	env: jest.fn((envVar: string, cb = (value: unknown) => value) =>
@@ -19,11 +24,11 @@ describe('PR_PRERELEASE_CHANNEL', () => {
 	});
 
 	it('should be overridable', () => {
-		expect(env).toBeCalledWith('PR_PRERELEASE_CHANNEL');
+		expect(env).toBeCalledWith('RELEASE_PR_PRERELEASE_CHANNEL');
 	});
 
 	it('should use the format "pr-<PR_NUMBER>" by default', () => {
-		expect(PR_PRERELEASE_CHANNEL).toStrictEqual(expect.stringMatching(/^pr-\d+$/g));
+		expect(PR_PRERELEASE_CHANNEL).toStrictEqual(expect.stringMatching(/^(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)-\d+$/g));
 		expect(PR_PRERELEASE_CHANNEL).toBe('pr-42');
 	});
 });

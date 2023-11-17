@@ -7,7 +7,9 @@ import { $prereleasesForVersion } from '@templates/ranges/$prereleasesForVersion
  * 1.2.7 up to 1.2.7-alpha.4  with the range '>= 1.2.7-alpha.0 < 1.2.7'.
  *
  * @param $preids - One or more preids to deprecate.
- * @returns
+ *
+ * @returns A deprecation rule for all prerelease versions of the current major
+ * release.
  */
 export const supportPrereleasesBeforeRelease = ($preids: string | ReadonlyArray<string>) => ({
 	version: $prereleasesForVersion($preids),
