@@ -17,8 +17,8 @@ import {
 	releaseRules,
 	supportLatestMinorRelease,
 	supportLatestPatchRelease,
-	supportLatestPrerelease,
-	supportPrereleasesBeforeRelease,
+	// supportLatestPrerelease,
+	// supportPrereleasesBeforeRelease,
 } from '.';
 
 const USE_MASTER = env('RELEASE_MAIN_IS_LATEST', isEnvTrue);

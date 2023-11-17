@@ -20,7 +20,7 @@
 		},
 		"removeComments": true,
 		"resolveJsonModule": true,
-		"rootDir": ".",
+		"rootDir": "./lib",
 		"strict": true,
 		"target": "esnext"
   },
