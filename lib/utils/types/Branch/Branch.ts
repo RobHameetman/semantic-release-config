@@ -115,7 +115,8 @@ export class Branch {
 	 * prerelease branch rule.
 	 */
 	static isPrerelease = () => {
-		return this.#matches.find(this.#isPrereleaseRule) !== undefined;
+		return this.#matches.find(this.#isPrereleaseRule) !== undefined ||
+			this.isPrPrerelease();
 	}
 
 	/**

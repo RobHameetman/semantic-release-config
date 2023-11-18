@@ -34,10 +34,15 @@ export const plugin = <
 			? CHANGELOG_ENABLED && !Branch.isPrerelease()
 			: CHANGELOG_ENABLED;
 
+	const releaseNotesEnabled =
+		Branch.isSet()
+			? !Branch.isPrerelease()
+			: true;
+
 	const enabled = ({
 		'@semantic-release/commit-analyzer': () => true,
 		'@semantic-release/changelog': () => changelogEnabled,
-		'@semantic-release/release-notes-generator': () => true,
+		'@semantic-release/release-notes-generator': () => releaseNotesEnabled,
 		'@semantic-release/npm': () => true,
 		'semantic-release-npm-deprecate': () => true,
 		'@semantic-release/git': () => true,
@@ -49,8 +54,18 @@ export const plugin = <
 	if (hasOptions) {
 		({
 			'@semantic-release/git': () => {
-				if (!changelogEnabled && (config[1]['assets'] as Array<string>)?.includes('CHANGELOG.md')) {
-					config[1]['assets'] = (config[1]['assets'] as Array<string>).filter((asset: string) => asset !== 'CHANGELOG.md');
+				const { assets, message } = config.at(1);
+
+				if (!changelogEnabled && (assets as Array<string>)?.includes('CHANGELOG.md')) {
+					const updatedAssets = (assets as Array<string>).filter((asset: string) => asset !== 'CHANGELOG.md');
+
+					config[1] = { assets: updatedAssets, message };
+				}
+
+				if (!releaseNotesEnabled && (message as string)?.includes('\n\n${nextRelease.notes}')) {
+					const updatedMessage = (message as string).replace('\n\n${nextRelease.notes}', '');
+
+					config[1] = { assets, message: updatedMessage };
 				}
 			},
 		}[name] ?? (() => {}))();
