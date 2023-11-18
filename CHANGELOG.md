@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.8](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.7...1.0.0-alpha.8) (2023-11-18)
+
+
+### Bug Fixes
+
+* Correct preventative git plugin logic for prereleases ([b0a3eae](https://github.com/RobHameetman/semantic-release-config/commit/b0a3eae77e9f68acf0ec033c06ad6df41f7c4807))
+
 ## [1.0.0-alpha.7](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.6...1.0.0-alpha.7) (2023-11-18)
 
 ## [1.0.0-alpha.6](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.5...1.0.0-alpha.6) (2023-11-17)
