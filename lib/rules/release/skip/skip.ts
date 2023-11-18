@@ -7,6 +7,7 @@ export const SKIP_RELEASE_RULES = [
 	/**
 	 * @example
 	 * "release(skip): Errata [PROJ-1234]"
+	 * "release(none): Errata [PROJ-1234]"
 	 */
 	{ type: 'release', scope: 'skip|none', release: false },
 	/**
@@ -28,8 +29,9 @@ export const SKIP_RELEASE_RULES = [
 	/**
 	 * @example
 	 * "infra: Add options to CI/CD pipeline [PROJ-1234]"
+	 * "ci: Add options to infra pipeline [PROJ-1234]"
 	 */
-	{ type: 'infra|ci', release: false },
+	{ type: '@(infra|ci)', release: false },
 	/**
 	 * @example
 	 * "chore: Add clarity to some of our inline documentation [PROJ-1234]"
