@@ -29,6 +29,12 @@ export const plugin = <
 	const hasOptions = isArray(config);
 	const name = hasOptions ? config[0] : config;
 
+	console.log('Branch.isSet():', Branch.isSet());
+	console.log('Branch.name:', Branch.active);
+	console.log('Branch.isRelease():', Branch.isRelease());
+	console.log('Branch.isPrerelease():', Branch.isPrerelease());
+	console.log('Branch.isPrPrerelease():', Branch.isPrPrerelease());
+
 	const changelogEnabled =
 		Branch.isSet()
 			? CHANGELOG_ENABLED && !Branch.isPrerelease()
