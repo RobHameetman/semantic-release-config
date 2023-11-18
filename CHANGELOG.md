@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.0.0-alpha.7](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.6...1.0.0-alpha.7) (2023-11-18)
+
 ## [1.0.0-alpha.6](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.5...1.0.0-alpha.6) (2023-11-17)
 
 
