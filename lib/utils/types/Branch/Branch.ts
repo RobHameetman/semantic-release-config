@@ -153,6 +153,8 @@ export class Branch {
 		if (!this.#init) {
 			this.#active = name || '';
 
+			console.log('CURRENT_BRANCH:', CURRENT_BRANCH);
+
 			let rules: ReadonlyArray<BranchObject> = [];
 
 			if (isArray(config)) {

@@ -31,6 +31,10 @@ export const plugin = <
 
 	console.log('Branch.isSet():', Branch.isSet());
 	console.log('Branch.name:', Branch.active);
+	console.log('Branch.matches:', Branch.matches);
+	console.log('Branch.release:', Branch.release);
+	console.log('Branch.prerelease:', Branch.prerelease);
+	console.log('Branch.rules:', Branch.rules);
 	console.log('Branch.isRelease():', Branch.isRelease());
 	console.log('Branch.isPrerelease():', Branch.isPrerelease());
 	console.log('Branch.isPrPrerelease():', Branch.isPrPrerelease());
