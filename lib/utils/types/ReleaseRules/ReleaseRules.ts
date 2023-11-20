@@ -1,5 +1,4 @@
 import { isArray, } from '@rob.hameetman/type-guards';
-import type { ReleaseRule } from 'conventional-commits-parser';
 import { ReleaseRule, isReleaseRule } from '@utils/types/ReleaseRule';
 
 /**
