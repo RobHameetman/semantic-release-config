@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.10](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.9...1.0.0-alpha.10) (2023-11-20)
+
+
+### Bug Fixes
+
+* Add more debug logging for Branch class ([e431b95](https://github.com/RobHameetman/semantic-release-config/commit/e431b950531fcd043427c59fcd50f420b52a07a6))
+
 ## [1.0.0-alpha.9](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.8...1.0.0-alpha.9) (2023-11-20)
 
 ## [1.0.0-alpha.8](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.7...1.0.0-alpha.8) (2023-11-18)
