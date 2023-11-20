@@ -1,4 +1,6 @@
-export const SKIP_RELEASE_RULES = [
+import { ReleaseRules } from '@utils/types/ReleaseRules';
+
+export const SKIP_RELEASE_RULES: ReleaseRules = [
 	/**
 	 * @example
 	 * "skip: Errata [PROJ-1234]"

@@ -9,6 +9,8 @@ export * from './PatchOf';
 export * from './PreidOf';
 export * from './PrereleaseOf';
 export * from './PrOf';
+export * from './ReleaseRule';
+export * from './ReleaseRules';
 export * from './TypeOf';
 export * from './Version';
 export * from './VersionMatch';

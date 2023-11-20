@@ -1,4 +1,6 @@
-export const PATCH_RELEASE_RULES = [
+import { ReleaseRules } from '@utils/types/ReleaseRules';
+
+export const PATCH_RELEASE_RULES: ReleaseRules = [
 	/**
 	 * Defaults
 	 */
