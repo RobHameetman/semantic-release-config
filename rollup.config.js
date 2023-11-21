@@ -94,7 +94,7 @@ const config = () => ({
 						pkgJson.module = './index.min.js';
 						pkgJson.typings = './index.d.ts';
 
-						pkgJson.release.extends = './recommended';
+						pkgJson.release.extends = './staged';
 
 						delete pkgJson.scripts
 						delete pkgJson.devDependencies;
