@@ -6,9 +6,9 @@
   "homepage": "https://www.npmjs.org/package/@rob.hameetman/semantic-release-config",
   "license": "MIT",
   "type": "commonjs",
-  "main": "dist/index.min.js",
-  "module": "dist/index.min.js",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/recommended.js",
+  "module": "./dist/index.min.js",
+  "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/RobHameetman/semantic-release-config.git"
@@ -28,7 +28,7 @@
     "e2e": "./scripts/e2e.sh",
     "format": "eslint ./src --ext=ts,tsx --fix",
     "prepare": "husky install",
-    "reset": "rm -rf node_modules/ && npm cache clear --force && npm ci --legacy-peer-deps",
+    "reset": "rm -rf ./node_modules/ && npm cache clear --force && npm ci --legacy-peer-deps",
     "setup": "sh scripts/setup.sh",
     "test": "NODE_ENV=test jest --maxWorkers=50%"
   },

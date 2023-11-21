@@ -1,4 +1,5 @@
 import {
+	BUILD_DIRECTORY,
 	CHANGELOG_ENABLED,
 	PLUGIN_PRESET,
 	PR_PRERELEASE_CHANNEL,
@@ -13,6 +14,7 @@ import {
 	env,
 	envOr,
 	getEnvBooleanOrValue,
+	isEnvDefined,
 	plugin,
 	releaseRules,
 	supportLatestMinorRelease,
@@ -44,9 +46,10 @@ module.exports = createConfig({
 			preset: PLUGIN_PRESET,
 		}]),
 		plugin(['@semantic-release/npm', {
-			pkgRoot: PUBLISH_FROM_DIST
-				? env('RELEASE_BUILD_DIRECTORY') || 'dist'
-				: '.',
+			// pkgRoot: PUBLISH_FROM_DIST
+			// 	? env('RELEASE_BUILD_DIRECTORY') || 'dist'
+			// 	: '.',
+			pkgRoot: '.',
 		}]),
 		plugin(['semantic-release-npm-deprecate', {
 			deprecations: [
@@ -58,7 +61,7 @@ module.exports = createConfig({
 		}]),
 		plugin(['@semantic-release/git', {
 			message: `${VERSION_COMMIT_TYPE}(\${nextRelease.version}): ${VERSION_COMMIT_MESSAGE} [${VERSION_COMMIT_MODIFIER}]\n\n\${nextRelease.notes}`,
-			assets: ['package.json', 'package-lock.json'].concat(CHANGELOG_ENABLED ? ['CHANGELOG.md'] : []),
+			assets: ['./package.json', './package-lock.json'].concat(CHANGELOG_ENABLED ? ['./CHANGELOG.md'] : []),
 		}]),
 		plugin(['@semantic-release/github', {
 			successComment: ':tada: This issue has been resolved in version ${nextRelease.version}.\n\nThe release is available [here](<github_release_url>)',
@@ -71,8 +74,14 @@ module.exports = createConfig({
 			execCwd: env('RELEASE_EXEC_CWD'),
 			failCmd: env('RELEASE_EXEC_FAIL_CMD'),
 			generateNotesCmd: env('RELEASE_EXEC_GENERATE_NOTES_CMD'),
-			prepareCmd: env('RELEASE_EXEC_PREPARE_CMD'),
-			publishCmd: env('RELEASE_EXEC_PUBLISH_CMD'),
+			prepareCmd:
+				PUBLISH_FROM_DIST && !env('RELEASE_EXEC_PREPARE_CMD', isEnvDefined)
+					? '[[ -f package.json ]] && npm pkg set version=${nextRelease.version} || true'
+					: env('RELEASE_EXEC_PREPARE_CMD'),
+			publishCmd:
+				PUBLISH_FROM_DIST && !env('RELEASE_EXEC_PUBLISH_CMD', isEnvDefined)
+					? `npm publish ${BUILD_DIRECTORY} --tag \${nextRelease.channel}`
+					: env('RELEASE_EXEC_PUBLISH_CMD'),
 			shell: env('RELEASE_EXEC_SHELL', getEnvBooleanOrValue),
 			successCmd: env('RELEASE_EXEC_SUCCESS_CMD'),
 			verifyConditionsCmd: env('RELEASE_EXEC_VERIFY_CONDITIONS_CMD'),

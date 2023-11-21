@@ -1,3 +1,4 @@
+export * from './BUILD_DIRECTORY';
 export * from './COMMIT_SHA';
 export * from './COMMIT_SHA_SHORT';
 export * from './CURRENT_BRANCH';
