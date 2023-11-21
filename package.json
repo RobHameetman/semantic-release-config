@@ -153,6 +153,6 @@
     }
   },
   "release": {
-    "extends": "./dist/staged"
+    "extends": "./dist/recommended"
   }
 }
