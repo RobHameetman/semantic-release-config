@@ -1,2 +1,6 @@
 #!/bin/sh
-npm run build
+
+# Bypass the hook in the CI/CD pipeline
+if [ -z "${CI}" ]; then
+	npm run build
+fi
