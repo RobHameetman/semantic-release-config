@@ -1,1 +1,3 @@
-export * from './staged';
+const config = require('./staged');
+
+module.exports = config;
