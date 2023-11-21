@@ -164,6 +164,12 @@ jobs:
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
         run: |
+          if [ -z "${{ inputs.dist }}/recommended.js" ]; then
+            echo "No configuration ${{ inputs.dist }}/recommended.js found."
+            exit 1
+          else
+            echo "Configuration ${{ inputs.dist }}/recommended.js found."
+          fi
           ls -lah
           ls -lah dist
 
