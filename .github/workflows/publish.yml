@@ -51,6 +51,7 @@ env:
   timeout-release: 10
   # Environment Variables
   CI: true
+  CI_COMMIT_BRANCH: ${{ github.ref_name }}
   CI_DEBUG: ${{ vars.CI_DEBUG }}
   CI_PR_NUMBER: ${{ github.event.pull_request.number }}
   CI_TIMEOUT_RELEASE: ${{ vars.CI_TIMEOUT_RELEASE }}

@@ -13,7 +13,7 @@ import { envOr } from '@utils/functions/environment/envOr';
  * @example
  * ```yaml
  * # .github/workflows/publish.yml file
- * CI_COMMIT_BRANCH=${{ github.ref }}
+ * CI_COMMIT_BRANCH=${{ github.ref_name }}
  * ```
  */
 export const CURRENT_BRANCH = env('CI_COMMIT_BRANCH', envOr([

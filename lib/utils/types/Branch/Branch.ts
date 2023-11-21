@@ -150,10 +150,12 @@ export class Branch {
 	 * @param name - [Optional] The name of the current branch.
 	 */
 	static set = (config: Options['branches'], name = CURRENT_BRANCH) => {
-		if (!this.#init) {
+		if (!name) {
+			console.warn(
+				'Branch.set(): Unable to find the current branch name. Try manually setting the CI_COMMIT_BRANCH environment variable in your CI/CD configuration.',
+			);
+		} else if (name && !this.#init) {
 			this.#active = name || '';
-
-			console.log('CURRENT_BRANCH:', CURRENT_BRANCH);
 
 			let rules: ReadonlyArray<BranchObject> = [];
 
