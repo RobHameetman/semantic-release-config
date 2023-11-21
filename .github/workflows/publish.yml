@@ -174,4 +174,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: |
+          pwd
+          npx semantic-release
