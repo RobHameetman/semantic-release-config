@@ -163,7 +163,9 @@ jobs:
         id: list
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
-        run: ls -lah
+        run: |
+          ls -lah
+          ls -lah dist
 
       - name: Publish
         id: publish
