@@ -159,6 +159,12 @@ jobs:
         if: fromJSON(env.__SKIP) != true
         run: git config --global --add safe.directory '*'
 
+      - name: List
+        id: list
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        run: ls -lah
+
       - name: Publish
         id: publish
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_RELEASE) }}

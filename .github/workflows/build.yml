@@ -85,12 +85,6 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm ci --legacy-peer-deps --ignore-scripts
 
-      - name: List
-        id: list
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
-        if: fromJSON(env.__SKIP) != true
-        run: ls -lah
-
       - name: Build
         id: build
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_BUILD) }}
