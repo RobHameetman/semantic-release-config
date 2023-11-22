@@ -1,6 +1,6 @@
 {
   "name": "@rob.hameetman/semantic-release-config",
-  "version": "1.0.0-alpha.17",
+  "version": "1.0.0-alpha.18",
   "description": "A package for centralized release management configuration.",
   "author": "Robert H. Hameetman (https://www.robhameetman.com/)",
   "homepage": "https://www.npmjs.org/package/@rob.hameetman/semantic-release-config",
