@@ -66,9 +66,9 @@ export const plugin = <
 			'@semantic-release/git': () => {
 				const { assets, message } = config.at(1);
 
-				if (!changelogEnabled && (assets as Array<string>)?.includes('CHANGELOG.md')) {
+				if (!changelogEnabled && (assets as Array<string>)?.includes('./CHANGELOG.md')) {
 					Object.assign(config[1], {
-						assets: (assets as Array<string>).filter((asset: string) => asset !== 'CHANGELOG.md'),
+						assets: (assets as Array<string>).filter((asset: string) => asset !== './CHANGELOG.md'),
 					});
 				}
 

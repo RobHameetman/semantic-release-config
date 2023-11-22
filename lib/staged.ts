@@ -67,7 +67,7 @@ module.exports = createConfig({
 			generateNotesCmd: env('RELEASE_EXEC_GENERATE_NOTES_CMD'),
 			prepareCmd:
 				PUBLISH_FROM_DIST && !env('RELEASE_EXEC_PREPARE_CMD', isEnvDefined)
-					? 'if [[ -f package.json ]]; then npm pkg set version=${nextRelease.version}; fi'
+					? 'npm pkg set version=${nextRelease.version}'
 					: env('RELEASE_EXEC_PREPARE_CMD'),
 			// publishCmd:
 			// 	PUBLISH_FROM_DIST && !env('RELEASE_EXEC_PUBLISH_CMD', isEnvDefined)
