@@ -18,7 +18,7 @@ describe('VERSION_COMMIT_MODIFIER', () => {
 
 	it('should be a valid skip modifier by default', () => {
 		expect(VERSION_COMMIT_MODIFIER).toStrictEqual(
-			expect.stringMatching(/^(?:RELEASE |CI |ACTION |VERSION )SKIP$|^SKIP(?: RELEASE| CI| ACTION| VERSION)$/i),
+			expect.stringMatching(/^(?:RELEASE |CI |ACTIONS |VERSION )SKIP$|^SKIP(?: RELEASE| CI| ACTIONS| VERSION)$/i),
 		);
 	});
 });

@@ -7,7 +7,7 @@ import { env } from '@utils/functions/environment/env';
  * override the default value with the `RELEASE_COMMIT_MODIFIER` environment
  * variable.
  *
- * @defaultValue - `'skip release'`
+ * @defaultValue - `'skip ci'`
  */
 export const VERSION_COMMIT_MODIFIER =
-	env('RELEASE_COMMIT_MODIFIER') || 'skip release';
+	env('RELEASE_COMMIT_MODIFIER') || 'skip ci';

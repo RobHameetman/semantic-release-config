@@ -35,6 +35,6 @@ describe('PR_PRERELEASE_PREID', () => {
 	it('should use the format "<PREID_TYPE>.<PR_NUMBER>.<COMMIT_SHA_SHORT>.<DATE_HASH>" by default', () => {
 		// expect(PR_PRERELEASE_PREID).toStrictEqual(expect.stringMatching(/^(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)\.\d+\.[0-9a-z]{8}\.\d{8}$/g));
 		expect(PR_PRERELEASE_PREID).toStrictEqual(expect.stringMatching(/^(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)\.\d+$/g));
-		expect(PR_PRERELEASE_PREID.startsWith('pr.42.')).toBe(true);
+		expect(PR_PRERELEASE_PREID.startsWith('pr.42')).toBe(true);
 	});
 });
