@@ -6,7 +6,7 @@
   "homepage": "https://www.npmjs.org/package/@rob.hameetman/semantic-release-config",
   "license": "MIT",
   "type": "commonjs",
-  "main": "./dist/recommended.js",
+  "main": "./dist/index.mind.js",
   "module": "./dist/index.min.js",
   "typings": "./dist/index.d.ts",
   "repository": {

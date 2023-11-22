@@ -90,7 +90,7 @@ const config = () => ({
 					transform: (content) => {
 						const pkgJson = JSON.parse(content.toString());
 
-						pkgJson.main = './recommended.js';
+						pkgJson.main = './index.min.js';
 						pkgJson.module = './index.min.js';
 						pkgJson.typings = './index.d.ts';
 
