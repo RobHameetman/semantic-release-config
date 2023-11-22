@@ -67,15 +67,15 @@ export const plugin = <
 				const { assets, message } = config.at(1);
 
 				if (!changelogEnabled && (assets as Array<string>)?.includes('CHANGELOG.md')) {
-					const updatedAssets = (assets as Array<string>).filter((asset: string) => asset !== 'CHANGELOG.md');
-
-					config[1] = { assets: updatedAssets, message };
+					Object.assign(config[1], {
+						assets: (assets as Array<string>).filter((asset: string) => asset.match(/^CHANGELOG(?:\.md)?$/i) !== null),
+					});
 				}
 
 				if (!releaseNotesEnabled && (message as string)?.includes('\n\n${nextRelease.notes}')) {
-					const updatedMessage = (message as string).replace('\n\n${nextRelease.notes}', '');
-
-					config[1] = { assets, message: updatedMessage };
+					Object.assign(config[1], {
+						message: (message as string).replace('\n\n${nextRelease.notes}', ''),
+					});
 				}
 			},
 		}[name] ?? (() => {}))();
