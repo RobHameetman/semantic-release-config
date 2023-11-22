@@ -21,7 +21,8 @@
 		"removeComments": true,
 		"resolveJsonModule": true,
 		"rootDir": "./lib",
-		"strict": true
+		"strict": true,
+		"target": "esnext"
   },
   "files": [
 		"./lib/canary.ts",

@@ -9,32 +9,26 @@ import { VersionMatch } from '@utils/types/VersionMatch';
  *
  * @typeParam `T` - A semantic version string literal type. This is inferred
  * from the `value` parameter passed to the constructor.
- *
- * @privateRemarks
- * This class is using `private` keywords in TypeScript rather than JavaScript
- * private identifiers because the latter requires the addition of "target":
- * "es2015" in the tsconfig.json file, which is causing an issue where
- * semantic-release is unable to recognize the standardized configs as modules.
  */
 export class Version<T extends string> {
 	/**
 	 * @private
 	 * The semantic version as a match array.
 	 */
-	private _parsed: VersionMatch<T> | null = null;
+	#parsed: VersionMatch<T> | null = null;
 
 	/**
 	 * @private
 	 * The semantic version as a string.
 	 */
-	private _value: T;
+	#value: T;
 
 	/**
 	 * The major version number. For example, if the version is `'1.2.4-alpha.8'`,
 	 * the major is `'1'`.
 	 */
 	get major() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.major);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.major);
 	}
 
 	/**
@@ -42,7 +36,7 @@ export class Version<T extends string> {
 	 * the minor is `'2'`.
 	 */
 	get minor() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.minor);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.minor);
 	}
 
 	/**
@@ -50,7 +44,7 @@ export class Version<T extends string> {
 	 * the patch is `'4'`.
 	 */
 	get patch() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.patch);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.patch);
 	}
 
 	/**
@@ -58,7 +52,7 @@ export class Version<T extends string> {
 	 * preid is `'alpha.8'`.
 	 */
 	get preid() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.preid);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.preid);
 	}
 
 	/**
@@ -66,7 +60,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-alpha.8'`, the prerelease preid type is `'alpha'`.
 	 */
 	get type() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.type);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.type);
 	}
 
 	/**
@@ -74,7 +68,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-pr.10.abcd1234.20131111.8'`, the PR is `'10'`.
 	 */
 	get pr() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.pr);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.pr);
 	}
 
 	/**
@@ -82,7 +76,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-pr.10.abcd1234.20131111.8'`, the commit sha is `'abcd1234'`.
 	 */
 	get commit() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.commit);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.commit);
 	}
 
 	/**
@@ -90,7 +84,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-pr.10.abcd1234.20131111.8'`, the date hash is `'20131111'`.
 	 */
 	get date() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.date);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.date);
 	}
 
 	/**
@@ -98,7 +92,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-alpha.8'`, the prerelease version number is `'8'`.
 	 */
 	get prerelease() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.prerelease);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.prerelease);
 	}
 
 	/**
@@ -109,7 +103,7 @@ export class Version<T extends string> {
 	 * so this will always be `undefined`.
 	 */
 	get build() {
-		return (this._parsed ?? []).at(VersionMatchGroupNames.build);
+		return (this.#parsed ?? []).at(VersionMatchGroupNames.build);
 	}
 
 	/**
@@ -124,9 +118,9 @@ export class Version<T extends string> {
 	 * @param value - The semantic version as a string (e.g. `'1.2.4-alpha.8'`).
 	 */
 	constructor(value: T) {
-		this._value = value;
+		this.#value = value;
 
-		this._parse();
+		this.#parse();
 	}
 
 	/**
@@ -174,7 +168,7 @@ export class Version<T extends string> {
 	 * @returns The {@link VersionMatch<T>} array for the semantic version or null
 	 * if the version is not valid.
 	 */
-	private _match(value = this._value) {
+	#match(value = this.#value) {
 		const result = value.match(SEMVER_REGEX);
 
 		return result === null
@@ -190,8 +184,8 @@ export class Version<T extends string> {
 	 * @param value - [Optional] The semantic version as a string. Defaults to
 	 * the value passed to the constructor.
 	 */
-	private _parse = (value = this._value) => {
-		this._parsed = this._match(value);
+	#parse = (value = this.#value) => {
+		this.#parsed = this.#match(value);
 	}
 }
 

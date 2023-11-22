@@ -10,19 +10,13 @@ import { env } from '@utils/functions/environment/env';
  * instantiated in the `branches()` function and may be used in the `plugin()`
  * function. This allows us to build features for specific release types, such as
  * bypassing the changelog for prerelease versions.
- *
- * @privateRemarks
- * This class is using `private` keywords in TypeScript rather than JavaScript
- * private identifiers because the latter requires the addition of "target":
- * "es2015" in the tsconfig.json file, which is causing an issue where
- * semantic-release is unable to recognize the standardized configs as modules.
  */
 export class Branch {
 	/**
 	 * @private
 	 * The name of the current branch triggering the release.
 	 */
-	private static _active = '';
+	static #active = '';
 
 	/**
 	 * @private
@@ -30,46 +24,46 @@ export class Branch {
 	 * the class. `set()` may only be called once, so this prevents our class from
 	 * being reinitialized.
 	 */
-	private static _init = false;
+	static #init = false;
 
 	/**
 	 * @private
 	 * An array of branch objects (usually just one) which match the current
 	 * ("active") branch.
 	 */
-	private static _matches: ReadonlyArray<BranchObject>;
+	static #matches: ReadonlyArray<BranchObject>;
 
 	/**
 	 * @private
 	 * An array of branch objects for release branches, like `main`.
 	 */
-	private static _release: ReadonlyArray<BranchObject>;
+	static #release: ReadonlyArray<BranchObject>;
 
 	/**
 	 * @private
 	 * An array of branch objects for prerelease branches, like `beta`.
 	 */
-	private static _prerelease: ReadonlyArray<BranchObject>;
+	static #prerelease: ReadonlyArray<BranchObject>;
 
 	/**
 	 * @private
 	 * The branch object for PR prerelease branches, which matches any branch
 	 * which is not an explicit release or prerelease or maintenance branch.
 	 */
-	private static _prPreReleaseRule: BranchObject | null = null;
+	static #prPreReleaseRule: BranchObject | null = null;
 
 	/**
 	 * @private
 	 * The entire set of branch object rules listed in the current configuration's
 	 * "branches" field.
 	 */
-	private static _rules: Options['branches'];
+	static #rules: Options['branches'];
 
 	/**
 	 * The name of the current branch triggering the release.
 	 */
 	static get active() {
-		return this._active;
+		return this.#active;
 	}
 
 	/**
@@ -77,14 +71,14 @@ export class Branch {
 	 * ("active") branch.
 	 */
 	static get matches() {
-		return this._matches;
+		return this.#matches;
 	}
 
 	/**
 	 * An array of branch objects for release branches, like `main`.
 	 */
 	static get release() {
-		return this._release;
+		return this.#release;
 	}
 
 	/**
@@ -92,14 +86,14 @@ export class Branch {
 	 * "branches" field.
 	 */
 	static get rules() {
-		return this._rules;
+		return this.#rules;
 	}
 
 	/**
 	 * An array of branch objects for prerelease branches, like `beta`.
 	 */
 	static get prerelease() {
-		return this._prerelease;
+		return this.#prerelease;
 	}
 
 	/**
@@ -110,7 +104,7 @@ export class Branch {
 	 * branch rule.
 	 */
 	static isRelease = () => {
-		return this._matches.find(this._isReleaseRule) !== undefined;
+		return this.#matches.find(this.#isReleaseRule) !== undefined;
 	}
 
 	/**
@@ -121,7 +115,7 @@ export class Branch {
 	 * prerelease branch rule.
 	 */
 	static isPrerelease = () => {
-		return this._matches.find(this._isPrereleaseRule) !== undefined ||
+		return this.#matches.find(this.#isPrereleaseRule) !== undefined ||
 			this.isPrPrerelease();
 	}
 
@@ -133,8 +127,8 @@ export class Branch {
 	 * prerelease branch rule.
 	 */
 	static isPrPrerelease = () => {
-		return this._prPreReleaseRule !== null &&
-			this._matches.find(this._isPrPrereleaseRule) !== undefined;
+		return this.#prPreReleaseRule !== null &&
+			this.#matches.find(this.#isPrPrereleaseRule) !== undefined;
 	}
 
 	/**
@@ -143,7 +137,7 @@ export class Branch {
 	 * @returns A boolean which is true if the class has been initialized.
 	 */
 	static isSet = () => {
-		return this._init;
+		return this.#init;
 	}
 
 	/**
@@ -160,8 +154,8 @@ export class Branch {
 			console.warn(
 				'Branch.set(): Unable to find the current branch name. Try manually setting the CI_COMMIT_BRANCH environment variable in your CI/CD configuration.',
 			);
-		} else if (name && !this._init) {
-			this._active = name || '';
+		} else if (name && !this.#init) {
+			this.#active = name || '';
 
 			let rules: ReadonlyArray<BranchObject> = [];
 
@@ -173,14 +167,14 @@ export class Branch {
 				rules = [config] as ReadonlyArray<BranchObject>;
 			}
 
-			this._rules = rules;
+			this.#rules = rules;
 
-			this._release = rules.filter(this._isReleaseRule);
-			this._prerelease = rules.filter(this._isPrereleaseRule);
-			this._matches = rules.filter(this._isMatch);
-			this._prPreReleaseRule = rules.find(this._isPrPrereleaseRule) || null;
+			this.#release = rules.filter(this.#isReleaseRule);
+			this.#prerelease = rules.filter(this.#isPrereleaseRule);
+			this.#matches = rules.filter(this.#isMatch);
+			this.#prPreReleaseRule = rules.find(this.#isPrPrereleaseRule) || null;
 
-			this._init = true;
+			this.#init = true;
 		}
 	}
 
@@ -189,15 +183,15 @@ export class Branch {
 	 * between tests.
 	 */
 	static destroy = () => {
-		if (this._init && env('NODE_ENV') === 'test') {
-			this._active = '';
-			this._rules = [];
-			this._release = [];
-			this._prerelease = [];
-			this._matches = [];
-			this._prPreReleaseRule = null;
+		if (this.#init && env('NODE_ENV') === 'test') {
+			this.#active = '';
+			this.#rules = [];
+			this.#release = [];
+			this.#prerelease = [];
+			this.#matches = [];
+			this.#prPreReleaseRule = null;
 
-			this._init = false;
+			this.#init = false;
 		}
 	}
 
@@ -213,8 +207,8 @@ export class Branch {
 	 * @returns A boolean which is true if the branch name matches any of the
 	 * given patterns.
 	 */
-	private static _isMatch = ({ name: pattern }: BranchObject) => {
-		return micromatch([this._active || ''], pattern, {}).includes(this._active || '');
+	static #isMatch = ({ name: pattern }: BranchObject) => {
+		return micromatch([this.#active || ''], pattern, {}).includes(this.#active || '');
 	}
 
 	/**
@@ -229,7 +223,7 @@ export class Branch {
 	 * @returns A boolean which is true if the current branch object represents a
 	 * release branch rule.
 	 */
-	private static _isReleaseRule = ({ prerelease }: BranchObject) => {
+	static #isReleaseRule = ({ prerelease }: BranchObject) => {
 		return prerelease === false || prerelease === undefined;
 	}
 
@@ -245,7 +239,7 @@ export class Branch {
 	 * @returns A boolean which is true if the current branch object represents a
 	 * prerelease branch rule.
 	 */
-	private static _isPrereleaseRule = ({ prerelease }: BranchObject) => {
+	static #isPrereleaseRule = ({ prerelease }: BranchObject) => {
 		return Boolean(prerelease);
 	}
 
@@ -261,7 +255,7 @@ export class Branch {
 	 * @returns A boolean which is true if the current branch object represents a
 	 * PR prerelease branch rule.
 	 */
-	private static _isPrPrereleaseRule = ({ name: pattern }: BranchObject) => {
+	static #isPrPrereleaseRule = ({ name: pattern }: BranchObject) => {
 		return /\@\(\!\((?:(?:.)*(?:\|)?)*\)\)/.test(pattern);
 	}
 }
