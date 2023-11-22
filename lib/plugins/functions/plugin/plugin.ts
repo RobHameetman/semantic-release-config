@@ -68,7 +68,7 @@ export const plugin = <
 
 				if (!changelogEnabled && (assets as Array<string>)?.includes('CHANGELOG.md')) {
 					Object.assign(config[1], {
-						assets: (assets as Array<string>).filter((asset: string) => asset.match(/^CHANGELOG(?:\.md)?$/i) !== null),
+						assets: (assets as Array<string>).filter((asset: string) => asset !== 'CHANGELOG.md'),
 					});
 				}
 
