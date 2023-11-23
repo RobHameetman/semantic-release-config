@@ -47,7 +47,7 @@ jobs:
   build:
     name: Build
     if: github.repository.archived != true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: node:20
     steps:
