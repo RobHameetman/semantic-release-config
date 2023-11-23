@@ -69,10 +69,6 @@ module.exports = createConfig({
 				PUBLISH_FROM_DIST && !env('RELEASE_EXEC_PREPARE_CMD', isEnvDefined)
 					? 'npm pkg set version=${nextRelease.version}'
 					: env('RELEASE_EXEC_PREPARE_CMD'),
-			// publishCmd:
-			// 	PUBLISH_FROM_DIST && !env('RELEASE_EXEC_PUBLISH_CMD', isEnvDefined)
-			// 		? `npm publish ${BUILD_DIRECTORY} --tag \${nextRelease.channel}`
-			// 		: env('RELEASE_EXEC_PUBLISH_CMD'),
 			publishCmd: env('RELEASE_EXEC_PUBLISH_CMD'),
 			shell: env('RELEASE_EXEC_SHELL', getEnvBooleanOrValue),
 			successCmd: env('RELEASE_EXEC_SUCCESS_CMD'),

@@ -38,6 +38,7 @@ env:
   timeout-setup: 10
   timeout-build: 60
   # Environment Variables
+  CI: true
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
   CI_TIMEOUT_BUILD: ${{ vars.CI_TIMEOUT_BUILD }}
   NODE_ENV: production
@@ -46,7 +47,7 @@ jobs:
   build:
     name: Build
     if: github.repository.archived != true
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     container:
       image: node:20
     steps:

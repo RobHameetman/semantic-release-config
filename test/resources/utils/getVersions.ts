@@ -22,7 +22,5 @@ export const getVersions = async (pkgName: string, range: string) => {
 	const versions = mostRecentVersions;
 	const filteredVersions = versions?.filter((version: string) => semver.satisfies(version, range));
 
-	console.log(filteredVersions);
-
 	return Promise.resolve(filteredVersions);
 };

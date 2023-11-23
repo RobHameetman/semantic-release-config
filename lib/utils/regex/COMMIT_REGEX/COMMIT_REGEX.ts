@@ -23,4 +23,4 @@
  * }
  * ```
  */
-export const COMMIT_REGEX = /^(?:(?<type>[^\(:]+)(?:\((?<scope>[^\)]+)\))?: )?(?<subject>.*)$/;
+export const COMMIT_REGEX = /^(?:(?<type>[^\(:]+)?(?:\((?<scope>[^\)]+)\))?: )?(?<subject>.*)$/;

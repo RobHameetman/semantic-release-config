@@ -1,6 +1,6 @@
 import { isString } from '@rob.hameetman/type-guards';
 import { isEnvDefined } from '@utils/functions/environment/isEnvDefined';
-import type { EnvValue } from '@utils/types/EnvValue';
+import type { EnvValue } from '@utils/types/misc/EnvValue';
 
 /**
  * Use the provided value of an environment variable or try an alternative.

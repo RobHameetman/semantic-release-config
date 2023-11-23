@@ -1,5 +1,5 @@
 import type { BranchObject } from 'semantic-release';
-import { Branch } from '@utils/types/Branch';
+import { Branch } from '@utils/types/state/Branch';
 
 /**
  * Perform any relevant actions upon receiving the branch objects from a

@@ -1,4 +1,4 @@
-import { ReleaseRules } from '@utils/types/ReleaseRules';
+import { ReleaseRules } from '@utils/types/misc/ReleaseRules';
 
 export const PATCH_RELEASE_RULES: ReleaseRules = [
 	/**

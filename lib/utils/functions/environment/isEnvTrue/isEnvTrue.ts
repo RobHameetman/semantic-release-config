@@ -1,4 +1,4 @@
-import type { EnvValue } from '@utils/types/EnvValue';
+import type { EnvValue } from '@utils/types/misc/EnvValue';
 
 /**
  * Determine if the value of an environment variable is true.

@@ -1,6 +1,7 @@
 import { isUndefined } from '@rob.hameetman/type-guards';
 import { env } from '@utils/functions/environment/env';
 import { envOr } from '@utils/functions/environment/envOr';
+import { getPrNumberForBranch } from '@utils/functions/misc/getPrNumberForBranch';
 
 const _prNumberFromEnv = env('CI_PR_NUMBER', envOr([
 	'CI_PULL_REQUEST',
@@ -13,6 +14,8 @@ const _prNumberFromEnv = env('CI_PR_NUMBER', envOr([
 	'CI_COMMIT_REF_NAME',
 	'GITHUB_REF',
 ])) || '').split('/').at(2);
+
+const _prNumberFromBranch = getPrNumberForBranch();
 
 /**
  * The PR number used in PR prerelease versions. This should be set by the CI
@@ -31,6 +34,6 @@ const _prNumberFromEnv = env('CI_PR_NUMBER', envOr([
  * CI_PR_NUMBER=${{ github.event.pull_request.number }}
  * ```
  */
-export const PR_NUMBER = !isUndefined(_prNumberFromEnv) && !isNaN(Number(_prNumberFromEnv))
-	? Number(_prNumberFromEnv)
+export const PR_NUMBER = !isUndefined(_prNumberFromBranch) && !isNaN(Number(_prNumberFromBranch))
+	? Number(_prNumberFromBranch)
 	: undefined;

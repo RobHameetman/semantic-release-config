@@ -3,7 +3,7 @@ import { isArray } from '@rob.hameetman/type-guards';
 import { CHANGELOG_ENABLED } from '@plugins/constants/CHANGELOG_ENABLED';
 import { SLACK_ENABLED } from '@plugins/constants/SLACK_ENABLED';
 import { streamlineConfig } from '@plugins/functions/streamlineConfig';
-import { Branch } from '@utils/types/Branch';
+import { Branch } from '@utils/types/state/Branch';
 
 /**
  * This function is used in standardized configs for each plugin configuration to
@@ -28,16 +28,6 @@ export const plugin = <
 	const config = streamlineConfig<T, U>(options);
 	const hasOptions = isArray(config);
 	const name = hasOptions ? config[0] : config;
-
-	console.log('Branch.isSet():', Branch.isSet());
-	console.log('Branch.name:', Branch.active);
-	console.log('Branch.matches:', Branch.matches);
-	console.log('Branch.release:', Branch.release);
-	console.log('Branch.prerelease:', Branch.prerelease);
-	console.log('Branch.rules:', Branch.rules);
-	console.log('Branch.isRelease():', Branch.isRelease());
-	console.log('Branch.isPrerelease():', Branch.isPrerelease());
-	console.log('Branch.isPrPrerelease():', Branch.isPrPrerelease());
 
 	const changelogEnabled =
 		Branch.isSet()

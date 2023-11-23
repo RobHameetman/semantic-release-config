@@ -1,4 +1,4 @@
-import type { EnvValue } from '@utils/types/EnvValue';
+import type { EnvValue } from '@utils/types/misc/EnvValue';
 
 /**
  * Get the value of an environment variable. This is the default callback used

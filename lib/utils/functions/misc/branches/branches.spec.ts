@@ -1,8 +1,8 @@
 import type { BranchObject } from 'semantic-release';
-import { Branch } from '@utils/types/Branch';
+import { Branch } from '@utils/types/state/Branch';
 import { branches } from './branches';
 
-jest.mock('@utils/types/Branch', () => ({
+jest.mock('@utils/types/state/Branch', () => ({
 	__esModule: true,
 	Branch: class {
 		static set = jest.fn();
