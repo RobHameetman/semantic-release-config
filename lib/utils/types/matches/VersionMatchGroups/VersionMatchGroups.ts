@@ -1,15 +1,15 @@
 import { isObject } from '@rob.hameetman/type-guards';
-import { VersionMatchGroupName } from '@utils/enums/VersionMatchGroupNames';
-import { BuildOfVersion, isBuildOfVersion } from '@utils/types/version/BuildOfVersion';
-import { MajorOfVersion, isMajorOfVersion } from '@utils/types/version/MajorOfVersion';
-import { MinorOfVersion, isMinorOfVersion } from '@utils/types/version/MinorOfVersion';
-import { PatchOfVersion, isPatchOfVersion } from '@utils/types/version/PatchOfVersion';
-import { PreidOfVersion, isPreidOfVersion } from '@utils/types/version/PreidOfVersion';
-import { TypeOfVersion, isTypeOfVersion } from '@utils/types/version/TypeOfVersion';
-import { PrOfVersion, isPrOfVersion } from '@utils/types/version/PrOfVersion';
-import { CommitOfVersion, isCommitOfVersion } from '@utils/types/version/CommitOfVersion';
-import { DateOfVersion, isDateOfVersion } from '@utils/types/version/DateOfVersion';
-import { PrereleaseOfVersion, isPrereleaseOfVersion } from '@utils/types/version/PrereleaseOfVersion';
+import { BuildOfVersion, isBuildOfVersion } from '../../version/BuildOfVersion';
+import { MajorOfVersion, isMajorOfVersion } from '../../version/MajorOfVersion';
+import { MinorOfVersion, isMinorOfVersion } from '../../version/MinorOfVersion';
+import { PatchOfVersion, isPatchOfVersion } from '../../version/PatchOfVersion';
+import { PreidOfVersion, isPreidOfVersion } from '../../version/PreidOfVersion';
+import { TypeOfVersion, isTypeOfVersion } from '../../version/TypeOfVersion';
+import { PrOfVersion, isPrOfVersion } from '../../version/PrOfVersion';
+import { CommitOfVersion, isCommitOfVersion } from '../../version/CommitOfVersion';
+import { DateOfVersion, isDateOfVersion } from '../../version/DateOfVersion';
+import { PrereleaseOfVersion, isPrereleaseOfVersion } from '../../version/PrereleaseOfVersion';
+import { VersionMatchGroupName } from '../../../enums/VersionMatchGroupNames';
 
 /**
  * A type alias used to avoid a break on line `33`.

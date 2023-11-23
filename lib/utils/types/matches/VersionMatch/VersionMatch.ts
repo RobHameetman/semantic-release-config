@@ -1,16 +1,16 @@
 import { isArray, isString } from '@rob.hameetman/type-guards';
-import { VersionMatchGroupNames } from '@utils/enums/VersionMatchGroupNames';
-import { BuildOfVersion, isBuildOfVersion } from '@utils/types/version/BuildOfVersion';
-import { CommitOfVersion, isCommitOfVersion } from '@utils/types/version/CommitOfVersion';
-import { DateOfVersion, isDateOfVersion } from '@utils/types/version/DateOfVersion';
-import { MajorOfVersion, isMajorOfVersion } from '@utils/types/version/MajorOfVersion';
-import { MinorOfVersion, isMinorOfVersion } from '@utils/types/version/MinorOfVersion';
-import { PatchOfVersion, isPatchOfVersion } from '@utils/types/version/PatchOfVersion';
-import { PreidOfVersion, isPreidOfVersion } from '@utils/types/version/PreidOfVersion';
-import { PrOfVersion, isPrOfVersion } from '@utils/types/version/PrOfVersion';
-import { TypeOfVersion, isTypeOfVersion } from '@utils/types/version/TypeOfVersion';
-import { PrereleaseOfVersion, isPrereleaseOfVersion } from '@utils/types/version/PrereleaseOfVersion';
-import { VersionMatchGroups, isVersionMatchGroups } from '@utils/types/matches/VersionMatchGroups';
+import { BuildOfVersion, isBuildOfVersion } from '../../version/BuildOfVersion';
+import { CommitOfVersion, isCommitOfVersion } from '../../version/CommitOfVersion';
+import { DateOfVersion, isDateOfVersion } from '../../version/DateOfVersion';
+import { MajorOfVersion, isMajorOfVersion } from '../../version/MajorOfVersion';
+import { MinorOfVersion, isMinorOfVersion } from '../../version/MinorOfVersion';
+import { PatchOfVersion, isPatchOfVersion } from '../../version/PatchOfVersion';
+import { PreidOfVersion, isPreidOfVersion } from '../../version/PreidOfVersion';
+import { PrOfVersion, isPrOfVersion } from '../../version/PrOfVersion';
+import { TypeOfVersion, isTypeOfVersion } from '../../version/TypeOfVersion';
+import { PrereleaseOfVersion, isPrereleaseOfVersion } from '../../version/PrereleaseOfVersion';
+import { VersionMatchGroups, isVersionMatchGroups } from '../../matches/VersionMatchGroups';
+import { VersionMatchGroupNames } from '../../../enums/VersionMatchGroupNames';
 
 /**
  * Represents a {@link RegExpMatch} array for a semantic version string.
