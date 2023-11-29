@@ -51,8 +51,12 @@ export const getPrNumberForBranch = async (
 ) => {
 	const exec = promisify(_exec);
 
+	console.log(`branch: ${branch}`);
+	console.log(`token: ${typeof token === 'string' && token.length > 0 ? '***' : 'undefined'}`);
+	console.log(`repo: ${repo}`);
+
 	const { stdout, stderr } = await exec(
-		`curl -H "Authorization: token ${token}" "https://api.github.com/repos/${repo}/pulls?state=open"`,
+		`curl -s -H "Authorization: token ${token}" "https://api.github.com/repos/${repo}/pulls?state=open"`,
 	);
 
 	if (stderr) {
