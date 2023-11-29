@@ -15,7 +15,11 @@ const _prNumberFromEnv = env('CI_PR_NUMBER', envOr([
 	'GITHUB_REF',
 ])) || '').split('/').at(2);
 
-const _prNumberFromBranch = getPrNumberForBranch();
+const _prNumberFromBranch = getPrNumberForBranch().catch((err) => {
+	console.error(err);
+
+	return undefined;
+});
 
 /**
  * The PR number used in PR prerelease versions. This should be set by the CI
