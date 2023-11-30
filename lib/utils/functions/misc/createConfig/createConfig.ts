@@ -8,7 +8,9 @@ import { isEnvTrue } from '@utils/functions/environment/isEnvTrue';
  * example in the inline documentation for the `createConfig()` function below
  * for more information.
  */
-interface PartialConfig extends Pick<Options, 'branches'> {
+interface PartialConfig {
+	readonly branches?: Promise<Options['branches']>;
+
 	/**
 	 * A list of plugins to use for the release. The type `Options['plugins']` is
 	 * not used here because a standardized configuration may provide a plugin
@@ -49,8 +51,9 @@ interface PartialConfig extends Pick<Options, 'branches'> {
  * @returns A full semantic-release configuration based on the provided partial
  * with default values added.
  */
-export const createConfig = (config: PartialConfig) => ({
+export const createConfig = async (config: PartialConfig) => ({
 	...config,
+	branches: await config.branches,
 	plugins: config.plugins?.filter(Boolean),
 	debug: env('RELEASE_DEBUG', isEnvTrue),
 	repositoryUrl: env('RELEASE_REPOSITORY_URL') || getRepositoryUrl(),

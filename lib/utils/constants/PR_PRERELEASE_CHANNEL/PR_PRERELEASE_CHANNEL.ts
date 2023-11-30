@@ -8,6 +8,6 @@ import { env } from '@utils/functions/environment/env';
  *
  * @defaultValue - `${PR_PRERELEASE_TYPE}-${PR_NUMBER}`
  */
-export const PR_PRERELEASE_CHANNEL =
+export const PR_PRERELEASE_CHANNEL = (async () =>
 	env('RELEASE_PR_PRERELEASE_CHANNEL') ||
-	`${PR_PRERELEASE_TYPE}-${PR_NUMBER}`;
+	`${PR_PRERELEASE_TYPE}-${await PR_NUMBER}`)();

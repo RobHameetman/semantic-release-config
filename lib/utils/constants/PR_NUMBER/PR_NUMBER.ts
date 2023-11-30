@@ -38,6 +38,7 @@ const _prNumberFromBranch = getPrNumberForBranch().catch((err) => {
  * CI_PR_NUMBER=${{ github.event.pull_request.number }}
  * ```
  */
-export const PR_NUMBER = !isUndefined(_prNumberFromBranch) && !isNaN(Number(_prNumberFromBranch))
-	? Number(_prNumberFromBranch)
-	: undefined;
+export const PR_NUMBER = (async () =>
+	!isUndefined(await _prNumberFromBranch) && !isNaN(Number(await _prNumberFromBranch))
+		? Number(await _prNumberFromBranch)
+		: undefined)();

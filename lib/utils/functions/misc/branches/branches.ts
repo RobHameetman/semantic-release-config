@@ -1,4 +1,5 @@
 import type { BranchObject } from 'semantic-release';
+import { Branches } from '@utils/types/branches/Branches';
 import { Branch } from '@utils/types/state/Branch';
 
 /**
@@ -23,8 +24,19 @@ import { Branch } from '@utils/types/state/Branch';
  * @returns The branch objects to be assigned to the `branches` property of a
  * standardized config.
  */
-export const branches = (branches: ReadonlyArray<BranchObject>) => {
-	Branch.set(branches);
+export const branches = async (branches: Branches) => {
+	await Promise.all(
+		branches.flatMap(
+			({ channel, prerelease }) => ([prerelease, channel]),
+		)
+	);
 
-	return branches;
+	const resolved = branches as ReadonlyArray<BranchObject>;
+
+	console.log(`branches()::channel: ${resolved?.at(-1)?.channel}`);
+	console.log(`branches()::resolved: ${resolved?.at(-1)?.prerelease}`);
+
+	Branch.set(resolved);
+
+	return resolved;
 };

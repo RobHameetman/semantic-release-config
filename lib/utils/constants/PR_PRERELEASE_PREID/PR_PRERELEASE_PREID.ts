@@ -10,6 +10,7 @@ import { env } from '@utils/functions/environment/env';
  *
  * @defaultValue - `${PR_PRERELEASE_TYPE}.${PR_NUMBER}.${COMMIT_SHA_SHORT}.${DATE_HASH}`
  */
-export const PR_PRERELEASE_PREID =
+export const PR_PRERELEASE_PREID = (async () =>
 	env('RELEASE_PR_PRERELEASE_PREID') ||
-	`${PR_PRERELEASE_TYPE}.${PR_NUMBER}.${COMMIT_SHA_SHORT}.${DATE_HASH}`;
+	`${PR_PRERELEASE_TYPE}.${await PR_NUMBER}.${COMMIT_SHA_SHORT}.${DATE_HASH}`
+)();
