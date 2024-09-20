@@ -122,7 +122,6 @@ directory:
 | `RELEASE_PLUGIN_PRESET`     | Change the preset used for plugins. Defaults to `conventionalcommits`.[^1]                |
 | `RELEASE_PUBLISH_FROM_DIST` | Set to `true` if your build pipeline copies `package.json` into your `dist` folder.       |
 | `RELEASE_DEBUG`             | Enable debug mode in `semantic-release`.                                                  |
-| `RELEASE_REPOSITORY_URL`    | Set the repo URL used by `semantic-release`. Defaults to your settings in `package.json`. |
 | `RELEASE_DRY_RUN`           | Perform a dry run of the release.                                                         |
 | `RELEASE_LOCALLY`           | Run `semantic-release` outside of your CI/CD pipeline.                                    |
 
