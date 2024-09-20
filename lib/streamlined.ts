@@ -26,7 +26,7 @@ import {
  * used for release candidates. `main`/`master` is the primary release branch
  * and should reflect the `latest` stable major release.
  */
-module.exports = createConfig({
+export default createConfig({
 	branches: branches([
 		{ name: '@(main|master)', prerelease: false, channel: 'latest' },
 		{ name: `[1-9]*([0-9]).X.X`, range: '${name.split(".")[0]}.x.x', prerelease: false, channel: '${name.split(".")[0]}' },

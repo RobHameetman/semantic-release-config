@@ -1,4 +1,6 @@
-import { env } from '@utils/functions/environment/env';
+import { env } from '@/utils/functions/environment/env';
+
+export const DEFAULT_VERSION_COMMIT_TYPE = 'version';
 
 /**
  * The default commit type for the version update commit. This is the
@@ -7,4 +9,5 @@ import { env } from '@utils/functions/environment/env';
  *
  * @defaultValue - `'version'`
  */
-export const VERSION_COMMIT_TYPE = env('RELEASE_COMMIT_TYPE') || 'version';
+export const VERSION_COMMIT_TYPE =
+	env('RELEASE_COMMIT_TYPE') || DEFAULT_VERSION_COMMIT_TYPE;

@@ -1,6 +1,6 @@
 import { isString } from '@rob.hameetman/type-guards';
-import { VersionMatchGroupNames } from '@utils/enums/VersionMatchGroupNames';
-import { SEMVER_REGEX } from '@utils/regex/SEMVER_REGEX';
+import { VersionMatchGroup } from '@/utils/enums/VersionMatchGroup';
+import { SEMVER_REGEX } from '@/utils/regex/SEMVER_REGEX';
 
 /**
  * Infer the major version number of a semantic version string for a PR
@@ -112,5 +112,5 @@ export const isMajorOfVersion = <T extends string>(
 	isString(value) &&
 	!isNaN(Number(value)) &&
 	(version
-		? value === (version.match(SEMVER_REGEX) ?? []).at(VersionMatchGroupNames.major)
+		? value === (version.match(SEMVER_REGEX) ?? []).at(VersionMatchGroup.major)
 		: true);

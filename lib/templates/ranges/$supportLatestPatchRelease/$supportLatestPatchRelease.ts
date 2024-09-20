@@ -1,8 +1,8 @@
-import { $ifPatchRelease } from '@templates/conditional/$ifPatchRelease';
-import { major } from '@templates/versions/major/major';
-import { minor } from '@templates/versions/minor/minor';
-import { patch } from '@templates/versions/patch/patch';
-import { patchBack } from '@templates/versions/patch/patchBack';
+import { $ifPatchRelease } from '@/templates/conditional/$ifPatchRelease';
+import { major } from '@/templates/versions/major/major';
+import { minor } from '@/templates/versions/minor/minor';
+import { patch } from '@/templates/versions/patch/patch';
+import { patchBack } from '@/templates/versions/patch/patchBack';
 
 /**
  * Deprecate the previous patch versions for the current minor version if the

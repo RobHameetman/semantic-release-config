@@ -1,5 +1,5 @@
-import { DATE } from '@utils/constants/DATE';
-import { DATE_HASH } from '@utils/constants/DATE_HASH';
+import { DATE } from '@/utils/constants/DATE';
+import { DATE_HASH } from '@/utils/constants/DATE_HASH';
 
 /**
  * A datetime hash used in specific prerelease types, like PR prereleases. This

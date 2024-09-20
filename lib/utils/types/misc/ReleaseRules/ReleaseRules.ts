@@ -1,5 +1,5 @@
 import { isArray, } from '@rob.hameetman/type-guards';
-import { ReleaseRule, isReleaseRule } from '@utils/types/misc/ReleaseRule';
+import { ReleaseRule, isReleaseRule } from '@/utils/types/misc/ReleaseRule';
 
 /**
  * Represents a value of an environment variable.

@@ -1,24 +1,51 @@
-import { isString } from '@rob.hameetman/type-guards';
-import { env } from '@utils/functions/environment/env';
-import { VERSION_COMMIT_MODIFIER } from './VERSION_COMMIT_MODIFIER';
-
-jest.mock('@utils/functions/environment/env', () => ({
-	__esModule: true,
-	env: jest.fn(() => {}),
-}));
+import { mockEnv } from '@@/utils/mockEnv';
 
 describe('VERSION_COMMIT_MODIFIER', () => {
-	it('should be a string', () => {
-		expect(isString(VERSION_COMMIT_MODIFIER)).toBe(true);
+	let processEnv: NodeJS.ProcessEnv | null = null;
+	let RELEASE_COMMIT_MODIFIER: string | null = null;
+	let DEFAULT_VERSION_COMMIT_MODIFIER: unknown = null;
+	let VERSION_COMMIT_MODIFIER: unknown = null;
+
+	beforeAll(() => {
+		processEnv = process.env;
+
+		RELEASE_COMMIT_MODIFIER = 'skip test';
+
+		mockEnv('RELEASE_COMMIT_MODIFIER')
+			.mockReturnValueOnce(RELEASE_COMMIT_MODIFIER)
+			.mockReturnValueOnce(RELEASE_COMMIT_MODIFIER)
+			.mockReturnValue(undefined);
 	});
 
-	it('should first check for a generic environment variable', () => {
-		expect(env).toBeCalledWith('RELEASE_COMMIT_MODIFIER');
+	beforeEach(async () => {
+		({ DEFAULT_VERSION_COMMIT_MODIFIER, VERSION_COMMIT_MODIFIER } = await import('./VERSION_COMMIT_MODIFIER'));
 	});
 
-	it('should be a valid skip modifier by default', () => {
-		expect(VERSION_COMMIT_MODIFIER).toStrictEqual(
-			expect.stringMatching(/^(?:RELEASE |CI |ACTIONS |VERSION )SKIP$|^SKIP(?: RELEASE| CI| ACTIONS| VERSION)$/i),
-		);
+	afterEach(() => {
+		jest.resetModules();
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+
+		process.env = processEnv as NodeJS.ProcessEnv;
+		processEnv = null;
+
+		RELEASE_COMMIT_MODIFIER = null;
+		DEFAULT_VERSION_COMMIT_MODIFIER = null;
+		VERSION_COMMIT_MODIFIER = null;
+	});
+
+	it('should be a string or undefined', () => {
+		expect(typeof VERSION_COMMIT_MODIFIER).toStrictEqual(expect.stringMatching(/string|undefined/));
+	});
+
+	it('should be defined when the "RELEASE_COMMIT_MODIFIER" environment variable is provided', () => {
+		expect(VERSION_COMMIT_MODIFIER).toBe(RELEASE_COMMIT_MODIFIER);
+	});
+
+	it(`should be "skip ci" by default when the "RELEASE_COMMIT_MODIFIER" environment variable is not provided`, () => {
+		expect(VERSION_COMMIT_MODIFIER).toBe(DEFAULT_VERSION_COMMIT_MODIFIER);
 	});
 });

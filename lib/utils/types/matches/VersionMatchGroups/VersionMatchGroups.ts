@@ -1,25 +1,25 @@
 import { isObject } from '@rob.hameetman/type-guards';
-import { VersionMatchGroupName } from '@utils/enums/VersionMatchGroupNames';
-import { BuildOfVersion, isBuildOfVersion } from '@utils/types/semver/BuildOfVersion';
-import { MajorOfVersion, isMajorOfVersion } from '@utils/types/semver/MajorOfVersion';
-import { MinorOfVersion, isMinorOfVersion } from '@utils/types/semver/MinorOfVersion';
-import { PatchOfVersion, isPatchOfVersion } from '@utils/types/semver/PatchOfVersion';
-import { PreidOfVersion, isPreidOfVersion } from '@utils/types/semver/PreidOfVersion';
-import { TypeOfVersion, isTypeOfVersion } from '@utils/types/semver/TypeOfVersion';
-import { PrOfVersion, isPrOfVersion } from '@utils/types/semver/PrOfVersion';
-import { CommitOfVersion, isCommitOfVersion } from '@utils/types/semver/CommitOfVersion';
-import { DateOfVersion, isDateOfVersion } from '@utils/types/semver/DateOfVersion';
-import { PrereleaseOfVersion, isPrereleaseOfVersion } from '@utils/types/semver/PrereleaseOfVersion';
+import { VersionMatchGroup } from '@/utils/enums/VersionMatchGroup';
+import { BuildOfVersion, isBuildOfVersion } from '@/utils/types/semver/BuildOfVersion';
+import { MajorOfVersion, isMajorOfVersion } from '@/utils/types/semver/MajorOfVersion';
+import { MinorOfVersion, isMinorOfVersion } from '@/utils/types/semver/MinorOfVersion';
+import { PatchOfVersion, isPatchOfVersion } from '@/utils/types/semver/PatchOfVersion';
+import { PreidOfVersion, isPreidOfVersion } from '@/utils/types/semver/PreidOfVersion';
+import { TypeOfVersion, isTypeOfVersion } from '@/utils/types/semver/TypeOfVersion';
+import { PrOfVersion, isPrOfVersion } from '@/utils/types/semver/PrOfVersion';
+import { CommitOfVersion, isCommitOfVersion } from '@/utils/types/semver/CommitOfVersion';
+import { DateOfVersion, isDateOfVersion } from '@/utils/types/semver/DateOfVersion';
+import { PrereleaseOfVersion, isPrereleaseOfVersion } from '@/utils/types/semver/PrereleaseOfVersion';
 
 /**
  * A type alias used to avoid a break on line `33`.
  */
-type Groups = Readonly<Record<VersionMatchGroupName, unknown>>;
+type Groups = Readonly<Record<VersionMatchGroup, unknown>>;
 
 /**
  * A semantic versioning match by capturing group in key/value pairs. This is
  * the type used by `VersionMatch['groups']`. This interface extends a `Record`
- * with {@link VersionMatchGroupName} strings as keys and `string | undefined`
+ * with {@link VersionMatchGroup} strings as keys and `string | undefined`
  * values and defines specific types for each key.
  *
  * @example

@@ -1,5 +1,5 @@
 import { isUndefined } from '@rob.hameetman/type-guards';
-import type { EnvValue } from '@utils/types/misc/EnvValue';
+import type { EnvValue } from '@/utils/types/misc/EnvValue';
 
 /**
  * Determine if the value of an environment variable is defined.

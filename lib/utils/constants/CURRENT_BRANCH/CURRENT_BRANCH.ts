@@ -1,5 +1,5 @@
-import { env } from '@utils/functions/environment/env';
-import { envOr } from '@utils/functions/environment/envOr';
+import { env } from '@/utils/functions/environment/env';
+import { envOr } from '@/utils/functions/environment/envOr';
 
 /**
  * The current branch on which the commit that triggered the release was made.

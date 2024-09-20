@@ -33,7 +33,7 @@ const PRERELEASE_TYPE = `${env('RELEASE_CANARY_TYPE') || 'canary'}-${COMMIT_SHA_
  * `RELEASE_CANARY_CHANNEL` environment variable.`main`/`master` is the primary
  * release branch and should reflect the `latest` stable major release.
  */
-module.exports = createConfig({
+export default createConfig({
 	branches: branches([
 		{ name: '@(latest|lts|stable)', prerelease: false, channel: 'latest' },
 		{ name: '@(main|master)', prerelease: PRERELEASE_TYPE, channel: CHANNEL_NAME },

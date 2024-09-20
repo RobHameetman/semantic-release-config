@@ -1,18 +1,51 @@
-import { isString, isUndefined } from '@rob.hameetman/type-guards';
-import { env } from '@utils/functions/environment/env';
-import { BUILD_DIRECTORY } from './BUILD_DIRECTORY';
-
-jest.mock('@utils/functions/environment/env', () => ({
-	__esModule: true,
-	env: jest.fn(jest.requireActual('@utils/functions/environment/env').env),
-}));
+import { mockEnv } from '@@/utils/mockEnv';
 
 describe('BUILD_DIRECTORY', () => {
-	it('should be a string or undefined', () => {
-		expect(isString(BUILD_DIRECTORY) || isUndefined(BUILD_DIRECTORY)).toBe(true);
+	let processEnv: NodeJS.ProcessEnv | null = null;
+	let RELEASE_BUILD_DIRECTORY: string | null = null;
+	let DEFAULT_BUILD_DIRECTORY: unknown = null;
+	let BUILD_DIRECTORY: unknown = null;
+
+	beforeAll(() => {
+		processEnv = process.env;
+
+		RELEASE_BUILD_DIRECTORY = 'test';
+
+		mockEnv('RELEASE_BUILD_DIRECTORY')
+			.mockReturnValueOnce(RELEASE_BUILD_DIRECTORY)
+			.mockReturnValueOnce(RELEASE_BUILD_DIRECTORY)
+			.mockReturnValue(undefined);
 	});
 
-	it('should first check for a generic environment variable', () => {
-		expect(env).toBeCalledWith('RELEASE_BUILD_DIRECTORY');
+	beforeEach(async () => {
+		({ DEFAULT_BUILD_DIRECTORY, BUILD_DIRECTORY } = await import('./BUILD_DIRECTORY'));
+	});
+
+	afterEach(() => {
+		jest.resetModules();
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+
+		process.env = processEnv as NodeJS.ProcessEnv;
+		processEnv = null;
+
+		RELEASE_BUILD_DIRECTORY = null;
+		DEFAULT_BUILD_DIRECTORY = null;
+		BUILD_DIRECTORY = null;
+	});
+
+	it('should be a string or undefined', () => {
+		expect(typeof BUILD_DIRECTORY).toStrictEqual(expect.stringMatching(/string|undefined/));
+	});
+
+	it('should be defined when the "RELEASE_BUILD_DIRECTORY" environment variable is provided', () => {
+		expect(BUILD_DIRECTORY).toBe(RELEASE_BUILD_DIRECTORY);
+	});
+
+	it(`should be "dist" by default when the "RELEASE_BUILD_DIRECTORY" environment variable is not provided`, () => {
+		expect(BUILD_DIRECTORY).toBe(DEFAULT_BUILD_DIRECTORY);
 	});
 });

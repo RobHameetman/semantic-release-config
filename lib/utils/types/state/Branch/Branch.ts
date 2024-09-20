@@ -1,8 +1,8 @@
 import { BranchObject, Options } from 'semantic-release';
 import micromatch from 'micromatch';
 import { isArray, isString } from '@rob.hameetman/type-guards';
-import { CURRENT_BRANCH } from '@utils/constants/CURRENT_BRANCH';
-import { env } from '@utils/functions/environment/env';
+import { CURRENT_BRANCH } from '@/utils/constants/CURRENT_BRANCH';
+import { env } from '@/utils/functions/environment/env';
 
 /**
  * A class with static properties and methods used as an accessible state

@@ -1,8 +1,8 @@
 import { isArray } from '@rob.hameetman/type-guards';
-import { $ifRelease } from '@templates/conditional/$ifRelease';
-import { major } from '@templates/versions/major/major';
-import { minor } from '@templates/versions/minor/minor';
-import { patch } from '@templates/versions/patch/patch';
+import { $ifRelease } from '@/templates/conditional/$ifRelease';
+import { major } from '@/templates/versions/major/major';
+import { minor } from '@/templates/versions/minor/minor';
+import { patch } from '@/templates/versions/patch/patch';
 
 /**
  * This range is used to deprecate any prerelease versions for the current

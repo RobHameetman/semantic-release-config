@@ -1,5 +1,5 @@
-import { minor } from '@templates/versions/minor/minor';
-import { back } from '@templates/versions/misc/back/back';
+import { minor } from '@/templates/versions/minor/minor';
+import { back } from '@/templates/versions/misc/back/back';
 
 /**
  * Retrieve a previous minor version number from the release context.

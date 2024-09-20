@@ -1,9 +1,10 @@
 import type { BranchObject } from 'semantic-release';
 import { isArray, isObject, isString } from '@rob.hameetman/type-guards';
-import { PrBranchRule, isPrBranchRule } from '@utils/types/branches/PrBranchRule';
+import { PrBranchRule, isPrBranchRule } from '@/utils/types/branches/PrBranchRule';
 
 /**
- * Represents a value of an environment variable.
+ * Represents an array of branch objects with an optional PR branch rule at the
+ * end.
  */
 export type Branches =
 	| readonly [...ReadonlyArray<BranchObject>, PrBranchRule]

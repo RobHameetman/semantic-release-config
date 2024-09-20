@@ -10,7 +10,6 @@ env:
   # General Options
   name: semantic-release-config
   node: '20'
-  debug: false
   # Skip
   skip-tests: false
   # Timeouts (in minutes)

@@ -1,5 +1,5 @@
-import { isEnvDefined } from '@utils/functions/environment/isEnvDefined';
-import type { EnvValue } from '@utils/types/misc/EnvValue';
+import { isEnvDefined } from '@/utils/functions/environment/isEnvDefined';
+import type { EnvValue } from '@/utils/types/misc/EnvValue';
 
 /**
  * Determine if the value of an environment variable is defined or if the value

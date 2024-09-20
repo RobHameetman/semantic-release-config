@@ -1,4 +1,4 @@
-import { commitWithReleaseRules } from '@test/utils/commitWithReleaseRules';
+import { commitWithReleaseRules } from '@@/utils/commitWithReleaseRules';
 import { SKIP_RELEASE_RULES } from './skip';
 
 const commit = commitWithReleaseRules(SKIP_RELEASE_RULES);

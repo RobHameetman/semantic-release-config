@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import type { Mutable } from '@utils/types/misc/Mutable';
+import type { Mutable } from '@/utils/types/misc/Mutable';
 import { PrBranchRule } from '../PrBranchRule';
 
 export const fakePrBranchRule = ({

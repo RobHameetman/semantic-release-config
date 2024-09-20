@@ -1,9 +1,9 @@
 import type { PluginSpec } from 'semantic-release';
 import { isArray } from '@rob.hameetman/type-guards';
-import { CHANGELOG_ENABLED } from '@plugins/constants/CHANGELOG_ENABLED';
-import { SLACK_ENABLED } from '@plugins/constants/SLACK_ENABLED';
-import { streamlineConfig } from '@plugins/functions/streamlineConfig';
-import { Branch } from '@utils/types/state/Branch';
+import { CHANGELOG_ENABLED } from '@/plugins/constants/CHANGELOG_ENABLED';
+import { SLACK_ENABLED } from '@/plugins/constants/SLACK_ENABLED';
+import { streamlineConfig } from '@/plugins/functions/streamlineConfig';
+import { Branch } from '@/utils/types/state/Branch';
 
 /**
  * This function is used in standardized configs for each plugin configuration to
@@ -27,7 +27,7 @@ export const plugin = <
 >(options: U) => {
 	const config = streamlineConfig<T, U>(options);
 	const hasOptions = isArray(config);
-	const name = hasOptions ? config[0] : config;
+	const name = hasOptions ? config.at(0) as string : config;
 
 	const changelogEnabled =
 		Branch.isSet()

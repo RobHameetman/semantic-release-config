@@ -1,18 +1,18 @@
 import { isObject } from '@rob.hameetman/type-guards';
-import { CommitMatchGroupName } from '@utils/enums/CommitMatchGroupNames';
-import { ScopeOfCommit, isScopeOfCommit } from '@utils/types/commit/ScopeOfCommit';
-import { SubjectOfCommit, isSubjectOfCommit } from '@utils/types/commit/SubjectOfCommit';
-import { TypeOfCommit, isTypeOfCommit } from '@utils/types/commit/TypeOfCommit';
+import { CommitMatchGroup } from '@/utils/enums/CommitMatchGroup';
+import { ScopeOfCommit, isScopeOfCommit } from '@/utils/types/commit/ScopeOfCommit';
+import { SubjectOfCommit, isSubjectOfCommit } from '@/utils/types/commit/SubjectOfCommit';
+import { TypeOfCommit, isTypeOfCommit } from '@/utils/types/commit/TypeOfCommit';
 
 /**
  * A type alias used to avoid a break on line `29`.
  */
-type Groups = Readonly<Record<CommitMatchGroupName, unknown>>;
+type Groups = Readonly<Record<CommitMatchGroup, unknown>>;
 
 /**
  * A conventional commit message by capturing group in key/value pairs. This is
  * the type used by `CommitMatch['groups']`. This interface extends a `Record`
- * with {@link CommitMatchGroupName} strings as keys and `string | undefined`
+ * with {@link CommitMatchGroup} strings as keys and `string | undefined`
  * values and defines specific types for each key.
  *
  * @example

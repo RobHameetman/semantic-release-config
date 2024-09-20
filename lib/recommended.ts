@@ -1,1 +1,1 @@
-export * from './staged';
+export { default } from './staged';

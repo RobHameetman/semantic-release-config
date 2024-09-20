@@ -1,6 +1,6 @@
 import { isNonEmptyString, isUndefined } from '@rob.hameetman/type-guards';
-import { VersionMatchGroupNames } from '@utils/enums/VersionMatchGroupNames';
-import { SEMVER_REGEX } from '@utils/regex/SEMVER_REGEX';
+import { VersionMatchGroup } from '@/utils/enums/VersionMatchGroup';
+import { SEMVER_REGEX } from '@/utils/regex/SEMVER_REGEX';
 
 /**
  * Infer the build metadata of a semantic version string for a PR prerelease
@@ -75,5 +75,5 @@ export const isBuildOfVersion = <T extends string>(
 	 */
 	(isNonEmptyString(value) || isUndefined(value)) &&
 	(version
-		? value === (version.match(SEMVER_REGEX) ?? []).at(VersionMatchGroupNames.build)
+		? value === (version.match(SEMVER_REGEX) ?? []).at(VersionMatchGroup.build)
 		: true);

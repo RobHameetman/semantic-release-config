@@ -1,4 +1,4 @@
-import { vparse } from '@templates/versions/misc/vparse';
+import { vparse } from '@/templates/versions/misc/vparse';
 
 /**
  * Retrieve the patch version number from the release context.

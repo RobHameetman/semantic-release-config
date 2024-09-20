@@ -1,4 +1,6 @@
-import { env } from '@utils/functions/environment/env';
+import { env } from '@/utils/functions/environment/env';
+
+export const DEFAULT_VERSION_COMMIT_MODIFIER = 'skip ci';
 
 /**
  * The default message modifier for the version update commit. This is the
@@ -10,4 +12,4 @@ import { env } from '@utils/functions/environment/env';
  * @defaultValue - `'skip ci'`
  */
 export const VERSION_COMMIT_MODIFIER =
-	env('RELEASE_COMMIT_MODIFIER') || 'skip ci';
+	env('RELEASE_COMMIT_MODIFIER') || DEFAULT_VERSION_COMMIT_MODIFIER;

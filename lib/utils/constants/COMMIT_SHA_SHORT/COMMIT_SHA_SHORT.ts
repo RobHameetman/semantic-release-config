@@ -1,6 +1,6 @@
-import { COMMIT_SHA } from '@utils/constants/COMMIT_SHA';
-import { env } from '@utils/functions/environment/env';
-import { envOr } from '@utils/functions/environment/envOr';
+import { COMMIT_SHA } from '@/utils/constants/COMMIT_SHA';
+import { env } from '@/utils/functions/environment/env';
+import { envOr } from '@/utils/functions/environment/envOr';
 
 /**
  * The short (8 characters) commit sha for the commit which triggered the

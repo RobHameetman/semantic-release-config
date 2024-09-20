@@ -27,7 +27,7 @@ const EXPERIMENTAL_PRERELEASE_TYPE = `experimental-${COMMIT_SHA_SHORT}-${DATE_HA
  * canary channel tracks the main branch of the code repository. Experimental
  * versions are always 0.0.0 whereas canary versions are the current version.
  */
-module.exports = createConfig({
+export default createConfig({
 	branches: branches([
 		{ name: '[1-9]*([0-9]).+([0-9]).+([0-9])', prerelease: false, channel: 'latest' },
 		{ name: '@(main|master)', prerelease: CANARY_PRERELEASE_TYPE, channel: 'canary' },

@@ -1,37 +1,74 @@
-import { isString, isUndefined } from '@rob.hameetman/type-guards';
-import { env } from '@utils/functions/environment/env';
-import { envOr } from '@utils/functions/environment/envOr';
-import { COMMIT_SHA_SHORT } from './COMMIT_SHA_SHORT';
-
-jest.mock('@utils/constants/COMMIT_SHA', () => ({
-	__esModule: true,
-	COMMIT_SHA: '3c274fc187e032ab384ac559377d8e86f3c8fc43',
-}));
-
-jest.mock('@utils/functions/environment/env', () => ({
-	__esModule: true,
-	env: jest.fn(jest.requireActual('@utils/functions/environment/env').env),
-}));
-
-jest.mock('@utils/functions/environment/envOr', () => ({
-	__esModule: true,
-	envOr: jest.fn(jest.requireActual('@utils/functions/environment/envOr').envOr),
-}));
+import { faker } from '@faker-js/faker';
+import { mockEnv } from '@@/utils/mockEnv';
 
 describe('COMMIT_SHA_SHORT', () => {
+	let processEnv: NodeJS.ProcessEnv | null = null;
+	let CI_SHA: string | null = null;
+	let CI_SHA_SHORT: string | null = null;
+	let CI_COMMIT_SHORT_SHA: string | null = null;
+	let COMMIT_SHA_SHORT: unknown = null;
+
+	beforeAll(() => {
+		processEnv = process.env;
+
+		CI_SHA = faker.git.commitSha();
+		CI_SHA_SHORT = faker.git.commitSha().slice(0, 7);
+		CI_COMMIT_SHORT_SHA = faker.git.commitSha().slice(0, 7);
+
+		mockEnv('CI_SHA_SHORT')
+			.mockReturnValueOnce(CI_SHA_SHORT)
+			.mockReturnValueOnce(CI_SHA_SHORT)
+			.mockReturnValue(undefined);
+
+		mockEnv('CI_COMMIT_SHORT_SHA')
+			.mockReturnValueOnce(CI_COMMIT_SHORT_SHA)
+			.mockReturnValue(undefined);
+
+		mockEnv('CI_SHA')
+			.mockReturnValueOnce(CI_SHA)
+			.mockReturnValueOnce(CI_SHA)
+			.mockReturnValueOnce(CI_SHA)
+			.mockReturnValueOnce(CI_SHA)
+			.mockReturnValue(undefined);
+	});
+
+	beforeEach(async () => {
+		({ COMMIT_SHA_SHORT } = await import('./COMMIT_SHA_SHORT'));
+	});
+
+	afterEach(() => {
+		jest.resetModules();
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+
+		process.env = processEnv as NodeJS.ProcessEnv;
+		processEnv = null;
+
+		CI_SHA = null;
+		CI_COMMIT_SHORT_SHA = null;
+		COMMIT_SHA_SHORT = null;
+	});
+
 	it('should be a string or undefined', () => {
-		expect(isString(COMMIT_SHA_SHORT) || isUndefined(COMMIT_SHA_SHORT)).toBe(true);
+		expect(typeof COMMIT_SHA_SHORT).toStrictEqual(expect.stringMatching(/string|undefined/));
 	});
 
-	it('should first check for a generic environment variable', () => {
-		expect(env).toBeCalledWith('CI_SHA_SHORT', expect.any(Function));
+	it('should be defined when the "CI_SHA_SHORT" environment variable is provided', () => {
+		expect(COMMIT_SHA_SHORT).toBe(CI_SHA_SHORT);
 	});
 
-	it('should check for specific alternatives when a generic environment variable is not defined', () => {
-		expect(envOr).toBeCalledWith(expect.arrayContaining(['CI_COMMIT_SHORT_SHA']));
+	it('should also check for the "CI_COMMIT_SHORT_SHA" environment variable', () => {
+		expect(COMMIT_SHA_SHORT).toBe(CI_COMMIT_SHORT_SHA);
 	});
 
-	it('should use the first 8 characters of the COMMIT_SHA when no directly relevant environment variables are defined', () => {
-		expect(COMMIT_SHA_SHORT).toBe('3c274fc1');
+	it('should be the shortened value of "COMMIT_SHA" by default when none of these environment variables are provided', () => {
+		expect(COMMIT_SHA_SHORT).toBe(CI_SHA?.slice(0, 8));
+	});
+
+	it('should be undefined when none of these environment variables are provided and COMMIT_SHA is undefined', () => {
+		expect(COMMIT_SHA_SHORT).toBeUndefined();
 	});
 });

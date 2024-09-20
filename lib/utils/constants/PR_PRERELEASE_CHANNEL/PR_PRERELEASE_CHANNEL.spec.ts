@@ -1,34 +1,65 @@
-import { isString } from '@rob.hameetman/type-guards';
-import { env } from '@utils/functions/environment/env';
-import { PR_PRERELEASE_CHANNEL } from './PR_PRERELEASE_CHANNEL';
-
-jest.mock('@utils/constants/PR_NUMBER', () => ({
-	__esModule: true,
-	PR_NUMBER: 42,
-}));
-
-jest.mock('@utils/constants/PR_PRERELEASE_TYPE', () => ({
-	__esModule: true,
-	PR_PRERELEASE_TYPE: 'pr',
-}));
-
-jest.mock('@utils/functions/environment/env', () => ({
-	__esModule: true,
-	env: jest.fn((envVar: string, cb = (value: unknown) => value) =>
-		cb(process.env[envVar])),
-}));
+import { faker } from '@faker-js/faker';
+import { mockEnv } from '@@/utils/mockEnv';
 
 describe('PR_PRERELEASE_CHANNEL', () => {
-	it('should be a string', () => {
-		expect(isString(PR_PRERELEASE_CHANNEL)).toBe(true);
+	let processEnv: NodeJS.ProcessEnv | null = null;
+	let RELEASE_PR_PRERELEASE_CHANNEL: string | undefined | null = null;
+	let RELEASE_PR_PRERELEASE_TYPE: string | undefined | null = null;
+	let CI_PR_NUMBER: number | undefined | null = null;
+	let PR_PRERELEASE_CHANNEL: unknown = null;
+
+	beforeAll(() => {
+		processEnv = process.env;
+
+		RELEASE_PR_PRERELEASE_CHANNEL = faker.word.noun();
+		RELEASE_PR_PRERELEASE_TYPE = faker.word.noun();
+		CI_PR_NUMBER = faker.number.int({ min: 1, max: 100});
+
+		mockEnv('RELEASE_PR_PRERELEASE_CHANNEL')
+			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_CHANNEL)
+			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_CHANNEL)
+			.mockReturnValue(undefined);
+
+		mockEnv('RELEASE_PR_PRERELEASE_TYPE')
+			.mockReturnValue(RELEASE_PR_PRERELEASE_TYPE);
+
+		mockEnv('CI_PR_NUMBER')
+			.mockReturnValue(String(CI_PR_NUMBER));
 	});
 
-	it('should be overridable', () => {
-		expect(env).toBeCalledWith('RELEASE_PR_PRERELEASE_CHANNEL');
+	beforeEach(async () => {
+		({ PR_PRERELEASE_CHANNEL } = await import('./PR_PRERELEASE_CHANNEL'));
 	});
 
-	it('should use the format "pr-<PR_NUMBER>" by default', () => {
-		expect(PR_PRERELEASE_CHANNEL).toStrictEqual(expect.stringMatching(/^(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)-\d+$/g));
-		expect(PR_PRERELEASE_CHANNEL).toBe('pr-42');
+	afterEach(() => {
+		jest.resetModules();
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+
+		process.env = processEnv as NodeJS.ProcessEnv;
+		processEnv = null;
+
+		RELEASE_PR_PRERELEASE_CHANNEL = null;
+		RELEASE_PR_PRERELEASE_TYPE = null;
+		CI_PR_NUMBER = null;
+	});
+
+	it('should be a string or undefined', () => {
+		expect(typeof PR_PRERELEASE_CHANNEL).toStrictEqual(expect.stringMatching(/string|undefined/));
+	});
+
+	it('should be defined when the "RELEASE_PR_PRERELEASE_CHANNEL" environment variable is provided', () => {
+		expect(PR_PRERELEASE_CHANNEL).toBe(RELEASE_PR_PRERELEASE_CHANNEL);
+	});
+
+	it('should use the PR prerelease type by default when the "RELEASE_PR_PRERELEASE_CHANNEL" environment variable is not provided', () => {
+		expect(PR_PRERELEASE_CHANNEL).toStrictEqual(expect.stringContaining(RELEASE_PR_PRERELEASE_TYPE ?? ''));
+	});
+
+	it('should use the PR number by default when the "RELEASE_PR_PRERELEASE_CHANNEL" environment variable is not provided', () => {
+		expect(PR_PRERELEASE_CHANNEL).toStrictEqual(expect.stringContaining(String(CI_PR_NUMBER) ?? ''));
 	});
 });

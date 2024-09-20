@@ -27,9 +27,9 @@ export const streamlineConfig = <
 	const config = Object.fromEntries(
 		Object.entries(options)
 			.filter(([_, value]) => !isUndefined(value) && value !== '')
-		);
+		) as T;
 
 	return (Boolean(Object.keys(config).length)
-		? [name, config] as PluginSpec
+		? [name, config]
 		: name) as PluginSpec;
 };

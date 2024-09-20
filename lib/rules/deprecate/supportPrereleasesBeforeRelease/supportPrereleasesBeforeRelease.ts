@@ -1,4 +1,4 @@
-import { $prereleasesForVersion } from '@templates/ranges/$prereleasesForVersion';
+import { $prereleasesForVersion } from '@/templates/ranges/$prereleasesForVersion';
 
 /**
  * Deprecates any prerelease versions for a given release version. For example,

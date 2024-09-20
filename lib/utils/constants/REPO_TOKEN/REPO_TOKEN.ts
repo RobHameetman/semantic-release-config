@@ -1,5 +1,5 @@
-import { env } from '@utils/functions/environment/env';
-import { envOr } from '@utils/functions/environment/envOr';
+import { env } from '@/utils/functions/environment/env';
+import { envOr } from '@/utils/functions/environment/envOr';
 
 /**
  * The auth token for the repo which triggered the release. This should be set

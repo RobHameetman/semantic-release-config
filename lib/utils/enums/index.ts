@@ -1,2 +1,2 @@
-export * from './CommitMatchGroupNames';
-export * from './VersionMatchGroupNames';
+export * from './CommitMatchGroup';
+export * from './VersionMatchGroup';

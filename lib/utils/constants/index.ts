@@ -10,6 +10,7 @@ export * from './PR_PRERELEASE_CHANNEL';
 export * from './PR_PRERELEASE_PREID';
 export * from './REPO_NAME';
 export * from './REPO_TOKEN';
+export * from './REPO_URL';
 export * from './VERSION_COMMIT_MESSAGE';
 export * from './VERSION_COMMIT_MODIFIER';
 export * from './VERSION_COMMIT_TYPE';

@@ -1,5 +1,5 @@
 import { releaseRules } from './releaseRules';
-import { commitWithReleaseRules } from '@test/utils/commitWithReleaseRules';
+import { commitWithReleaseRules } from '@@/utils/commitWithReleaseRules';
 
 const commit = commitWithReleaseRules(releaseRules);
 

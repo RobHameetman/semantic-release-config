@@ -1,4 +1,4 @@
-import { $supportLatestMajorRelease } from '@templates/ranges/$supportLatestMajorRelease';
+import { $supportLatestMajorRelease } from '@/templates/ranges/$supportLatestMajorRelease';
 
 /**
  * Support only the latest minor and patch versions for the current major

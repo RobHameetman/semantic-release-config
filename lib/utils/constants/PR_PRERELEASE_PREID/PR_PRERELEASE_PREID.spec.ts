@@ -1,39 +1,74 @@
-import { isString } from '@rob.hameetman/type-guards';
-import { env } from '@utils/functions/environment/env';
-import { PR_PRERELEASE_PREID } from './PR_PRERELEASE_PREID';
-
-jest.mock('@utils/constants/COMMIT_SHA', () => ({
-	__esModule: true,
-	COMMIT_SHA: '3c274fc187e032ab384ac559377d8e86f3c8fc43',
-}));
-
-jest.mock('@utils/constants/PR_NUMBER', () => ({
-	__esModule: true,
-	PR_NUMBER: 42,
-}));
-
-jest.mock('@utils/constants/PR_PRERELEASE_TYPE', () => ({
-	__esModule: true,
-	PR_PRERELEASE_TYPE: 'pr',
-}));
-
-jest.mock('@utils/functions/environment/env', () => ({
-	__esModule: true,
-	env: jest.fn((envVar: string, cb = (value: unknown) => value) =>
-		cb(process.env[envVar])),
-}));
+import { faker } from '@faker-js/faker';
+import { mockEnv } from '@@/utils/mockEnv';
 
 describe('PR_PRERELEASE_PREID', () => {
-	it('should be a string', () => {
-		expect(isString(PR_PRERELEASE_PREID)).toBe(true);
+	let processEnv: NodeJS.ProcessEnv | null = null;
+	let RELEASE_PR_PRERELEASE_PREID: string | undefined | null = null;
+	let RELEASE_PR_PRERELEASE_TYPE: string | undefined | null = null;
+	let CI_PR_NUMBER: number | undefined | null = null;
+	let CI_SHA_SHORT: string | undefined | null = null;
+	let PR_PRERELEASE_PREID: unknown = null;
+
+	beforeAll(() => {
+		processEnv = process.env;
+
+		RELEASE_PR_PRERELEASE_PREID = faker.word.noun();
+		RELEASE_PR_PRERELEASE_TYPE = faker.word.noun();
+		CI_PR_NUMBER = faker.number.int({ min: 1, max: 100});
+		CI_SHA_SHORT = faker.git.commitSha().slice(0, 8);
+
+		mockEnv('RELEASE_PR_PRERELEASE_PREID')
+			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_PREID)
+			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_PREID)
+			.mockReturnValue(undefined);
+
+		mockEnv('RELEASE_PR_PRERELEASE_TYPE')
+			.mockReturnValue(RELEASE_PR_PRERELEASE_TYPE);
+
+		mockEnv('CI_PR_NUMBER')
+			.mockReturnValue(String(CI_PR_NUMBER));
+
+		mockEnv('CI_SHA_SHORT')
+			.mockReturnValue(CI_SHA_SHORT);
 	});
 
-	it('should be overridable', () => {
-		expect(env).toBeCalledWith('RELEASE_PR_PRERELEASE_PREID');
+	beforeEach(async () => {
+		({ PR_PRERELEASE_PREID } = await import('./PR_PRERELEASE_PREID'));
 	});
 
-	it('should use the format "<PREID_TYPE>.<PR_NUMBER>.<COMMIT_SHA_SHORT>.<DATE_HASH>" by default', () => {
-		expect(PR_PRERELEASE_PREID).toStrictEqual(expect.stringMatching(/^(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)\.\d+\.[0-9a-z]{8}\.\d{8}$/g));
-		expect(PR_PRERELEASE_PREID.startsWith('pr.42.3c274fc1.')).toBe(true);
+	afterEach(() => {
+		jest.resetModules();
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+
+		process.env = processEnv as NodeJS.ProcessEnv;
+		processEnv = null;
+
+		RELEASE_PR_PRERELEASE_PREID = null;
+		RELEASE_PR_PRERELEASE_TYPE = null;
+		CI_PR_NUMBER = null;
+	});
+
+	it('should be a string or undefined', () => {
+		expect(typeof PR_PRERELEASE_PREID).toStrictEqual(expect.stringMatching(/string|undefined/));
+	});
+
+	it('should be defined when the "RELEASE_PR_PRERELEASE_PREID" environment variable is provided', () => {
+		expect(PR_PRERELEASE_PREID).toBe(RELEASE_PR_PRERELEASE_PREID);
+	});
+
+	it('should use the PR number by default when the "RELEASE_PR_PRERELEASE_PREID" environment variable is not provided', () => {
+		expect(PR_PRERELEASE_PREID).toStrictEqual(expect.stringContaining(String(CI_PR_NUMBER) ?? ''));
+	});
+
+	it('should use the PR prerelease type by default when the "RELEASE_PR_PRERELEASE_PREID" environment variable is not provided', () => {
+		expect(PR_PRERELEASE_PREID).toStrictEqual(expect.stringContaining(RELEASE_PR_PRERELEASE_TYPE ?? ''));
+	});
+
+	it('should use the short commit SHA by default when the "RELEASE_PR_PRERELEASE_PREID" environment variable is not provided', () => {
+		expect(PR_PRERELEASE_PREID).toStrictEqual(expect.stringContaining(CI_SHA_SHORT ?? ''));
 	});
 });

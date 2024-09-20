@@ -1,4 +1,4 @@
-import { $supportLatestPrerelease } from '@templates/ranges/$supportLatestPrerelease';
+import { $supportLatestPrerelease } from '@/templates/ranges/$supportLatestPrerelease';
 
 /**
  * Support only the latest prerelease version for a given version. For example,

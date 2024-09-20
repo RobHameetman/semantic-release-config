@@ -1,6 +1,6 @@
-import { isEnvFalse } from '@utils/functions/environment/isEnvFalse';
-import { isEnvTrue } from '@utils/functions/environment/isEnvTrue';
-import type { EnvValue } from '@utils/types/misc/EnvValue';
+import { isEnvFalse } from '@/utils/functions/environment/isEnvFalse';
+import { isEnvTrue } from '@/utils/functions/environment/isEnvTrue';
+import type { EnvValue } from '@/utils/types/misc/EnvValue';
 
 /**
  * Determine if an environment variable is true or false, or return the original

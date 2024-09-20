@@ -1,6 +1,6 @@
-import { VERSION_COMMIT_MESSAGE as DEFAULT_MESSAGE } from '@utils/constants/VERSION_COMMIT_MESSAGE';
-import { VERSION_COMMIT_MODIFIER as DEFAULT_MODIFIER } from '@utils/constants/VERSION_COMMIT_MODIFIER';
-import { VERSION_COMMIT_TYPE as DEFAULT_TYPE } from '@utils/constants/VERSION_COMMIT_TYPE';
+import { VERSION_COMMIT_MESSAGE as DEFAULT_MESSAGE } from '@/utils/constants/VERSION_COMMIT_MESSAGE';
+import { VERSION_COMMIT_MODIFIER as DEFAULT_MODIFIER } from '@/utils/constants/VERSION_COMMIT_MODIFIER';
+import { VERSION_COMMIT_TYPE as DEFAULT_TYPE } from '@/utils/constants/VERSION_COMMIT_TYPE';
 
 export const versionCommitMessage = (
 	message = DEFAULT_MESSAGE,

@@ -1,4 +1,5 @@
 import {
+	BUILD_DIRECTORY,
 	CHANGELOG_ENABLED,
 	PLUGIN_PRESET,
 	PR_PRERELEASE_CHANNEL,
@@ -22,7 +23,7 @@ import {
 	supportPrereleasesBeforeRelease,
 } from '.';
 
-module.exports = createConfig({
+export default createConfig({
 	branches: branches([
 		{ name: '@(main|master)', prerelease: false, channel: 'latest' },
 		{ name: 'next-major', prerelease: 'rc', channel: 'next-major' },
@@ -46,7 +47,7 @@ module.exports = createConfig({
 		}]),
 		plugin(['@semantic-release/npm', {
 			pkgRoot: PUBLISH_FROM_DIST
-				? env('RELEASE_BUILD_DIRECTORY') || 'dist'
+				? BUILD_DIRECTORY
 				: '.',
 			// pkgRoot: '.',
 		}]),

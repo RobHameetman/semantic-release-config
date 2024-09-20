@@ -1,9 +1,9 @@
 import { isArray, isString } from '@rob.hameetman/type-guards';
-import { CommitMatchGroupNames } from '@utils/enums/CommitMatchGroupNames';
-import { TypeOfCommit, isTypeOfCommit } from '@utils/types/commit/TypeOfCommit';
-import { ScopeOfCommit, isScopeOfCommit } from '@utils/types/commit/ScopeOfCommit';
-import { SubjectOfCommit, isSubjectOfCommit } from '@utils/types/commit/SubjectOfCommit';
-import { CommitMatchGroups, isCommitMatchGroups } from '@utils/types/matches/CommitMatchGroups';
+import { CommitMatchGroup } from '@/utils/enums/CommitMatchGroup';
+import { TypeOfCommit, isTypeOfCommit } from '@/utils/types/commit/TypeOfCommit';
+import { ScopeOfCommit, isScopeOfCommit } from '@/utils/types/commit/ScopeOfCommit';
+import { SubjectOfCommit, isSubjectOfCommit } from '@/utils/types/commit/SubjectOfCommit';
+import { CommitMatchGroups, isCommitMatchGroups } from '@/utils/types/matches/CommitMatchGroups';
 
 /**
  * Represents a {@link RegExpMatch} array for a semantic version string.
@@ -46,9 +46,9 @@ export const isCommitMatch = <T extends string>(
 	(version
 		? value.at(0) === version
 		: isString(value.at(0))) &&
-	isTypeOfCommit(value.at(CommitMatchGroupNames.type), version) &&
-	isScopeOfCommit(value.at(CommitMatchGroupNames.scope), version) &&
-	isSubjectOfCommit(value.at(CommitMatchGroupNames.subject), version) &&
+	isTypeOfCommit(value.at(CommitMatchGroup.type), version) &&
+	isScopeOfCommit(value.at(CommitMatchGroup.scope), version) &&
+	isSubjectOfCommit(value.at(CommitMatchGroup.subject), version) &&
 	/**
 	 * value.groups
 	 */

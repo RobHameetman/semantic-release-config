@@ -1,5 +1,5 @@
-import { major } from '@templates/versions/major/major';
-import { preid } from '@templates/versions/prerelease/preid';
+import { major } from '@/templates/versions/major/major';
+import { preid } from '@/templates/versions/prerelease/preid';
 /**
  * Conditionally apply a template during a release.
  */

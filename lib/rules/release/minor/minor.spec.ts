@@ -1,4 +1,4 @@
-import { commitWithReleaseRules } from '@test/utils/commitWithReleaseRules';
+import { commitWithReleaseRules } from '@@/utils/commitWithReleaseRules';
 import { MINOR_RELEASE_RULES } from './minor';
 
 const commit = commitWithReleaseRules(MINOR_RELEASE_RULES);

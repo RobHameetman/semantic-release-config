@@ -1,15 +1,11 @@
 import micromatch from 'micromatch';
-import { isCommitMatchGroups } from '@utils/types/matches/CommitMatchGroups';
-import { ReleaseRule } from '@utils/types/misc/ReleaseRule';
+import { isCommitMatchGroups } from '@/utils/types/matches/CommitMatchGroups';
+import { ReleaseRule } from '@/utils/types/misc/ReleaseRule';
 
 const TO_BE_RELEASED = 'toBeReleased';
 
 /**
- * Jest uses `Object.is()` for equality checking, which distinguishes 0 from -0,
- * which can cause false negatives (literally!) when we try to use `.toBe(0)` or
- * `.toEqual(0)`.
- *
- * @see https://github.com/jasmine/jasmine/issues/496
+ * Checks that a provided semantic version string is not a pre-release version.
  */
 expect.extend({
 	[TO_BE_RELEASED](received) {

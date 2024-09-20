@@ -26,7 +26,7 @@ import {
  * or "gitflow" branching strategies. `main`/`master` is the primary release
  * branch.
  */
-module.exports = createConfig({
+export default createConfig({
 	branches: branches([
 		{ name: '@(main|master)', prerelease: false, channel: 'latest' },
 		{ name: 'staging', prerelease: 'beta', channel: 'beta' },

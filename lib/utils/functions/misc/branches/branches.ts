@@ -1,6 +1,6 @@
 import type { BranchObject } from 'semantic-release';
-import { Branches } from '@utils/types/branches/Branches';
-import { Branch } from '@utils/types/state/Branch';
+import { Branches } from '@/utils/types/branches/Branches';
+import { Branch } from '@/utils/types/state/Branch';
 
 /**
  * Perform any relevant actions upon receiving the branch objects from a
@@ -32,9 +32,6 @@ export const branches = async (branches: Branches) => {
 	);
 
 	const resolved = branches as ReadonlyArray<BranchObject>;
-
-	console.log(`branches()::channel: ${resolved?.at(-1)?.channel}`);
-	console.log(`branches()::resolved: ${resolved?.at(-1)?.prerelease}`);
 
 	Branch.set(resolved);
 

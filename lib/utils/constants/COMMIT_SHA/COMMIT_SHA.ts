@@ -1,5 +1,5 @@
-import { env } from '@utils/functions/environment/env';
-import { envOr } from '@utils/functions/environment/envOr';
+import { env } from '@/utils/functions/environment/env';
+import { envOr } from '@/utils/functions/environment/envOr';
 
 /**
  * The long commit sha for the commit which triggered the release. This should

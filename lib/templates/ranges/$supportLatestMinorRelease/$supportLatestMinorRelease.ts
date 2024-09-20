@@ -1,7 +1,7 @@
-import { $ifMinorRelease } from '@templates/conditional/$ifMinorRelease';
-import { major } from '@templates/versions/major/major';
-import { minor } from '@templates/versions/minor/minor';
-import { minorBack } from '@templates/versions/minor/minorBack';
+import { $ifMinorRelease } from '@/templates/conditional/$ifMinorRelease';
+import { major } from '@/templates/versions/major/major';
+import { minor } from '@/templates/versions/minor/minor';
+import { minorBack } from '@/templates/versions/minor/minorBack';
 
 /**
  * Deprecate all patch releases for the previous minor version if the release

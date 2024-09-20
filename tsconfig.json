@@ -6,37 +6,28 @@
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,
-		"module": "commonjs",
+		"module": "esnext",
 		"moduleResolution": "node",
 		"noImplicitAny": true,
 		"noImplicitThis": true,
 		"outDir": "./dist",
 		"paths": {
-			"@plugins/*": ["./lib/plugins/*"],
-			"@rules/*": ["./lib/rules/*"],
-			"@templates/*": ["./lib/templates/*"],
-			"@utils/*": ["./lib/utils/*"],
-			"@test/*": ["./test/resources/*"]
+			"@/*": ["./lib/*"],
+			"@@/*": ["./test/resources/*"]
 		},
 		"removeComments": true,
 		"resolveJsonModule": true,
-		"rootDir": "./lib",
+		"rootDirs": ["./lib/", "./typings/"],
 		"strict": true,
 		"target": "esnext"
   },
-  "files": [
-		"./lib/canary.ts",
-		"./lib/gitflow.ts",
-		"./lib/modular.ts",
-		"./lib/react.ts",
-		"./lib/recommended.ts",
-		"./lib/staged.ts",
-		"./lib/streamlined.ts"
-	],
 	"include": [
-		"./typings"
+		"./lib",
+		"./typings",
+		"./test"
 	],
 	"exclude": [
+		"./dist",
 		"./node_modules"
 	]
 }

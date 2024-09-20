@@ -29,7 +29,7 @@ const RELEASE_BRANCH = env('RELEASE_BRANCH');
  * @beta - WIP. The idea is to have a release strategy that supports multiple
  * release branches in a multi-package monorepo.
  */
-module.exports = createConfig({
+export default createConfig({
 	branches: branches([
 		USE_MASTER ? { name: 'major|latest', prerelease: false, channel: 'latest' } : null,
 		...RELEASE_BRANCHES.map((name) => ({ name, prerelease: false, channel: 'latest' })),

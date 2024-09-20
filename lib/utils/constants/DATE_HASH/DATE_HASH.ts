@@ -1,4 +1,4 @@
-import { DATE } from '@utils/constants/DATE';
+import { DATE } from '@/utils/constants/DATE';
 
 /**
  * A date hash used in specific prerelease types, like PR prereleases. This pads

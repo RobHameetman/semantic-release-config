@@ -1,5 +1,5 @@
 import { isNonEmptyString, isUndefined } from '@rob.hameetman/type-guards';
-import { COMMIT_REGEX } from '@utils/regex/COMMIT_REGEX';
+import { COMMIT_REGEX } from '@/utils/regex/COMMIT_REGEX';
 
 /**
  * Infer the scope of a conventional commit message with a type and scope.

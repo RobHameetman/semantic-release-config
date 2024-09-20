@@ -1,5 +1,5 @@
 import { isFunction, isString } from '@rob.hameetman/type-guards';
-import { render } from '@test/utils/render';
+import { render } from '@@/utils/render';
 import { $patchBack } from './$patchBack';
 
 describe('$patchBack()', () => {

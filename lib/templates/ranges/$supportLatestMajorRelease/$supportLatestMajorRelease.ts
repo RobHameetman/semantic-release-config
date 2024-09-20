@@ -1,6 +1,6 @@
-import { $ifMajorRelease } from '@templates/conditional/$ifMajorRelease';
-import { major } from '@templates/versions/major/major';
-import { majorBack } from '@templates/versions/major/majorBack';
+import { $ifMajorRelease } from '@/templates/conditional/$ifMajorRelease';
+import { major } from '@/templates/versions/major/major';
+import { majorBack } from '@/templates/versions/major/majorBack';
 
 /**
  * Deprecate all minor and patch releases for the previous major version if the

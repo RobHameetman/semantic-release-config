@@ -1,6 +1,6 @@
-import { VersionMatchGroupNames } from '@utils/enums/VersionMatchGroupNames';
-import { SEMVER_REGEX } from '@utils/regex/SEMVER_REGEX';
-import { VersionMatch } from '@utils/types/matches/VersionMatch';
+import { VersionMatchGroup } from '@/utils/enums/VersionMatchGroup';
+import { SEMVER_REGEX } from '@/utils/regex/SEMVER_REGEX';
+import { VersionMatch } from '@/utils/types/matches/VersionMatch';
 
 /**
  * A semantic version object representing "nextRelease.version" with methods
@@ -28,7 +28,7 @@ export class Version<T extends string> {
 	 * the major is `'1'`.
 	 */
 	get major() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.major);
+		return (this.#parsed ?? []).at(VersionMatchGroup.major);
 	}
 
 	/**
@@ -36,7 +36,7 @@ export class Version<T extends string> {
 	 * the minor is `'2'`.
 	 */
 	get minor() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.minor);
+		return (this.#parsed ?? []).at(VersionMatchGroup.minor);
 	}
 
 	/**
@@ -44,7 +44,7 @@ export class Version<T extends string> {
 	 * the patch is `'4'`.
 	 */
 	get patch() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.patch);
+		return (this.#parsed ?? []).at(VersionMatchGroup.patch);
 	}
 
 	/**
@@ -52,7 +52,7 @@ export class Version<T extends string> {
 	 * preid is `'alpha.8'`.
 	 */
 	get preid() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.preid);
+		return (this.#parsed ?? []).at(VersionMatchGroup.preid);
 	}
 
 	/**
@@ -60,7 +60,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-alpha.8'`, the prerelease preid type is `'alpha'`.
 	 */
 	get type() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.type);
+		return (this.#parsed ?? []).at(VersionMatchGroup.type);
 	}
 
 	/**
@@ -68,7 +68,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-pr.10.abcd1234.20131111.8'`, the PR is `'10'`.
 	 */
 	get pr() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.pr);
+		return (this.#parsed ?? []).at(VersionMatchGroup.pr);
 	}
 
 	/**
@@ -76,7 +76,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-pr.10.abcd1234.20131111.8'`, the commit sha is `'abcd1234'`.
 	 */
 	get commit() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.commit);
+		return (this.#parsed ?? []).at(VersionMatchGroup.commit);
 	}
 
 	/**
@@ -84,7 +84,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-pr.10.abcd1234.20131111.8'`, the date hash is `'20131111'`.
 	 */
 	get date() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.date);
+		return (this.#parsed ?? []).at(VersionMatchGroup.date);
 	}
 
 	/**
@@ -92,7 +92,7 @@ export class Version<T extends string> {
 	 * `'1.2.4-alpha.8'`, the prerelease version number is `'8'`.
 	 */
 	get prerelease() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.prerelease);
+		return (this.#parsed ?? []).at(VersionMatchGroup.prerelease);
 	}
 
 	/**
@@ -103,7 +103,7 @@ export class Version<T extends string> {
 	 * so this will always be `undefined`.
 	 */
 	get build() {
-		return (this.#parsed ?? []).at(VersionMatchGroupNames.build);
+		return (this.#parsed ?? []).at(VersionMatchGroup.build);
 	}
 
 	/**

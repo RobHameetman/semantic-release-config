@@ -1,7 +1,7 @@
 import { isFunction, isString } from '@rob.hameetman/type-guards';
-import { patch } from '@templates/versions/patch/patch';
-import { prerelease } from '@templates/versions/prerelease/prerelease';
-import { render } from '@test/utils/render';
+import { patch } from '@/templates/versions/patch/patch';
+import { prerelease } from '@/templates/versions/prerelease/prerelease';
+import { render } from '@@/utils/render';
 import { back } from './back';
 
 describe('back()', () => {

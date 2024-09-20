@@ -1,4 +1,4 @@
-import { prereleaseBack } from '@templates/versions/prerelease/prereleaseBack';
+import { prereleaseBack } from '@/templates/versions/prerelease/prereleaseBack';
 
 /**
  * Retrieve a previous prerelease version number from the release context in a

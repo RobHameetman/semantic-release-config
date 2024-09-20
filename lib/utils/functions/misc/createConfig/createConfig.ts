@@ -1,14 +1,17 @@
 import type { Options, PluginSpec } from 'semantic-release';
-import { env } from '@utils/functions/environment/env';
-import { getRepositoryUrl } from '@utils/functions/misc/getRepositoryUrl';
-import { isEnvTrue } from '@utils/functions/environment/isEnvTrue';
+import { env } from '@/utils/functions/environment/env';
+import { REPO_URL } from '@/utils/constants/REPO_URL';
+import { isEnvTrue } from '@/utils/functions/environment/isEnvTrue';
 
 /**
  * A partial semantic-release configuration for branches and plugins. See the
  * example in the inline documentation for the `createConfig()` function below
  * for more information.
  */
-interface PartialConfig {
+export interface PartialConfig {
+	/**
+	 * A list of branches to use for the release.
+	 */
 	readonly branches?: Promise<Options['branches']>;
 
 	/**
@@ -56,7 +59,7 @@ export const createConfig = async (config: PartialConfig) => ({
 	branches: await config.branches,
 	plugins: config.plugins?.filter(Boolean),
 	debug: env('RELEASE_DEBUG', isEnvTrue),
-	repositoryUrl: env('RELEASE_REPOSITORY_URL') || getRepositoryUrl(),
+	repositoryUrl: REPO_URL,
 	tagFormat: '${version}',
 	dryRun: env('RELEASE_DRY_RUN', isEnvTrue),
 	ci: !env('RELEASE_LOCALLY', isEnvTrue),

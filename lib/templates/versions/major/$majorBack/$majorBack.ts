@@ -1,4 +1,4 @@
-import { majorBack } from '@templates/versions/major/majorBack';
+import { majorBack } from '@/templates/versions/major/majorBack';
 
 /**
  * Retrieve a previous major version number from the release context in a

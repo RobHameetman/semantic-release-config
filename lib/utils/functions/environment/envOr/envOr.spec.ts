@@ -1,5 +1,5 @@
-import { env } from '@utils/functions/environment/env';
-import { onTest } from '@test/utils/onTest';
+import { env } from '@/utils/functions/environment/env';
+import { onTest } from '@@/utils/onTest';
 import { envOr } from './envOr';
 
 describe('envOr()', () => {

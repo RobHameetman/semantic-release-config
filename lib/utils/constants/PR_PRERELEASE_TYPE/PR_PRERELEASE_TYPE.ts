@@ -1,4 +1,6 @@
-import { env } from '@utils/functions/environment/env';
+import { env } from '@/utils/functions/environment/env';
+
+export const DEFAULT_PR_PRERELEASE_TYPE = 'pr';
 
 /**
  * The preid type used for PR prerelease versions. You can override the default
@@ -6,4 +8,5 @@ import { env } from '@utils/functions/environment/env';
  *
  * @defaultValue - `'pr'`
  */
-export const PR_PRERELEASE_TYPE = env('RELEASE_PR_PRERELEASE_TYPE') || 'pr';
+export const PR_PRERELEASE_TYPE =
+	env('RELEASE_PR_PRERELEASE_TYPE') || DEFAULT_PR_PRERELEASE_TYPE;

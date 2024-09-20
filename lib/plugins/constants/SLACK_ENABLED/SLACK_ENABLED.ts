@@ -1,5 +1,5 @@
-import { env } from '@utils/functions/environment/env';
-import { isEnvDefinedOr } from '@utils/functions/environment/isEnvDefinedOr';
+import { env } from '@/utils/functions/environment/env';
+import { isEnvDefinedOr } from '@/utils/functions/environment/isEnvDefinedOr';
 
 /**
  * Whether or not to use the Slack plugin. This package assumes you do not need

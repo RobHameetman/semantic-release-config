@@ -1,4 +1,6 @@
-import { env } from '@utils/functions/environment/env';
+import { env } from '@/utils/functions/environment/env';
+
+export const DEFAULT_VERSION_COMMIT_MESSAGE = 'Update package.json to new version';
 
 /**
  * The default message for the version update commit. This is the content of the
@@ -8,5 +10,4 @@ import { env } from '@utils/functions/environment/env';
  * @defaultValue - `'Update package.json to new version'`
  */
 export const VERSION_COMMIT_MESSAGE =
-	env('RELEASE_COMMIT_MESSAGE') ||
-	'Update package.json to new version';
+	env('RELEASE_COMMIT_MESSAGE') || DEFAULT_VERSION_COMMIT_MESSAGE;

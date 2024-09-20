@@ -1,4 +1,4 @@
-import { $supportLatestPatchRelease } from '@templates/ranges/$supportLatestPatchRelease';
+import { $supportLatestPatchRelease } from '@/templates/ranges/$supportLatestPatchRelease';
 
 /**
  * Support only the latest patch version for a given minor version. For example,

@@ -1,7 +1,7 @@
 import type { BranchObject } from 'semantic-release';
 import { faker } from '@faker-js/faker';
-import { fakePrBranchRule } from '@utils/types/branches/PrBranchRule/__test__';
-import type { Mutable } from '@utils/types/misc/Mutable';
+import { fakePrBranchRule } from '@/utils/types/branches/PrBranchRule/__test__';
+import type { Mutable } from '@/utils/types/misc/Mutable';
 import { Branches } from '../Branches';
 
 const fakeBranchObject = ({

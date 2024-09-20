@@ -1,4 +1,4 @@
-import { commitWithReleaseRules } from '@test/utils/commitWithReleaseRules';
+import { commitWithReleaseRules } from '@@/utils/commitWithReleaseRules';
 import { PATCH_RELEASE_RULES } from './patch';
 
 const commit = commitWithReleaseRules(PATCH_RELEASE_RULES);

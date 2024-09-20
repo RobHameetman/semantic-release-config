@@ -1,5 +1,5 @@
-import { major } from '@templates/versions/major/major';
-import { back } from '@templates/versions/misc/back/back';
+import { major } from '@/templates/versions/major/major';
+import { back } from '@/templates/versions/misc/back/back';
 
 /**
  * Retrieve a previous major version number from the release context.

@@ -1,10 +1,5 @@
 <div id="top"></div>
 
-<!--
-*** Comments prefixed with "TODO" will provide further instructions for
-*** customizing certain parts of this README file.
--->
-
 # 📦 @rob.hameetman/semantic-release-config
 
 <div align="center">
@@ -64,7 +59,6 @@
 </div>
 
 ## §1: Overview
-
 
 ## §2: Getting Started
 

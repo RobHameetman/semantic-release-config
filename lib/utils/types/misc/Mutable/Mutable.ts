@@ -12,7 +12,7 @@ import { isObject } from '@rob.hameetman/type-guards';
  * @example
  * ```TypeScript
  * import { faker } from '@faker-js/faker';
- * import type { Mutable } from '@utils/types/misc/Mutable';
+ * import type { Mutable } from '@/utils/types/misc/Mutable';
  * import type { User } from '../User';
  *
  * export const fakeUser = <T>({
