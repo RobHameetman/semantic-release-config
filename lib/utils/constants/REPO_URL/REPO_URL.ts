@@ -3,24 +3,30 @@ import { promisify } from 'util';
 import { isString, isUndefined } from '@rob.hameetman/type-guards';
 import { env } from '@/utils/functions/environment/env';
 
-export let REPO_URL = env('RELEASE_REPOSITORY_URL');
+let __REPO_URL__ = env('RELEASE_REPOSITORY_URL');
 
-if (isUndefined(REPO_URL)) {
-	const { npm_package_json, npm_package_repository_url } = process.env;
+if (isUndefined(__REPO_URL__)) {
+	const { npm_package_homepage, npm_package_json, npm_package_repository_url } = process.env;
 
-	if (npm_package_repository_url) {
-		REPO_URL = npm_package_repository_url;
+	if (npm_package_repository_url || npm_package_homepage) {
+		__REPO_URL__ = npm_package_repository_url
+			? npm_package_repository_url
+			: npm_package_homepage;
 	} else {
 		const readFile = promisify(_readFile);
 
-		const pkg = await readFile(npm_package_json || `${process.cwd()}/package.json`, 'utf8');
-		const { name, homepage = `https://www.npmjs.com/package/${name}`, repository } = JSON.parse(pkg);
+		try {
+			const pkg = await readFile(npm_package_json || `${process.cwd()}/package.json`, 'utf8');
+			const { name, homepage = `https://www.npmjs.com/package/${name}`, repository } = JSON.parse(pkg || '{}');
 
-		REPO_URL = isString(repository)
-			? repository
-			: isString(repository?.url)
-				? repository.url
-				: homepage;
+			__REPO_URL__ = isString(repository) && repository.length
+				? repository
+				: isString(repository?.url) && repository.url.length
+					? repository.url
+					: homepage;
+		} catch (err) {
+			__REPO_URL__ = 'https://www.npmjs.com/';
+		}
 	}
 }
 
@@ -37,4 +43,4 @@ if (isUndefined(REPO_URL)) {
  * RELEASE_REPOSITORY_URL=https://github.com/owner/repo
  * ```
  */
-export default REPO_URL;
+export const REPO_URL = __REPO_URL__;
