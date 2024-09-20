@@ -1,6 +1,5 @@
 import type { Options, PluginSpec } from 'semantic-release';
 import { env } from '@/utils/functions/environment/env';
-import { REPO_URL } from '@/utils/constants/REPO_URL';
 import { isEnvTrue } from '@/utils/functions/environment/isEnvTrue';
 
 /**
@@ -59,7 +58,7 @@ export const createConfig = async (config: PartialConfig) => ({
 	branches: await config.branches,
 	plugins: config.plugins?.filter(Boolean),
 	debug: env('RELEASE_DEBUG', isEnvTrue),
-	repositoryUrl: REPO_URL || 'origin',
+	repositoryUrl: env('RELEASE_REPOSITORY_URL'),
 	tagFormat: '${version}',
 	dryRun: env('RELEASE_DRY_RUN', isEnvTrue),
 	ci: !env('RELEASE_LOCALLY', isEnvTrue),
