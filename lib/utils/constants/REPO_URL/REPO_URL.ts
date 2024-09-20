@@ -1,16 +1,13 @@
 import { readFile as _readFile } from 'fs';
 import { promisify } from 'util';
 import { isString, isUndefined } from '@rob.hameetman/type-guards';
+import { DEFAULT_REPO_URL } from '@/utils/constants/DEFAULT_REPO_URL';
 import { env } from '@/utils/functions/environment/env';
 
 let __REPO_URL__ = env('RELEASE_REPOSITORY_URL');
 
 if (isUndefined(__REPO_URL__)) {
 	const { npm_package_homepage, npm_package_json, npm_package_repository_url } = process.env;
-
-	console.log(`typeof npm_package_homepage: "${typeof npm_package_homepage}"`);
-	console.log(`typeof npm_package_json: "${typeof npm_package_json}"`);
-	console.log(`typeof npm_package_repository_url: "${typeof npm_package_repository_url}"`);
 
 	if (npm_package_repository_url || npm_package_homepage) {
 		__REPO_URL__ = npm_package_repository_url
@@ -33,7 +30,7 @@ if (isUndefined(__REPO_URL__)) {
 				throw new Error('REPO_URL must be defined');
 			}
 		} catch (err) {
-			__REPO_URL__ = 'https://www.npmjs.com/';
+			__REPO_URL__ = DEFAULT_REPO_URL;
 		}
 	}
 }
