@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.22](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.21...1.0.0-alpha.22) (2024-09-20)
+
+
+### Bug Fixes
+
+* Remove RELEASE_REPOSITORY_URL ([33d2421](https://github.com/RobHameetman/semantic-release-config/commit/33d242116b1ecd6ac1da26c640f236eed4525759))
+
 ## [1.0.0-alpha.21](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.20...1.0.0-alpha.21) (2024-09-20)
 
 
