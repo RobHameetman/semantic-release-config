@@ -14,11 +14,13 @@ if (isUndefined(REPO_URL)) {
 		const readFile = promisify(_readFile);
 
 		const pkg = await readFile(npm_package_json || `${process.cwd()}/package.json`, 'utf8');
-		const { repository } = JSON.parse(pkg);
+		const { name, homepage = `https://www.npmjs.com/package/${name}`, repository } = JSON.parse(pkg);
 
 		REPO_URL = isString(repository)
 			? repository
-			: repository?.url;
+			: isString(repository?.url)
+				? repository.url
+				: homepage;
 	}
 }
 

@@ -1,10 +1,14 @@
 import { faker } from '@faker-js/faker';
 import { mockEnv } from '@@/utils/mockEnv';
 
-const { PACKAGE_JSON_REPOSITORY_URL, getMockReadFile } = (() => {
-	const PACKAGE_JSON_REPOSITORY_URL = faker.internet.url();
+const { PACKAGE_JSON_HOMEPAGE, PACKAGE_JSON_REPOSITORY_URL, getMockReadFile } = (() => {
+	// const PACKAGE_JSON_REPOSITORY_URL = faker.internet.url();
+	// const PACKAGE_JSON_HOMEPAGE = faker.internet.url();
 
-	const MOCK_PACKAGE_JSON_WITH_REPOSITORY = JSON.stringify({
+	const PACKAGE_JSON_REPOSITORY_URL = 'https://www.repository.url/';
+	const PACKAGE_JSON_HOMEPAGE = 'https://www.homepage.com/';
+
+	const MOCK_PACKAGE_JSON_WITH_REPOSITORY_URL = JSON.stringify({
 		name: '@test/package',
 		version: '1.0.0',
 		repository: {
@@ -13,17 +17,31 @@ const { PACKAGE_JSON_REPOSITORY_URL, getMockReadFile } = (() => {
 		}
 	});
 
-	const MOCK_PACKAGE_JSON_WITHOUT_REPOSITORY = JSON.stringify({
+	const MOCK_PACKAGE_JSON_WITH_REPOSITORY = JSON.stringify({
+		name: '@test/package',
+		version: '1.0.0',
+		repository: PACKAGE_JSON_REPOSITORY_URL
+	});
+
+	const MOCK_PACKAGE_JSON_WITH_HOMEPAGE = JSON.stringify({
+		name: '@test/package',
+		version: '1.0.0',
+		homepage: PACKAGE_JSON_HOMEPAGE,
+	});
+
+	const MOCK_PACKAGE_JSON_WITHOUT_REPOSITORY_URL = JSON.stringify({
 		name: '@test/package',
 		version: '1.0.0',
 	});
 
 	const mockReadFile = jest.fn()
+		.mockResolvedValueOnce(MOCK_PACKAGE_JSON_WITH_REPOSITORY_URL)
 		.mockResolvedValueOnce(MOCK_PACKAGE_JSON_WITH_REPOSITORY)
-		.mockResolvedValueOnce(MOCK_PACKAGE_JSON_WITH_REPOSITORY)
-		.mockResolvedValue(MOCK_PACKAGE_JSON_WITHOUT_REPOSITORY)
+		.mockResolvedValueOnce(MOCK_PACKAGE_JSON_WITH_HOMEPAGE)
+		.mockResolvedValue(MOCK_PACKAGE_JSON_WITHOUT_REPOSITORY_URL)
 
 	return {
+		PACKAGE_JSON_HOMEPAGE,
 		PACKAGE_JSON_REPOSITORY_URL,
 		getMockReadFile: () => mockReadFile,
 	};
@@ -76,15 +94,22 @@ describe('REPO_URL', () => {
 		expect(REPO_URL).toBe(RELEASE_REPOSITORY_URL);
 	});
 
-	it('should check the project\'s package.json file when none of these environment variables are defined', () => {
+	it('should check "repository.url" in package.json when none of these environment variables are defined', () => {
 		expect(getMockReadFile()).toBeCalledWith(expect.stringContaining('package.json'), 'utf8');
-	});
-
-	it('should be defined when the package.json file has a defined "repository"', () => {
 		expect(REPO_URL).toBe(PACKAGE_JSON_REPOSITORY_URL);
 	});
 
-	it('should be undefined when the package.json file does not have a defined "repository"', () => {
-		expect(REPO_URL).toBeUndefined();
+	it('should use "repository" in package.json when the "repository" field is not an object with a "url" field', () => {
+		expect(getMockReadFile()).toBeCalledWith(expect.stringContaining('package.json'), 'utf8');
+		expect(REPO_URL).toBe(PACKAGE_JSON_REPOSITORY_URL);
+	});
+
+	it('should use "homepage" in package.json when the "repository" field is not defined', () => {
+		expect(getMockReadFile()).toBeCalledWith(expect.stringContaining('package.json'), 'utf8');
+		expect(REPO_URL).toBe(PACKAGE_JSON_HOMEPAGE);
+	});
+
+	it('should default to the NPM registry url when the package.json file does not have a defined "repository" or "homepage"', () => {
+		expect(REPO_URL).toBe('https://www.npmjs.com/package/@test/package');
 	});
 });
