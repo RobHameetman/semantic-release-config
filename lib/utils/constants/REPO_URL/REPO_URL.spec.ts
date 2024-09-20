@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { mockEnv } from '@@/utils/mockEnv';
 
-const { PACKAGE_JSON_HOMEPAGE, PACKAGE_JSON_REPOSITORY_URL, getMockReadFile } = (() => {
+const { PACKAGE_JSON_HOMEPAGE, PACKAGE_JSON_REPOSITORY_URL, getMockPromisify } = (() => {
 	const PACKAGE_JSON_REPOSITORY_URL = faker.internet.url();
 	const PACKAGE_JSON_HOMEPAGE = faker.internet.url();
 
@@ -31,23 +31,24 @@ const { PACKAGE_JSON_HOMEPAGE, PACKAGE_JSON_REPOSITORY_URL, getMockReadFile } = 
 		version: '1.0.0',
 	});
 
-	const mockReadFile = jest.fn()
+	const mockPromisify = jest.fn()
 		.mockResolvedValueOnce(MOCK_PACKAGE_JSON_WITH_REPOSITORY_URL)
-		.mockRejectedValueOnce(new Error('ENOENT: no such file or directory'))
+		.mockRejectedValueOnce('ENOENT: no such file or directory')
+		.mockResolvedValueOnce({ stdout: 'git@github.com:TestOrg/test.git' })
 		.mockResolvedValueOnce(MOCK_PACKAGE_JSON_WITH_REPOSITORY_URL)
 		.mockResolvedValueOnce(MOCK_PACKAGE_JSON_WITH_REPOSITORY)
 		.mockResolvedValueOnce(MOCK_PACKAGE_JSON_WITH_HOMEPAGE)
-		.mockResolvedValue(MOCK_PACKAGE_JSON_WITHOUT_REPOSITORY_URL)
+		.mockResolvedValue(MOCK_PACKAGE_JSON_WITHOUT_REPOSITORY_URL);
 
 	return {
 		PACKAGE_JSON_HOMEPAGE,
 		PACKAGE_JSON_REPOSITORY_URL,
-		getMockReadFile: () => mockReadFile,
+		getMockPromisify: () => mockPromisify,
 	};
 })();
 
 jest.unstable_mockModule('util', () => ({
-  promisify: jest.fn().mockReturnValue(getMockReadFile()),
+  promisify: jest.fn().mockReturnValue(getMockPromisify()),
 }));
 
 describe('REPO_URL', () => {
@@ -118,11 +119,12 @@ describe('REPO_URL', () => {
 	});
 
 	it('should check package.json when none of these environment variables are defined', () => {
-		expect(getMockReadFile()).toBeCalledWith(expect.stringContaining('package.json'), 'utf8');
+		expect(getMockPromisify()).toBeCalledWith(expect.stringContaining('package.json'), 'utf8');
 	});
 
 	it('should use the NPM registry homepage url by default when no package.json file is found', () => {
-		expect(REPO_URL).toBe('https://www.npmjs.com/');
+		expect(getMockPromisify()).toBeCalledWith('git ls-remote --get-url origin')
+		expect(REPO_URL).toBe('git@github.com:TestOrg/test.git');
 	});
 
 	it('should use "repository.url" in package.json when the "repository" field is an object with a non-empty "url" field', () => {

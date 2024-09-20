@@ -1,3 +1,4 @@
+import { exec as _exec } from 'child_process';
 import { readFile as _readFile } from 'fs';
 import { promisify } from 'util';
 import { isString, isUndefined } from '@rob.hameetman/type-guards';
@@ -30,7 +31,10 @@ if (isUndefined(__REPO_URL__)) {
 				throw new Error('REPO_URL must be defined');
 			}
 		} catch (err) {
-			__REPO_URL__ = DEFAULT_REPO_URL;
+			const exec = promisify(_exec);
+			const { stdout } = await exec('git ls-remote --get-url origin');
+
+			__REPO_URL__ = stdout?.trim() || DEFAULT_REPO_URL;
 		}
 	}
 }
