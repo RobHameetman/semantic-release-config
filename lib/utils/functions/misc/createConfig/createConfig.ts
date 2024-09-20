@@ -58,7 +58,6 @@ export const createConfig = async (config: PartialConfig) => ({
 	branches: await config.branches,
 	plugins: config.plugins?.filter(Boolean),
 	debug: env('RELEASE_DEBUG', isEnvTrue),
-	repositoryUrl: env('RELEASE_REPOSITORY_URL'),
 	tagFormat: '${version}',
 	dryRun: env('RELEASE_DRY_RUN', isEnvTrue),
 	ci: !env('RELEASE_LOCALLY', isEnvTrue),
