@@ -5,7 +5,6 @@ export * from './CURRENT_BRANCH';
 export * from './DATE';
 export * from './DATE_HASH';
 export * from './DATETIME_HASH';
-export * from './DEFAULT_REPO_URL';
 export * from './PR_NUMBER';
 export * from './PR_PRERELEASE_CHANNEL';
 export * from './PR_PRERELEASE_PREID';

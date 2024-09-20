@@ -34,7 +34,7 @@ if (isUndefined(__REPO_URL__)) {
 			const exec = promisify(_exec);
 			const { stdout } = await exec('git ls-remote --get-url origin');
 
-			__REPO_URL__ = stdout?.trim() || DEFAULT_REPO_URL;
+			__REPO_URL__ = stdout?.trim() || 'origin';
 		}
 	}
 }
