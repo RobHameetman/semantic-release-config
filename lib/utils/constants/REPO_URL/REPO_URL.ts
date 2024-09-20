@@ -8,6 +8,10 @@ let __REPO_URL__ = env('RELEASE_REPOSITORY_URL');
 if (isUndefined(__REPO_URL__)) {
 	const { npm_package_homepage, npm_package_json, npm_package_repository_url } = process.env;
 
+	console.log(`typeof npm_package_homepage: "${typeof npm_package_homepage}"`);
+	console.log(`typeof npm_package_json: "${typeof npm_package_json}"`);
+	console.log(`typeof npm_package_repository_url: "${typeof npm_package_repository_url}"`);
+
 	if (npm_package_repository_url || npm_package_homepage) {
 		__REPO_URL__ = npm_package_repository_url
 			? npm_package_repository_url
@@ -24,6 +28,10 @@ if (isUndefined(__REPO_URL__)) {
 				: isString(repository?.url) && repository.url.length
 					? repository.url
 					: homepage;
+
+			if (!__REPO_URL__) {
+				throw new Error('REPO_URL must be defined');
+			}
 		} catch (err) {
 			__REPO_URL__ = 'https://www.npmjs.com/';
 		}
