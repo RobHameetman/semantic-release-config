@@ -8,6 +8,8 @@ export * from './DATETIME_HASH';
 export * from './PR_NUMBER';
 export * from './PR_PRERELEASE_CHANNEL';
 export * from './PR_PRERELEASE_PREID';
+export * from './PR_PRERELEASE_STRATEGY';
+export * from './PR_PRERELEASE_LABEL';
 export * from './REPO_NAME';
 export * from './REPO_TOKEN';
 export * from './VERSION_COMMIT_MESSAGE';

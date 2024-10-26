@@ -15,7 +15,7 @@ type PullRequestData = Endpoints['GET /repos/{owner}/{repo}/pulls']['response'][
 type PullRequest = PullRequestSchema & PullRequestData;
 type PullRequests = ReadonlyArray<PullRequest>;
 
-export let PR_NUMBER = Number(env('CI_PR_NUMBER', envOr([
+let value = Number(env('CI_PR_NUMBER', envOr([
 	'CI_PULL_REQUEST',
 	'PULL_REQUEST_NUMBER',
 	/**
@@ -39,7 +39,7 @@ export let PR_NUMBER = Number(env('CI_PR_NUMBER', envOr([
 	'GITHUB_REF',
 ])) || '').split('/').map(Number).at(2);
 
-if (isUndefined(PR_NUMBER) || isNaN(PR_NUMBER)) {
+if (isUndefined(value) || isNaN(value)) {
 	const exec = promisify(_exec);
 
 	const { stdout, stderr } = await exec(
@@ -50,13 +50,13 @@ if (isUndefined(PR_NUMBER) || isNaN(PR_NUMBER)) {
 		throw new Error(stderr);
 	}
 
-	const data = JSON.parse(stdout) as PullRequests;
+	const openPullRequests = JSON.parse(stdout) as PullRequests;
 
-	if (!(data instanceof Array)) {
-		throw new Error((data as Record<'message', string>).message || 'Unknown error');
+	if (!(openPullRequests instanceof Array)) {
+		throw new Error((openPullRequests as Record<'message', string>).message || 'Unknown error');
 	}
 
-	const branchesWithPrs = data.reduce((map, { number, head }) => {
+	const prNumbersByBranchName = openPullRequests.reduce((map, { number, head }) => {
 		if (!isNaN(number)) {
 			map.set(head.ref, number);
 		}
@@ -64,8 +64,8 @@ if (isUndefined(PR_NUMBER) || isNaN(PR_NUMBER)) {
 		return map;
 	}, new Map<string, number>());
 
-	if (branchesWithPrs.has(CURRENT_BRANCH || '')) {
-		PR_NUMBER = branchesWithPrs.get(CURRENT_BRANCH || '');
+	if (prNumbersByBranchName.has(CURRENT_BRANCH || '')) {
+		value = prNumbersByBranchName.get(CURRENT_BRANCH || '');
 	}
 }
 
@@ -86,4 +86,4 @@ if (isUndefined(PR_NUMBER) || isNaN(PR_NUMBER)) {
  * CI_PR_NUMBER=${{ github.event.pull_request.number }}
  * ```
  */
-export default PR_NUMBER;
+export const PR_NUMBER = value;

@@ -1,44 +1,40 @@
-import { isPluginPreset } from './PluginPreset';
+import { PLUGIN_PRESETS } from './PluginPreset';
 
-describe('isPluginPreset()', () => {
-	it('should return true given the string value "angular"', () => {
-		expect(isPluginPreset('angular')).toBe(true);
+describe('PLUGIN_PRESETS', () => {
+	it('should include the string value "angular"', () => {
+		expect(PLUGIN_PRESETS).toContain('angular');
 	});
 
-	it('should return true given the string value "atom"', () => {
-		expect(isPluginPreset('atom')).toBe(true);
+	it('should include the string value "atom"', () => {
+		expect(PLUGIN_PRESETS).toContain('atom');
 	});
 
-	it('should return true given the string value "codemirror"', () => {
-		expect(isPluginPreset('codemirror')).toBe(true);
+	it('should include the string value "codemirror"', () => {
+		expect(PLUGIN_PRESETS).toContain('codemirror');
 	});
 
-	it('should return true given the string value "ember"', () => {
-		expect(isPluginPreset('ember')).toBe(true);
+	it('should include the string value "ember"', () => {
+		expect(PLUGIN_PRESETS).toContain('ember');
 	});
 
-	it('should return true given the string value "eslint"', () => {
-		expect(isPluginPreset('eslint')).toBe(true);
+	it('should include the string value "eslint"', () => {
+		expect(PLUGIN_PRESETS).toContain('eslint');
 	});
 
-	it('should return true given the string value "express"', () => {
-		expect(isPluginPreset('express')).toBe(true);
+	it('should include the string value "express"', () => {
+		expect(PLUGIN_PRESETS).toContain('express');
 	});
 
-	it('should return true given the string value "jquery"', () => {
-		expect(isPluginPreset('jquery')).toBe(true);
+	it('should include the string value "jquery"', () => {
+		expect(PLUGIN_PRESETS).toContain('jquery');
 	});
 
-	it('should return true given the string value "jshint"', () => {
-		expect(isPluginPreset('jshint')).toBe(true);
+	it('should include the string value "jshint"', () => {
+		expect(PLUGIN_PRESETS).toContain('jshint');
 	});
 
-	it('should return true given the string value "conventionalcommits"', () => {
-		expect(isPluginPreset('conventionalcommits')).toBe(true);
-	});
-
-	it('should return false given an empty string', () => {
-		expect(isPluginPreset('')).toBe(false);
+	it('should include the string value "conventionalcommits"', () => {
+		expect(PLUGIN_PRESETS).toContain('conventionalcommits');
 	});
 });
 

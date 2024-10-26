@@ -16,10 +16,14 @@ describe('$ifPrerelease()', () => {
 	});
 
 	it('should resolve to the given alternative predicate if provided when the release is not a prerelease', () => {
+		expect(render($ifPrerelease('\'do something...\'', '\'do something else...\''), { version: '15.1.2' })).toBe('do something else...');
 		expect(render($ifPrerelease('\'do something...\'', '\'do something else...\''), { version: '15.2.0' })).toBe('do something else...');
+		expect(render($ifPrerelease('\'do something...\'', '\'do something else...\''), { version: '16.0.0' })).toBe('do something else...');
 	});
 
 	it('should resolve to an empty string when the release is not a prerelease and an alternative predicate is not provided', () => {
+		expect(render($ifPrerelease('\'do something...\''), { version: '15.1.2' })).toBe('');
 		expect(render($ifPrerelease('\'do something...\''), { version: '15.2.0' })).toBe('');
+		expect(render($ifPrerelease('\'do something...\''), { version: '16.0.0' })).toBe('');
 	});
 });

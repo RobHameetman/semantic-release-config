@@ -24,4 +24,9 @@ describe('$supportLatestMinorRelease()', () => {
 		await expect(versionsOf($supportLatestMinorRelease(), { version: '7.2.0', type: 'minor' })).resolves.toContain('7.1.0');
 		await expect(versionsOf($supportLatestMinorRelease(), { version: '7.2.0', type: 'minor' })).resolves.not.toContain('7.2.0');
 	});
+
+	it('should do nothing when the release is not a minor version', () => {
+		expect(render($supportLatestMinorRelease(), { type: 'patch', version: '6.2.6' })).toBe('');
+		expect(render($supportLatestMinorRelease(), { type: 'major', version: '7.0.0' })).toBe('');
+	});
 });

@@ -2,9 +2,6 @@ jest.unstable_mockModule('@/templates/ranges/$supportLatestPatchRelease', () => 
 	$supportLatestPatchRelease: jest.fn().mockReturnValue('>= 1.1.0 < 1.2.0'),
 }));
 
-// const { supportLatestPatchRelease } = await import('./supportLatestPatchRelease');
-// const { $supportLatestPatchRelease } = await import('@/templates/ranges/$supportLatestPatchRelease');
-
 describe('supportLatestPatchRelease()', () => {
 	let $supportLatestPatchRelease: (() => string) | null = null;
 	let supportLatestPatchRelease: (() => unknown) | null = null;

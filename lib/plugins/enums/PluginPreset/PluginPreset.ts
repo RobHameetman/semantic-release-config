@@ -66,20 +66,3 @@ export enum PluginPreset {
 export const PLUGIN_PRESETS = Object.freeze(
 	Array.from(new Set(Object.values<PluginPreset>(PluginPreset))),
 );
-
-/**
- * Checks that an `unknown` value is a {@link PluginPreset}.
- *
- * Requirements:
- *   - `value` must be a non-empty string and must be included as a value of `PluginPresets`.
- *
- * @param value - An `unknown` value.
- *
- * @returns The determination that `value` is or is not a {@link PluginPreset}.
- */
-export const isPluginPreset = (value: unknown): value is PluginPreset =>
-	/**
-	 * value
-	 */
-	isString(value) &&
-	(PLUGIN_PRESETS as ReadonlyArray<string>).includes(value);

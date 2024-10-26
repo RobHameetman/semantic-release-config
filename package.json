@@ -41,7 +41,7 @@
 		"test": "NODE_ENV=test NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest"
 	},
 	"dependencies": {
-		"@rob.hameetman/type-guards": "1.1.0-beta.4",
+		"@rob.hameetman/type-guards": "1.1.0",
 		"@semantic-release/changelog": "6.0.3",
 		"@semantic-release/commit-analyzer": "11.0.0",
 		"@semantic-release/error": "4.0.0",

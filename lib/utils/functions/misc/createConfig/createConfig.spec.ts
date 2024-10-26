@@ -10,7 +10,6 @@ jest.unstable_mockModule('@/utils/functions/environment/env', () => ({
 			RELEASE_DEBUG: () => process.env.RELEASE_DEBUG === 'true',
 			RELEASE_DRY_RUN: () => process.env.RELEASE_DRY_RUN === 'true',
 			RELEASE_LOCALLY: () => process.env.RELEASE_LOCALLY === 'true',
-			RELEASE_REPOSITORY_URL: () => process.env.RELEASE_REPOSITORY_URL,
 		} as Record<string, () => unknown>)[variable]();
 	}),
 }));
@@ -32,9 +31,6 @@ describe('createConfig()', () => {
 
 		mockEnv('RELEASE_LOCALLY')
 			.mockReturnValue(faker.datatype.boolean().toString());
-
-		mockEnv('RELEASE_REPOSITORY_URL')
-			.mockReturnValue(faker.internet.url());
 	});
 
 	beforeEach(async () => {
@@ -98,9 +94,9 @@ describe('createConfig()', () => {
 		}));
 	});
 
-	it('should return a semantic-release configuration with the correct repository url when one is provided', () => {
-		expect(result).toStrictEqual(expect.objectContaining({
-			repositoryUrl: process.env.RELEASE_REPOSITORY_URL,
+	it('should return a semantic-release configuration without a repository url', () => {
+		expect(result).not.toStrictEqual(expect.objectContaining({
+			repositoryUrl: expect.any(String),
 		}));
 	});
 

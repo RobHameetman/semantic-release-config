@@ -1,4 +1,4 @@
-import type { EnvValue } from '@/utils/types/misc/EnvValue';
+import { isEnvValue } from '@/utils/functions/environment/isEnvValue';
 
 /**
  * Determine if the value of an environment variable is false.
@@ -12,4 +12,4 @@ import type { EnvValue } from '@/utils/types/misc/EnvValue';
  *
  * @returns A boolean which is `true` if the value is the string "false".
  */
-export const isEnvFalse = (value: EnvValue) => value === 'false';
+export const isEnvFalse = isEnvValue('false');

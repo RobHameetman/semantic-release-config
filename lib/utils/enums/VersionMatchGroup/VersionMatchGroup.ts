@@ -88,11 +88,6 @@ export enum VersionMatchGroup {
 }
 
 /**
- * Any one of the given version match group names.
- */
-export type AnyVersionMatchGroup = keyof typeof VersionMatchGroup;
-
-/**
  * An array of all {@link VersionMatchGroupName} values.
  */
 export const VERSION_MATCH_GROUPS = Object.freeze(

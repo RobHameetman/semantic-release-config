@@ -15,5 +15,4 @@ import { patchBack } from '@/templates/versions/patch/patchBack';
  * because this leads to an error about a missing closing bracket.
  */
 export const $supportLatestPatchRelease = () =>
-	// $ifPatchRelease(`\`>= ${$major()}.${$minor()}.${$patchBack()} < ${$major()}.${$minor()}.${$patch()}\``);
 	$ifPatchRelease(`'>= ' + ${major()} + '.' + ${minor()} + '.' + (${patchBack()}) + ' < ' + ${major()} + '.' + ${minor()} + '.' + ${patch()}`);

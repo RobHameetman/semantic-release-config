@@ -1,4 +1,5 @@
 import { isUndefined } from '@rob.hameetman/type-guards';
+import { isEnvValue } from '@/utils/functions/environment/isEnvValue';
 import type { EnvValue } from '@/utils/types/misc/EnvValue';
 
 /**
@@ -17,4 +18,4 @@ import type { EnvValue } from '@/utils/types/misc/EnvValue';
  * string.
  */
 export const isEnvDefined = (value: EnvValue) =>
-	value !== '' && !isUndefined(value);
+	!isEnvValue('')(value) && !isUndefined(value);

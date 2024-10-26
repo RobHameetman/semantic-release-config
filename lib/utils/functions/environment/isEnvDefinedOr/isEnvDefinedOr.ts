@@ -21,7 +21,7 @@ import type { EnvValue } from '@/utils/types/misc/EnvValue';
  */
 export const isEnvDefinedOr = (altEnvName: string | ReadonlyArray<string>) =>
 	(value: EnvValue) =>
-	isEnvDefined(value) ||
-		(altEnvName instanceof Array
-			? altEnvName.some((name) => isEnvDefined(process.env[name]))
-			: isEnvDefined(process.env[altEnvName]));
+		isEnvDefined(value) ||
+			(altEnvName instanceof Array
+				? altEnvName.some((name) => isEnvDefined(process.env[name]))
+				: isEnvDefined(process.env[altEnvName]));
