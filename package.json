@@ -1,6 +1,6 @@
 {
 	"name": "@rob.hameetman/semantic-release-config",
-	"version": "1.0.0-alpha.22",
+	"version": "1.0.0-alpha.23",
 	"type": "module",
 	"description": "A package for centralized release management configuration.",
 	"author": "Robert H. Hameetman (https://www.robhameetman.com/)",

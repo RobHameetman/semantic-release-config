@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.23](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.22...1.0.0-alpha.23) (2024-10-27)
+
+
+### Features
+
+* Default channel by strategy ([33a3cbe](https://github.com/RobHameetman/semantic-release-config/commit/33a3cbe834af4d4343603825ac7e2f6c6832c8a4))
+
 ## [1.0.0-alpha.22](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.21...1.0.0-alpha.22) (2024-09-20)
 
 
