@@ -26,6 +26,19 @@ const dictionary = {
  */
 const byStrategy = {
 	/**
+	 * Uses a string provided by the `RELEASE_PR_PRERELEASE_PREID` environment
+	 * variable as the preid. This allows for a custom preid.
+	 *
+	 * @example
+	 * `X.X.X-commit.[COMMIT_SHA].1`
+	 * `X.X.X-[COMMIT_SHA].1`
+	 *
+	 * `1.0.0-commit.f73dc97d01d31ca7fad272d80a25b651bab81990.1`
+	 * `1.6.8-c8ad90851dbd625442130af3afd36b28885f21ce.1`
+	 */
+	custom: template(env('RELEASE_PR_PRERELEASE_PREID')),
+
+	/**
 	 * Uses the short commit hash as the preid. This results in a unique preid for
 	 * each branch.
 	 *
@@ -77,19 +90,6 @@ const byStrategy = {
 	 * `1.6.8-c8ad90851dbd625442130af3afd36b28885f21ce.1`
 	 */
 	[PrPrereleaseStrategy.commitfull]: template('${label}.${commitfull}'),
-
-	/**
-	 * Uses a string provided by the `RELEASE_PR_PRERELEASE_PREID` environment
-	 * variable as the preid. This allows for a custom preid.
-	 *
-	 * @example
-	 * `X.X.X-commit.[COMMIT_SHA].1`
-	 * `X.X.X-[COMMIT_SHA].1`
-	 *
-	 * `1.0.0-commit.f73dc97d01d31ca7fad272d80a25b651bab81990.1`
-	 * `1.6.8-c8ad90851dbd625442130af3afd36b28885f21ce.1`
-	 */
-	custom: template(env('RELEASE_PR_PRERELEASE_PREID')),
 
 	/**
 	 * Uses the date hash as the preid. This results in a unique preid for the

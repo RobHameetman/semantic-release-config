@@ -11,11 +11,6 @@ describe('supportLatestMajorRelease()', () => {
 		({ supportLatestMajorRelease } = await import('./supportLatestMajorRelease'));
 	});
 
-	// afterEach(() => {
-	// 	jest.resetModules();
-	// 	jest.clearAllMocks();
-	// });
-
 	afterAll(() => {
 		jest.restoreAllMocks();
 	});

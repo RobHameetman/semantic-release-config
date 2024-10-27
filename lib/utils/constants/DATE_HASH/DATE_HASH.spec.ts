@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import { isString } from '@rob.hameetman/type-guards';
 import { clockify as pad } from '@@/utils/clockify';
 

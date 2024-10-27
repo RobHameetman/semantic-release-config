@@ -1,5 +1,3 @@
-import { isString } from '@rob.hameetman/type-guards';
-
 /**
  * Preset values for semantic-release plugins. The `default` preset is the
  * preset used by this package by default, but can be overridden with the

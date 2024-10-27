@@ -23,10 +23,15 @@
  */
 export const back = (version: string, offset = 1, floor = 0) =>
 	/**
-	 * (!isNaN(Number(${version}))
-	 * 		? (Number(${version}) - ${Math.abs(offset)} >= ${Math.abs(floor)}
-	 * 			? Number(${version}) - ${Math.abs(offset)}
-	 * 			: ${Math.abs(floor)})
-	 * 		: "")
+	 * prettified:
+	 * (
+	 *   !isNaN(Number(${version}))
+	 * 	    ? (
+	 *          Number(${version}) - ${Math.abs(offset)} >= ${Math.abs(floor)}
+	 * 		  	    ? Number(${version}) - ${Math.abs(offset)}
+	 * 			      : ${Math.abs(floor)}
+	 *        )
+	 * 		  : ""
+	 * )
 	 */
 	`(!isNaN(Number(${version})) ? (Number(${version}) - ${Math.abs(offset)} >= ${Math.abs(floor)} ? Number(${version}) - ${Math.abs(offset)} : ${Math.abs(floor)}) : '')`;

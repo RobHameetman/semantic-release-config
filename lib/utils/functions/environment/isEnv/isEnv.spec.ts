@@ -1,7 +1,7 @@
 import { mockEnv } from '@@/utils/mockEnv';
-import { isEnvValue } from './isEnvValue';
+import { isEnv } from './isEnv';
 
-describe('isEnvValue()', () => {
+describe('isEnv()', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;
 
 	beforeAll(() => {
@@ -26,18 +26,18 @@ describe('isEnvValue()', () => {
 	});
 
 	it('should be true given an environment variable and matching value', () => {
-		expect(isEnvValue('test')(process.env.TEST_ENV_VALUE)).toBe(true);
+		expect(isEnv('test')(process.env.TEST_ENV_VALUE)).toBe(true);
 	});
 
 	it('should be false given an environment variable and non-matching value', () => {
-		expect(isEnvValue('test')(process.env.TEST_ENV_VALUE)).toBe(false);
+		expect(isEnv('test')(process.env.TEST_ENV_VALUE)).toBe(false);
 	});
 
 	it('should be false given an undefined environment variable and any value', () => {
-		expect(isEnvValue('test')(process.env.TEST_ENV_VALUE)).toBe(false);
+		expect(isEnv('test')(process.env.TEST_ENV_VALUE)).toBe(false);
 	});
 
 	it('should be false given an undefined environment variable and an empty string', () => {
-		expect(isEnvValue('')(process.env.TEST_ENV_VALUE)).toBe(false);
+		expect(isEnv('')(process.env.TEST_ENV_VALUE)).toBe(false);
 	});
 });

@@ -1,8 +1,6 @@
 import type { BranchObject } from 'semantic-release';
 import { faker } from '@faker-js/faker';
 import { mockEnv } from '@@/utils/mockEnv';
-// import { Branch } from '@/utils/types/state/Branch';
-// import { branches } from './branches';
 
 jest.unstable_mockModule('@/utils/types/state/Branch', () => ({
 	Branch: class {

@@ -7,6 +7,12 @@ import { patch } from '@/templates/versions/patch/patch';
 /**
  * This range is used to deprecate any prerelease versions for the current
  * release version.
+ *
+ * @privateRemarks
+ * We can use template string literals here to make things a bit more readable
+ * but the finalized template string itself which is passed to `_.template()`
+ * has to use concatenation instead of being a nested template string literal
+ * because this leads to an error about a missing closing bracket.
  */
 export const $prereleasesForVersion = ($preids: string | ReadonlyArray<string>) =>
 	$ifRelease(

@@ -1,4 +1,4 @@
-import { ReleaseRules } from '@/utils/types/misc/ReleaseRules';
+import type { ReleaseRules } from '@/utils/types/misc/ReleaseRules';
 
 export const MAJOR_RELEASE_RULES: ReleaseRules = [
 	/**

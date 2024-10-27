@@ -1,4 +1,4 @@
-import { isEnvValue } from '@/utils/functions/environment/isEnvValue';
+import { isEnv } from '@/utils/functions/environment/isEnv';
 
 /**
  * Determine if the value of an environment variable is true.
@@ -12,4 +12,4 @@ import { isEnvValue } from '@/utils/functions/environment/isEnvValue';
  *
  * @returns A boolean which is `true` if the value is the string "true".
  */
-export const isEnvTrue = isEnvValue('true');
+export const isEnvTrue = isEnv('true');

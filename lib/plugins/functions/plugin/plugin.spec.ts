@@ -1,11 +1,4 @@
-// import { streamlineConfig } from '@/plugins/functions/streamlineConfig';
-import { disableChangelog } from '@@/mocks/changelog/disableChangelog';
-import { disableSlack } from '@@/mocks/slack/disableSlack';
 import { mockEnv } from '@@/utils/mockEnv';
-// import { plugin } from './plugin';
-
-// disableChangelog();
-// disableSlack();
 
 describe('plugin()', () => {
 	let error: Error | null = null;
@@ -13,9 +6,6 @@ describe('plugin()', () => {
 	let act: jest.Mock | null = null;
 
 	beforeAll(async () => {
-		// disableChangelog();
-		// disableSlack();
-
 		mockEnv('RELEASE_DISABLE_CHANGELOG')
 			.mockReturnValueOnce('true')
 			.mockReturnValueOnce('true')
@@ -91,11 +81,6 @@ describe('plugin()', () => {
 	afterAll(() => {
 		result = null;
 	});
-
-	// it('should streamline the provided config', () => {
-	// 	expect(error).toBeNull();
-	// 	expect(streamlineConfig).toBeCalled();
-	// });
 
 	it('should return a plugin spec given a plugin which is not checked for enablement', () => {
 		expect(error).toBeNull();

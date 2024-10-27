@@ -1,9 +1,9 @@
+import type { components } from '@octokit/openapi-types';
+import type { Endpoints } from '@octokit/types';
 import { readFileSync as _readFileSync } from 'fs';
 import { exec as _exec } from 'child_process';
 import { promisify } from 'util';
 import { isUndefined } from '@rob.hameetman/type-guards';
-import { components } from '@octokit/openapi-types';
-import { Endpoints } from '@octokit/types';
 import { CURRENT_BRANCH } from '@/utils/constants/CURRENT_BRANCH';
 import { REPO_NAME } from '@/utils/constants/REPO_NAME';
 import { REPO_TOKEN } from '@/utils/constants/REPO_TOKEN';

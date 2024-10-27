@@ -5,7 +5,7 @@ import type { EnvValue } from '@/utils/types/misc/EnvValue';
  *
  * @example
  * ```TypeScript
- * env('RELEASE_DISABLE_CHANGELOG', isEnvValue('true))
+ * env('RELEASE_DISABLE_CHANGELOG', isEnv('true))
  * ```
  *
  * @param value - The value of an environment variable.
@@ -13,7 +13,7 @@ import type { EnvValue } from '@/utils/types/misc/EnvValue';
  * @returns A function that determines if the value of an environment variable
  * matches the expected value.
  */
-export const isEnvValue =
+export const isEnv =
 	(expected: string) =>
 		(value: EnvValue) =>
 			value === expected;
