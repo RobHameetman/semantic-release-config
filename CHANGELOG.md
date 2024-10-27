@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.24](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.23...1.0.0-alpha.24) (2024-10-27)
+
+
+### Features
+
+* Debug prerelease deprecation config ([ba100c4](https://github.com/RobHameetman/semantic-release-config/commit/ba100c4281e8a407a6299f520e1096c24e487fd1))
+
 ## [1.0.0-alpha.23](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.22...1.0.0-alpha.23) (2024-10-27)
 
 
