@@ -17,9 +17,14 @@ import { prereleaseBack } from '@/templates/versions/prerelease/prereleaseBack';
  * @returns A deprecation rule for the previous prerelease version of the
  * current release version (e.g. 1.2.7).
  */
-export const $supportLatestPrerelease = ($preids: string | ReadonlyArray<string> = preid()) =>
-	$ifPrerelease(
+export const $supportLatestPrerelease = ($preids: string | ReadonlyArray<string> = preid()) => {
+	const result = $ifPrerelease(
 		isArray($preids)
 			? $preids.map(($preid) => `'>= ' + ${major()} + '.' + ${minor()} + '.' + ${patch()} + '-' + ${String($preid).startsWith('nextRelease') ? $preid : `'${$preid}'`} + '.' + ${prereleaseBack()} + ' < ' + nextRelease.version`).join(' || ')
 			: `'>= ' + ${major()} + '.' + ${minor()} + '.' + ${patch()} + '-' + ${String($preids).startsWith('nextRelease') ? $preids : `'${$preids}'`} + '.' + ${prereleaseBack()} + ' < ' + nextRelease.version`,
 	);
+
+	console.info('Deprecated version:', result);
+
+	return result;
+};
