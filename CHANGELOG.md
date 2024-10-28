@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.25](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.24...1.0.0-alpha.25) (2024-10-28)
+
+
+### Bug Fixes
+
+* Empty deprecations grabbing all versions ([edad289](https://github.com/RobHameetman/semantic-release-config/commit/edad289688d4b9bfc6bbdb06e94c99d4c02aad7e))
+
 ## [1.0.0-alpha.24](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.23...1.0.0-alpha.24) (2024-10-27)
 
 
