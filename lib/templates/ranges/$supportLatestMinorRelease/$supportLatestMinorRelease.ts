@@ -17,4 +17,7 @@ import { minorBack } from '@/templates/versions/minor/minorBack';
  * minor release version (e.g. 1.2.X).
  */
 export const $supportLatestMinorRelease = () =>
-	$ifMinorRelease(`'>= ' + ${major()} + '.' + ${minorBack()} + '.0 < ' + ${major()} + '.' + ${minor()} + '.0'`);
+	$ifMinorRelease(
+		`'>= ' + ${major()} + '.' + ${minorBack()} + '.0 < ' + ${major()} + '.' + ${minor()} + '.0'`,
+		'">= " + nextRelease.version + " < " + nextRelease.version',
+	);

@@ -26,7 +26,7 @@ describe('$supportLatestPatchRelease()', () => {
 	});
 
 	it('should do nothing when the release is not a patch version', () => {
-		expect(render($supportLatestPatchRelease(), { type: 'minor', version: '6.2.0' })).toBe('');
-		expect(render($supportLatestPatchRelease(), { type: 'major', version: '7.0.0' })).toBe('');
+		expect(render($supportLatestPatchRelease(), { type: 'minor', version: '6.2.0' })).toBe('>= 6.2.0 < 6.2.0');
+		expect(render($supportLatestPatchRelease(), { type: 'major', version: '7.0.0' })).toBe('>= 7.0.0 < 7.0.0');
 	});
 });

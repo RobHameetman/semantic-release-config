@@ -18,4 +18,7 @@ import { patchBack } from '@/templates/versions/patch/patchBack';
  * minor release version (e.g. 1.2.0).
  */
 export const $supportLatestPatchRelease = () =>
-	$ifPatchRelease(`'>= ' + ${major()} + '.' + ${minor()} + '.' + (${patchBack()}) + ' < ' + ${major()} + '.' + ${minor()} + '.' + ${patch()}`);
+	$ifPatchRelease(
+		`'>= ' + ${major()} + '.' + ${minor()} + '.' + (${patchBack()}) + ' < ' + ${major()} + '.' + ${minor()} + '.' + ${patch()}`,
+		'">= " + nextRelease.version + " < " + nextRelease.version',
+	);

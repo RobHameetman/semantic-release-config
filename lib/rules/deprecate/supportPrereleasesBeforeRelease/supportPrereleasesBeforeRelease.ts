@@ -1,4 +1,5 @@
 import { $prereleasesForVersion } from '@/templates/ranges/$prereleasesForVersion';
+import { preid } from '@/templates/versions/prerelease/preid';
 
 /**
  * Deprecates any prerelease versions for a given release version. For example,
@@ -11,7 +12,7 @@ import { $prereleasesForVersion } from '@/templates/ranges/$prereleasesForVersio
  * @returns A deprecation rule for all prerelease versions of the current major
  * release.
  */
-export const supportPrereleasesBeforeRelease = ($preids: string | ReadonlyArray<string>) => ({
+export const supportPrereleasesBeforeRelease = ($preids: string | ReadonlyArray<string> = preid()) => ({
 	version: $prereleasesForVersion($preids),
 	message: 'Version ${nextRelease.version} has been released.',
 });

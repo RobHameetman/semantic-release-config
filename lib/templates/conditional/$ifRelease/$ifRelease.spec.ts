@@ -17,6 +17,7 @@ describe('$ifRelease()', () => {
 
 	it('should resolve to the given alternative predicate if provided when the release is a prerelease', () => {
 		expect(render($ifRelease('\'do something...\'', '\'do something else...\''), { version: '15.1.1-rc.1' })).toBe('do something else...');
+		expect(render($ifRelease('\'do something...\'', '\'do something else...\''), { version: '1.0.0-alpha.23' })).toBe('do something else...');
 	});
 
 	it('should resolve to an empty string when the release is a prerelease and an alternative predicate is not provided', () => {
