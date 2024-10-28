@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.26](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.25...1.0.0-alpha.26) (2024-10-28)
+
+
+### Features
+
+* Errata ([0d526a5](https://github.com/RobHameetman/semantic-release-config/commit/0d526a593a4e611b012e0d6bb35d601e5a209351))
+
 ## [1.0.0-alpha.25](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.24...1.0.0-alpha.25) (2024-10-28)
 
 
