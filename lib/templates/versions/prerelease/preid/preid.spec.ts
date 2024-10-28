@@ -12,11 +12,15 @@ describe('preid()', () => {
 	});
 
 	it('should resolve to the prerelease preid given a prerelease version with a build number', () => {
-		expect(render(`\${${preid()}}`, { version: '1.2.20-rc.1+build.5' })).toBe('rc.1');
+		expect(render(`\${${preid()}}`, { version: '1.2.20-rc.1+build.5' })).toBe('rc');
 	});
 
 	it('should resolve to the prerelease preid given a prerelease version with extra dashes', () => {
-		expect(render(`\${${preid()}}`, { version: '1.2.20---DEV-SNAPSHOT.12+build.5' })).toBe('--DEV-SNAPSHOT.12');
+		expect(render(`\${${preid()}}`, { version: '1.2.20---DEV-SNAPSHOT.12+build.5' })).toBe('--DEV-SNAPSHOT');
+	});
+
+	it('should handle preids labelled using dot notation', () => {
+		expect(render(`\${${preid()}}`, { version: '1.2.20-commit.2e5c6e98.1+build.1342' })).toBe('commit.2e5c6e98');
 	});
 
 	it('should resolve to the prerelease preid given a prerelease version with no build', () => {

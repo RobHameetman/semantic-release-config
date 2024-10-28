@@ -1,4 +1,4 @@
-import { preid } from '@/templates/versions/prerelease/preid';
+import { preidWithPrerelease } from '@/templates/versions/prerelease/preidWithPrerelease';
 
 /**
  * Retrieve the prerelease version number from the release context.
@@ -11,4 +11,4 @@ import { preid } from '@/templates/versions/prerelease/preid';
  * @returns The prerelease version number as a string or an empty string if no
  * prerelease version is defined.
  */
-export const prerelease = () => `(${preid()} || '').split('.').slice(-1)[0] || undefined`;
+export const prerelease = () => `(${preidWithPrerelease()} || '').split('.').slice(-1)[0] || undefined`;
