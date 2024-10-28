@@ -18,7 +18,7 @@ import { preid } from '@/templates/versions';
 export const $prereleasesForVersion = ($preids: string | ReadonlyArray<string> = preid()) =>
 	$ifRelease(
 		isArray($preids)
-			? `${$preids.map(($preid) => `'>= ' + ${major()} + '.' + ${minor()} + '.' + ${patch()} + '-' + '${$preid}' + '.0 < ' + ${major()} + '.' + ${minor()} + '.' + ${patch()}`).join(' + \' || \' + ')})`
-			: `'>= ' + ${major()} + '.' + ${minor()} + '.' + ${patch()} + '-' + '${$preids}' + '.0 < ' + ${major()} + '.' + ${minor()} + '.' + ${patch()}`,
+			? `${$preids.map(($preid) => `">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + "${$preid}" + ".0 < " + ${major()} + "." + ${minor()} + "." + ${patch()}`).join(' + " || " + ')}`
+			: `">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + "${$preids}" + ".0 < " + ${major()} + "." + ${minor()} + "." + ${patch()}`,
 		'">= " + nextRelease.version + " < " + nextRelease.version',
 	);

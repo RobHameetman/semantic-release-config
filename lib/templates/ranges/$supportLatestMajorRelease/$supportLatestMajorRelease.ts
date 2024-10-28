@@ -17,6 +17,6 @@ import { majorBack } from '@/templates/versions/major/majorBack';
  */
 export const $supportLatestMajorRelease = () =>
 	$ifMajorRelease(
-		`'>= ' + ${majorBack()} + '.0.0 < ' + ${major()} + '.0.0'`,
+		`">= " + ${majorBack()} + ".0.0 < " + ${major()} + ".0.0"`,
 		'">= " + nextRelease.version + " < " + nextRelease.version',
 	);

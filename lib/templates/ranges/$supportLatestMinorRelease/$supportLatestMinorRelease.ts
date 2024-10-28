@@ -18,6 +18,6 @@ import { minorBack } from '@/templates/versions/minor/minorBack';
  */
 export const $supportLatestMinorRelease = () =>
 	$ifMinorRelease(
-		`'>= ' + ${major()} + '.' + ${minorBack()} + '.0 < ' + ${major()} + '.' + ${minor()} + '.0'`,
+		`">= " + ${major()} + "." + ${minorBack()} + ".0 < " + ${major()} + "." + ${minor()} + ".0"`,
 		'">= " + nextRelease.version + " < " + nextRelease.version',
 	);
