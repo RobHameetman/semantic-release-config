@@ -17,9 +17,14 @@ describe('$prereleasesForVersion()', () => {
 		);
 	});
 
-	it('should resolve to multiple ranges given multiple preids', () => {
-		expect(render($prereleasesForVersion(['next', 'rc']), { version: '6.1.12' })).toBe('>= 6.1.12-next.0 < 6.1.12 || >= 6.1.12-rc.0 < 6.1.12');
-	});
+	/**
+	 * Looking into this but it seems like the plugin (https://www.npmjs.com/package/semantic-release-npm-deprecate)
+	 * uses the first version expression in the union, so using multiple versions
+	 * in one deprecation statement seemingly isn't possible.
+	 */
+	// it('should resolve to multiple ranges given multiple preids', () => {
+	// 	expect(render($prereleasesForVersion(['next', 'rc']), { version: '6.1.12' })).toBe('>= 6.1.12-next.0 < 6.1.12 || >= 6.1.12-rc.0 < 6.1.12');
+	// });
 
 	it('should range from the first prerelease version to the current release version for each provided preid', () => {
 		expect(render($prereleasesForVersion('rc'), { version: '6.1.12' })).toBe('>= 6.1.12-rc.0 < 6.1.12');
@@ -27,6 +32,5 @@ describe('$prereleasesForVersion()', () => {
 
 	it('should do nothing when the release is not a prerelease version', () => {
 		expect(render($prereleasesForVersion(''), { version: '1.0.0-alpha.23' })).toBe('>= 1.0.0-alpha.23 < 1.0.0-alpha.23');
-		expect(render($prereleasesForVersion(['rc', 'beta', 'alpha']), { version: '1.0.0-alpha.23' })).toBe('>= 1.0.0-alpha.23 < 1.0.0-alpha.23');
 	});
 });

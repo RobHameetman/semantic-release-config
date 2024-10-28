@@ -55,8 +55,8 @@ export default createConfig({
 			deprecations: [
 				supportLatestPatchRelease(),
 				supportLatestMinorRelease(),
-				supportPrereleasesBeforeRelease(['rc', 'beta', 'alpha', env('RELEASE_PR_PREID') || ''].filter(Boolean)),
-				supportLatestPrerelease(['rc', 'beta', 'alpha', env('RELEASE_PR_PREID') || ''].filter(Boolean)),
+				supportPrereleasesBeforeRelease(),
+				supportLatestPrerelease(),
 			]
 		}]),
 		plugin(['@semantic-release/exec', {

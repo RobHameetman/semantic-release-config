@@ -12,7 +12,7 @@ import { preid } from '@/templates/versions/prerelease/preid';
  * @returns A deprecation rule for all prerelease versions of the current major
  * release.
  */
-export const supportPrereleasesBeforeRelease = ($preids: string | ReadonlyArray<string> = preid()) => ({
-	version: $prereleasesForVersion($preids),
+export const supportPrereleasesBeforeRelease = ($preid: string = preid()) => ({
+	version: $prereleasesForVersion($preid),
 	message: 'Version ${nextRelease.version} has been released.',
 });

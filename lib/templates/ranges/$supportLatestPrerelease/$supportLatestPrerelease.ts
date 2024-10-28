@@ -18,10 +18,8 @@ import { prereleaseBack } from '@/templates/versions/prerelease/prereleaseBack';
  * @returns A deprecation rule for the previous prerelease version of the
  * current release version (e.g. 1.2.7).
  */
-export const $supportLatestPrerelease = ($preids: string | ReadonlyArray<string> = preid()) =>
+export const $supportLatestPrerelease = ($preid: string = preid()) =>
 	$ifPrerelease(
-		isArray($preids)
-			? $preids.map(($preid) => `">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') ? $preid : `"${$preid}"`} + "." + (${prereleaseBack()} === "1" ? "1" : "2") + " < " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') ? $preid : `"${$preid}"`} + "." + ${prerelease()}`).join(' + " || " + ')
-			: `">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preids).startsWith('nextRelease') ? $preids : `"${$preids}"`} + "." + (${prereleaseBack()} === "1" ? "1" : "2") + " < " + nextRelease.version`,
-			'">= " + nextRelease.version + " < " + nextRelease.version',
+		`">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') ? $preid : `"${$preid}"`} + "." + (${prereleaseBack()} === "1" ? "1" : "2") + " < " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') ? $preid : `"${$preid}"`} + "." + ${prerelease()}`,
+		'">= " + nextRelease.version + " < " + nextRelease.version',
 	);

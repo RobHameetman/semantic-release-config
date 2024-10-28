@@ -11,7 +11,7 @@ import { $supportLatestPrerelease } from '@/templates/ranges/$supportLatestPrere
  * @returns A deprecation rule for the previous prerelease version of the
  * current release version (e.g. 1.2.7).
  */
-export const supportLatestPrerelease = ($preids: string | ReadonlyArray<string>) => ({
-	version: $supportLatestPrerelease($preids),
+export const supportLatestPrerelease = ($preid: string) => ({
+	version: $supportLatestPrerelease($preid),
 	message: 'A new prerelease version ${nextRelease.version} has been published.',
 });

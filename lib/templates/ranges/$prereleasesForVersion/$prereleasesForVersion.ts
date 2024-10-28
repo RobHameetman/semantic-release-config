@@ -15,10 +15,8 @@ import { preid } from '@/templates/versions';
  * has to use concatenation instead of being a nested template string literal
  * because this leads to an error about a missing closing bracket.
  */
-export const $prereleasesForVersion = ($preids: string | ReadonlyArray<string> = preid()) =>
+export const $prereleasesForVersion = ($preid: string = preid()) =>
 	$ifRelease(
-		isArray($preids)
-			? `${$preids.map(($preid) => `">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + "${$preid}" + ".0 < " + ${major()} + "." + ${minor()} + "." + ${patch()}`).join(' + " || " + ')}`
-			: `">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + "${$preids}" + ".0 < " + ${major()} + "." + ${minor()} + "." + ${patch()}`,
+		`">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + "${$preid}" + ".0 < " + ${major()} + "." + ${minor()} + "." + ${patch()}`,
 		'">= " + nextRelease.version + " < " + nextRelease.version',
 	);

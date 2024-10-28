@@ -3,7 +3,7 @@ jest.unstable_mockModule('@/templates/ranges/$prereleasesForVersion', () => ({
 }));
 
 describe('supportPrereleasesBeforeRelease()', () => {
-	let $prereleasesForVersion: (($preids: string | ReadonlyArray<string>) => string) | null = null;
+	let $prereleasesForVersion: (($preids: string) => string) | null = null;
 	let supportPrereleasesBeforeRelease: ((prerelease: string) => unknown) | null = null;
 
 	beforeAll(async () => {
