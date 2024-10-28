@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.30](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.29...1.0.0-alpha.30) (2024-10-28)
+
+
+### Bug Fixes
+
+* Deprecate previous prerelease versions ([6d806ad](https://github.com/RobHameetman/semantic-release-config/commit/6d806ad8430523d66c649f7bb6eb4f38aa34d69a))
+
 ## [1.0.0-alpha.29](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.28...1.0.0-alpha.29) (2024-10-28)
 
 
