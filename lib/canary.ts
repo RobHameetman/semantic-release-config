@@ -59,8 +59,8 @@ export default createConfig({
 			deprecations: [
 				supportLatestPatchRelease(),
 				supportLatestMinorRelease(),
-				supportPrereleasesBeforeRelease([PRERELEASE_TYPE, env('RELEASE_PR_PREID') || ''].filter(Boolean)),
-				supportLatestPrerelease([PRERELEASE_TYPE, env('RELEASE_PR_PREID') || ''].filter(Boolean)),
+				supportPrereleasesBeforeRelease(),
+				supportLatestPrerelease(),
 			]
 		}]),
 		plugin(['@semantic-release/git', {
