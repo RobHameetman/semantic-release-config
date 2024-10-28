@@ -115,7 +115,7 @@ directory:
 
 ### Environment Variables
 
-**General Options**
+#### **General Options**
 
 | Variable                    | Description                                                                               |
 |-----------------------------|-------------------------------------------------------------------------------------------|
@@ -125,7 +125,7 @@ directory:
 | `RELEASE_DRY_RUN`           | Perform a dry run of the release.                                                         |
 | `RELEASE_LOCALLY`           | Run `semantic-release` outside of your CI/CD pipeline.                                    |
 
-**Release Rules**
+#### **Release Rules**
 
 | Variable                             | Description                                                                                              |
 |--------------------------------------|----------------------------------------------------------------------------------------------------------|
@@ -133,7 +133,8 @@ directory:
 | `RELEASE_DEPRECATE_AS_MINOR_VERSION` | If `true` the `deprecate: ...` commit type will increment a minor version instead of a patch version.    |
 | `RELEASE_VERSION_AS_TYPE`            | Allows you to use a specific version as a commit type (e.g. `1.2.1(release): ...`).                       |
 
-**Custom Commands**
+#### **Custom Commands**
+
 | Variable                             | Description                                                                         |
 |--------------------------------------|-------------------------------------------------------------------------------------|
 | `RELEASE_EXEC_ANALYZE_COMMITS_CMD`   | A custom shell command to execute during the analyze commits step.                  |
@@ -148,7 +149,7 @@ directory:
 | `RELEASE_EXEC_SUCCESS_CMD`           | A custom shell command to execute during the success step.                          |
 | `RELEASE_EXEC_VERIFY_CONDITIONS_CMD` | A custom shell command to execute during the verify condition step.                 |
 
-**Configuration-specific**
+#### **Configuration-specific**
 
 | Variable                 | Config   | Description                                                                                                |
 |--------------------------|---------|------------------------------------------------------------------------------------------------------------|
