@@ -20,7 +20,7 @@ import { prereleaseBack } from '@/templates/versions/prerelease/prereleaseBack';
 export const $supportLatestPrerelease = ($preids: string | ReadonlyArray<string> = preid()) =>
 	$ifPrerelease(
 		isArray($preids)
-			? $preids.map(($preid) => `'>= ' + ${major()} + '.' + ${minor()} + '.' + ${patch()} + '-' + ${String($preid).startsWith('nextRelease') ? $preid : `'${$preid}'`} + '.' + ${prereleaseBack()} + ' < ' + nextRelease.version`).join(' || ')
-			: `'>= ' + ${major()} + '.' + ${minor()} + '.' + ${patch()} + '-' + ${String($preids).startsWith('nextRelease') ? $preids : `'${$preids}'`} + '.' + ${prereleaseBack()} + ' < ' + nextRelease.version`,
+			? $preids.map(($preid) => `'>= ' + ${major()} + '.' + ${minor()} + '.' + ${patch()} + '-' + ${String($preid).startsWith('nextRelease') ? $preid : `'${$preid}'`} + '.' + (${prereleaseBack()} === '1' ? '1' : '2') + ' < ' + nextRelease.version`).join(' || ')
+			: `'>= ' + ${major()} + '.' + ${minor()} + '.' + ${patch()} + '-' + ${String($preids).startsWith('nextRelease') ? $preids : `'${$preids}'`} + '.' + (${prereleaseBack()} === '1' ? '1' : '2') + ' < ' + nextRelease.version`,
 			'">= " + nextRelease.version + " < " + nextRelease.version',
 	);
