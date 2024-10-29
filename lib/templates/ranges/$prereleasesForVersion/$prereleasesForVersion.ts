@@ -17,6 +17,6 @@ import { preid } from '@/templates/versions';
  */
 export const $prereleasesForVersion = ($preid: string = preid()) =>
 	$ifRelease(
-		`">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + "${$preid}" + ".0 < " + ${major()} + "." + ${minor()} + "." + ${patch()}`,
+		`">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') || String($preid) === preid() ? $preid : `"${$preid}"`} + ".0 < " + ${major()} + "." + ${minor()} + "." + ${patch()}`,
 		'">= " + nextRelease.version + " < " + nextRelease.version',
 	);

@@ -19,6 +19,6 @@ import { patchBack } from '@/templates/versions/patch/patchBack';
  */
 export const $supportLatestPatchRelease = () =>
 	$ifPatchRelease(
-		`">= " + ${major()} + "." + ${minor()} + "." + (${patchBack()}) + " < " + ${major()} + "." + ${minor()} + "." + ${patch()}`,
+		`">= " + ${major()} + "." + ${minor()} + "." + ${patchBack()} + " < " + ${major()} + "." + ${minor()} + "." + ${patch()}`,
 		'">= " + nextRelease.version + " < " + nextRelease.version',
 	);
