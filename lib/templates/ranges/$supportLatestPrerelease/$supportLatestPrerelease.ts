@@ -20,6 +20,6 @@ import { prereleaseBack } from '@/templates/versions/prerelease/prereleaseBack';
  */
 export const $supportLatestPrerelease = ($preid: string = preid()) =>
 	$ifPrerelease(
-		`">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') ? $preid : `"${$preid}"`} + "." + (${prereleaseBack()} === "1" ? "1" : "2") + " < " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') ? $preid : `"${$preid}"`} + "." + ${prerelease()}`,
+		`">= " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') || String($preid) === preid() ? $preid : `"${$preid}"`} + "." + (${prereleaseBack()} === "1" ? "1" : "2") + " < " + ${major()} + "." + ${minor()} + "." + ${patch()} + "-" + ${String($preid).startsWith('nextRelease') || String($preid) === preid() ? $preid : `"${$preid}"`} + "." + ${prerelease()}`,
 		'">= " + nextRelease.version + " < " + nextRelease.version',
 	);
