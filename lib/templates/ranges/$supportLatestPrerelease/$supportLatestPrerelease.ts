@@ -9,9 +9,9 @@ import { prereleaseBack } from '@/templates/versions/prerelease/prereleaseBack';
 
 /**
  * Support only the latest prerelease version for a given release version. For
- * example, if the next release version is 1.2.7-alpha.4, and the release is an
- * alpha prerelease, then this will deprecate 1.2.7-alpha.3 with the range
- * '>= 1.2.7-alpha.3 < 1.2.7-alpha.4'.
+ * example, if the next release version is 1.2.7-alpha.7, and the release is an
+ * alpha prerelease, then this will deprecate 1.2.7-alpha.2 with the range
+ * '>= 1.2.7-alpha.2 < 1.2.7-alpha.7'.
  *
  * @param $preids One or more preids to deprecate.
  *

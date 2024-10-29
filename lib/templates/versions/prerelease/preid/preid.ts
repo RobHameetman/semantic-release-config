@@ -10,4 +10,4 @@ import { preidWithPrerelease } from '@/templates/versions/prerelease/preidWithPr
  *
  * @returns The prerelease preid for the next release version.
  */
-export const preid = () => `((${preidWithPrerelease()} || '').split('.').length > 1 ? (${preidWithPrerelease()} || '').split('.').slice(0, -1).join('.') : (${preidWithPrerelease()} || '').split('.')[0]) || undefined`;
+export const preid = () => `((${preidWithPrerelease()} || '').split('.').length > 1 ? (${preidWithPrerelease()} || '').split('.').slice(0, -1).join('.') : (${preidWithPrerelease()} || '').split('.')[0] || undefined)`;
