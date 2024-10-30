@@ -60,6 +60,63 @@
 
 ## §1: Overview
 
+This is a semantic-release config used in NPM packages designed for
+automation and easier prerelease management. Configs create a prerelease version
+with each PR/branch and allow flexible configuration through environment variables.
+
+### PR Prerelease Strategies
+
+Default preid/channel types can be configured by setting the
+`RELEASE_PR_PRERELEASE_STRATEGY` environment variable to one of the following
+values:
+
+| RELEASE_PR_PRERELEASE_STRATEGY | Example Version                                                                | Channel                                     |
+|:-------------------------------|:-------------------------------------------------------------------------------|:--------------------------------------------|
+| `"branch"`                     | `@rhh/example-package@1.6.8-branch.hotfix-buy-now-button.7`                     | `@rhh/example-package@hotfix-buy-now-button` |
+| `"branch.date"`                | `@rhh/example-package@1.6.8-branch.hotfix-buy-now-button.20240613.7`            | `@rhh/example-package@hotfix-buy-now-button` |
+| `"commit"`                     | `@rhh/example-package@1.6.8-commit.f73dc97d.1`                                 | `@rhh/example-package@hotfix-buy-now-button` |
+| `"commitfull"`                 | `@rhh/example-package@1.6.8-commit.f73dc97d01d31ca7fad272d80a25b651bab81990.1` | `@rhh/example-package@hotfix-buy-now-button` |
+| `"date"`                       | `@rhh/example-package@1.6.8-date.20240613.4`                                   | `@rhh/example-package@20240613`             |
+| `"datetime"`                   | `@rhh/example-package@1.6.8-date.20240613000001.1`                             | `@rhh/example-package@20240613`             |
+| `"default"`                    | `@rhh/example-package@1.6.8-pr.613.7`                                          | `@rhh/example-package@pr-613`               |
+| `"default.date"`               | `@rhh/example-package@1.6.8-pr.613.20240613.7`                                 | `@rhh/example-package@pr-613`               |
+
+### Customizable Preids & Channels
+
+Preids and channels can be easily customized by setting the
+`RELEASE_PR_PRERELEASE_PREID` and `RELEASE_PR_PRERELEASE_CHANNEL` environment
+variables. Each has access to the following dictionary for
+customization:
+
+| Template        | Example                                    |
+|:----------------|:-------------------------------------------|
+| `${branch}`     | `hotfix-buy-now-button`                     |
+| `${commit}`     | `f73dc97d`                                 |
+| `${commitfull}` | `f73dc97d01d31ca7fad272d80a25b651bab81990` |
+| `${date}`       | `20240613`                                 |
+| `${datetime}`   | `20240613000001`                           |
+| `${pr}`         | `613`                                      |
+
+This table shows examples of each as well as the resulting preid/channel:
+
+| RELEASE_PR_PRERELEASE_PREID        | RELEASE_PR_PRERELEASE_CHANNEL | Example Version                                           | Channel                       |
+|:-----------------------------------|:------------------------------|:----------------------------------------------------------|:------------------------------|
+| `"experimental--${commit}"`        | --                            | `1.6.8-experimental--f73dc97d.1`                          | `pr-613`                      |
+| `"${branch}.${commit}--${pr}"`     | `"x-${pr}--${branch}"`        | `1.6.8-hotfix-buy-now-button.f73dc97d--613.1`              | `x-613--hotfix-buy-now-button` |
+
+### Optional Labels
+
+The preid label can be customized with the RELEASE_PR_PRERELEASE_LABEL
+environment variable. Setting the value to "omit" will remove the label from the
+prerelease preid.
+
+| RELEASE_PR_PRERELEASE_LABEL | RELEASE_PR_PRERELEASE_STRATEGY | Example Version                                    |
+|:----------------------------|:-------------------------------|:---------------------------------------------------|
+| `"cr"`                      | --                             | `1.6.8-cr.613.7`                                   |
+| `"changereq"`               | --                             | `1.6.8-changereq.613.7`                            |
+| `"web"`                     | `"branch"`                     | `1.6.8-web.hotfix-buy-now-button.7`                 |
+| `"omit"`                    | `"commitfull"`                 | `1.6.8-f73dc97d01d31ca7fad272d80a25b651bab81990.1` |
+
 ## §2: Getting Started
 
 Follow these steps to get the project up and running on your local machine:

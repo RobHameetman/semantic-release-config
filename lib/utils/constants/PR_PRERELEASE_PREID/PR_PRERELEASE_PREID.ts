@@ -30,11 +30,10 @@ const byStrategy = {
 	 * variable as the preid. This allows for a custom preid.
 	 *
 	 * @example
-	 * `X.X.X-commit.[COMMIT_SHA].1`
-	 * `X.X.X-[COMMIT_SHA].1`
+	 * RELEASE_PR_PRERELEASE_LABEL=ex
+	 * RELEASE_PR_PRERELEASE_PREID="${label}--${commitfull}"
 	 *
-	 * `1.0.0-commit.f73dc97d01d31ca7fad272d80a25b651bab81990.1`
-	 * `1.6.8-c8ad90851dbd625442130af3afd36b28885f21ce.1`
+	 * `12.5.9-ex--f73dc97d01d31ca7fad272d80a25b651bab81990.1`
 	 */
 	custom: template(env('RELEASE_PR_PRERELEASE_PREID')),
 
