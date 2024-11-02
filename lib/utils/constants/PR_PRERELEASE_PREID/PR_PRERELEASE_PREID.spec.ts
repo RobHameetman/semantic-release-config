@@ -67,9 +67,9 @@ describe('PR_PRERELEASE_PREID', () => {
 			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_LABEL)
 			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_LABEL)
 			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_LABEL)
-			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_LABEL)
-			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_LABEL)
-			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_LABEL)
+			.mockReturnValueOnce('omit')
+			.mockReturnValueOnce('omit')
+			.mockReturnValueOnce('omit')
 			.mockReturnValue('omit')
 
 		mockEnv('CI_PR_NUMBER')
