@@ -30,6 +30,27 @@ describe('COMMIT_SHA_SHORT', () => {
 			.mockReturnValueOnce(CI_SHA)
 			.mockReturnValueOnce(CI_SHA)
 			.mockReturnValue(undefined);
+
+		mockEnv('CI_COMMIT_SHA')
+			.mockReturnValue(undefined);
+
+		mockEnv('GITHUB_SHA')
+			.mockReturnValue(undefined);
+
+		mockEnv('GIT_COMMIT')
+			.mockReturnValue(undefined);
+
+		mockEnv('CIRCLE_SHA1')
+			.mockReturnValue(undefined);
+
+		mockEnv('TRAVIS_COMMIT')
+			.mockReturnValue(undefined);
+
+		mockEnv('BITBUCKET_COMMIT')
+			.mockReturnValue(undefined);
+
+		mockEnv('BUILD_SOURCEVERSION')
+			.mockReturnValue(undefined);
 	});
 
 	beforeEach(async () => {

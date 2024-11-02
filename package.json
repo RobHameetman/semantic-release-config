@@ -131,10 +131,13 @@
 		],
 		"collectCoverageFrom": [
 			"lib/**/*.ts",
-			"!lib/**/*.d.ts"
+			"!lib/**/*.d.ts",
+			"!lib/*.ts"
 		],
+		"coverageDirectory": "test/coverage/",
 		"coverageReporters": [
-			"text-summary"
+			"text-summary",
+			"lcov"
 		],
 		"coverageThreshold": {
 			"global": {
