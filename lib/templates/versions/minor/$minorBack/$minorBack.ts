@@ -1,4 +1,17 @@
-import { minor } from '@templates/versions/minor/minor';
+import { minorBack } from '@/templates/versions/minor/minorBack';
 
-export const $minorBack = (offset = 1) =>
-	`\${Number(${minor()}) - ${Math.abs(offset)} >= 0 ? Number(${minor()}) - ${Math.abs(offset)} : 0}`;
+/**
+ * Retrieve a previous minor version number from the release context in a
+ * template.
+ *
+ * @example
+ * ```TypeScript
+ * $minorBack(2); // If the version is 'X.12.X', this will return '10'
+ * ```
+ *
+ * @param offset - [Optional] The number of minor versions to go back. Defaults
+ * to 1.
+ *
+ * @returns The previous minor version number.
+ */
+export const $minorBack = (offset = 1) => `\${${minorBack(offset)}}`;

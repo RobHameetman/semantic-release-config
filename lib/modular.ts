@@ -4,32 +4,36 @@ import {
 	PUBLISH_FROM_DIST,
 	PLUGIN_PRESET,
 	SLACK_ENABLED,
-	VERSIONED_RELEASE_BRANCHES,
+	VERSION_COMMIT_MESSAGE,
+	VERSION_COMMIT_MODIFIER,
+	VERSION_COMMIT_TYPE,
+	branches,
 	createConfig,
 	env,
 	envOr,
 	getEnvBooleanOrValue,
 	isEnvTrue,
-	latestMajorVersionOnly,
-	latestMinorVersionOnly,
-	latestPatchVersionOnly,
-	latestPrereleaseOnly,
 	plugin,
 	releaseRules,
+	supportLatestMinorRelease,
+	supportLatestPatchRelease,
+	// supportLatestPrerelease,
+	// supportPrereleasesBeforeRelease,
 } from '.';
 
 const USE_MASTER = env('RELEASE_MAIN_IS_LATEST', isEnvTrue);
 const RELEASE_BRANCHES = env('RELEASE_BRANCHES', (value = '') => value.split(','));
+const RELEASE_BRANCH = env('RELEASE_BRANCH');
 
 /**
  * @beta - WIP. The idea is to have a release strategy that supports multiple
  * release branches in a multi-package monorepo.
  */
-module.exports = createConfig({
-	branches: [
+export default createConfig({
+	branches: branches([
 		USE_MASTER ? { name: 'major|latest', prerelease: false, channel: 'latest' } : null,
 		...RELEASE_BRANCHES.map((name) => ({ name, prerelease: false, channel: 'latest' })),
-	].filter(Boolean) as Array<BranchObject>,
+	].filter(Boolean) as Array<BranchObject>),
 	plugins: [
 		plugin(['@semantic-release/commit-analyzer', {
 			preset: PLUGIN_PRESET,
@@ -47,14 +51,14 @@ module.exports = createConfig({
 		}]),
 		plugin(['semantic-release-npm-deprecate', {
 			deprecations: [
-				latestMajorVersionOnly(),
-				latestMinorVersionOnly(),
-				latestPatchVersionOnly(),
-				latestPrereleaseOnly(),
+				supportLatestPatchRelease(),
+				supportLatestMinorRelease(),
+				// supportPrereleasesBeforeRelease(),
+				// supportLatestPrerelease(),
 			]
 		}]),
 		plugin(['@semantic-release/git', {
-			message: 'release(${nextRelease.version}): Update package.json to new version [SKIP CI]\n\n${nextRelease.notes}',
+			message: `${VERSION_COMMIT_TYPE}(\${nextRelease.version}): ${VERSION_COMMIT_MESSAGE} [${VERSION_COMMIT_MODIFIER}]\n\n\${nextRelease.notes}`,
 			assets: ['package.json', 'package-lock.json'].concat(CHANGELOG_ENABLED ? ['CHANGELOG.md'] : []),
 		}]),
 		plugin(['@semantic-release/github', {

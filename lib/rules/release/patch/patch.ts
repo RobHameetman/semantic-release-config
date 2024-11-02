@@ -1,4 +1,6 @@
-export const PATCH_RELEASE_RULES = [
+import type { ReleaseRules } from '@/utils/types/misc/ReleaseRules';
+
+export const PATCH_RELEASE_RULES: ReleaseRules = [
 	/**
 	 * Defaults
 	 */
@@ -23,14 +25,19 @@ export const PATCH_RELEASE_RULES = [
 	{ type: 'patch', release: 'patch' },
 	/**
 	 * @example
+	 * "feat(patch): Fix email validation error on signup page [PROJ-1234]"
+	 */
+	{ scope: 'patch', release: 'patch' },
+	/**
+	 * @example
 	 * "release(1.2.1): Fix email validation error on signup page [PROJ-1234]"
 	 */
-	{ type: 'release', scope: '?([1-9])+([0-9]).?([1-9])+([0-9]).+([1-9])*([0-9])', release: 'patch' },
+	{ type: 'release', scope: '?([1-9])+([0-9]).+([0-9]).?([1-9])+([0-9])', release: 'patch' },
 	/**
 	 * @example
 	 * "release: 1.2.1 - Fix email validation error on signup page [PROJ-1234]"
 	 */
-	{ type: 'release', subject: '?([1-9])+([0-9]).?([1-9])+([0-9]).+([1-9])*([0-9])?( - *)?([])', release: 'patch' },
+	{ type: 'release', subject: '?([1-9])+([0-9]).+([0-9]).?([1-9])+([0-9])?( - *)', release: 'patch' },
 	/**
 	 * @example
 	 * "bug: Fix email validation error on signup page [PROJ-1234]"

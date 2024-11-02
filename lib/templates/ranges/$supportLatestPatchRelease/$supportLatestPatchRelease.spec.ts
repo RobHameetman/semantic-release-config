@@ -1,6 +1,6 @@
 import { isFunction, isString } from '@rob.hameetman/type-guards';
-import { render } from '@test/utils/render';
-import { versionsOf } from '@test/utils/versionsOf';
+import { render } from '@@/utils/render';
+import { versionsOf } from '@@/utils/versionsOf';
 import { $supportLatestPatchRelease } from './$supportLatestPatchRelease';
 
 describe('$supportLatestPatchRelease()', () => {
@@ -19,9 +19,14 @@ describe('$supportLatestPatchRelease()', () => {
 	});
 
 	it('should range from the first minor release in the current major version to the current patch version', async () => {
-		expect(render($supportLatestPatchRelease(), { type: 'patch', version: '6.1.12' })).toBe('>= 6.1.X < 6.1.12');
+		expect(render($supportLatestPatchRelease(), { type: 'patch', version: '6.1.10' })).toBe('>= 6.1.9 < 6.1.10');
 
-		await expect(versionsOf($supportLatestPatchRelease(), { version: '6.1.12' })).resolves.toContain('6.1.0');
-		await expect(versionsOf($supportLatestPatchRelease(), { version: '6.1.12' })).resolves.not.toContain('6.1.12');
+		await expect(versionsOf($supportLatestPatchRelease(), { type: 'patch', version: '6.1.10' })).resolves.toContain('6.1.9');
+		await expect(versionsOf($supportLatestPatchRelease(), { type: 'patch', version: '6.1.10' })).resolves.not.toContain('6.1.10');
+	});
+
+	it('should do nothing when the release is not a patch version', () => {
+		expect(render($supportLatestPatchRelease(), { type: 'minor', version: '6.2.0' })).toBe('>= 6.2.0 < 6.2.0');
+		expect(render($supportLatestPatchRelease(), { type: 'major', version: '7.0.0' })).toBe('>= 7.0.0 < 7.0.0');
 	});
 });

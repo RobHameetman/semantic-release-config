@@ -1,31 +1,110 @@
-import { PLUGIN_NPM } from './config';
-import { releaseRules } from '@rules/index';
-import { env } from '@utils/functions/environment/env';
+import { mockEnv } from '@@/utils/mockEnv';
 
-jest.mock('@utils/functions/environment/env', () => ({
-	__esModule: true,
-	env: jest.fn(),
-}));
+describe('plugin()', () => {
+	let error: Error | null = null;
+	let result: unknown = null;
+	let act: jest.Mock | null = null;
 
-describe('PLUGIN_NPM', () => {
-	it('should be an array with a plugin name and a config object', () => {
-		expect(PLUGIN_NPM).toBeInstanceOf(Array);
-		expect(PLUGIN_NPM).toHaveLength(2);
+	beforeAll(async () => {
+		mockEnv('RELEASE_DISABLE_CHANGELOG')
+			.mockReturnValueOnce('true')
+			.mockReturnValueOnce('true')
+			.mockReturnValueOnce('true')
+			.mockReturnValueOnce('true')
+			.mockReturnValue(undefined);
+
+		const { plugin } = await import('./plugin');
+
+		act = jest.fn()
+				.mockImplementationOnce(() => plugin(['@semantic-release/test-plugin', {
+					foo: 'foo.js',
+					bar: undefined,
+				}]))
+				.mockImplementationOnce(() => plugin(['@semantic-release/changelog', {
+					changelogFile: './CHANGELOG.md',
+					changelogTitle: '# Changelog',
+				}]))
+				.mockImplementationOnce(() => plugin(['@semantic-release/exec', {
+					addChannelCmd: undefined,
+					analyzeCommitsCmd: undefined,
+					execCwd: undefined,
+					failCmd: undefined,
+					generateNotesCmd: undefined,
+					prepareCmd: undefined,
+					publishCmd: undefined,
+					shell: undefined,
+					successCmd: undefined,
+					verifyConditionsCmd: undefined,
+					verifyReleaseCmd: undefined,
+				}]))
+				.mockImplementationOnce(() => plugin(['@semantic-release/exec', {
+					addChannelCmd: undefined,
+					analyzeCommitsCmd: undefined,
+					execCwd: undefined,
+					failCmd: undefined,
+					generateNotesCmd: undefined,
+					prepareCmd: 'npm pkg set version ${nextRelease.version}-rc.${commit.gitHead}',
+					publishCmd: undefined,
+					shell: undefined,
+					successCmd: undefined,
+					verifyConditionsCmd: undefined,
+					verifyReleaseCmd: undefined,
+				}]))
+				.mockImplementationOnce(() => plugin(['semantic-release-slack-bot', {
+					notifyOnSuccess: true,
+					notifyOnFail: true,
+					onSuccessTemplate: {
+						text: '✅ Success! Version $npm_package_version of $package_name has been published.',
+					},
+					onFailTemplate: {
+						text: '❌ Oh no! Version $npm_package_version of $package_name failed to publish.',
+					},
+				}]));
 	});
 
-	it('should be used for the commit analyzer plugin', () => {
-		expect(PLUGIN_NPM).toContain('@semantic-release/commit-analyzer');
+	beforeEach(() => {
+		try {
+			result = act?.();
+		} catch (thrown) {
+			error = !(thrown instanceof Error) ? (thrown as Error) : new Error();
+			console.error(thrown);
+		}
 	});
 
-	it('should be configured to include the release rules from this package', () => {
-		expect(PLUGIN_NPM).toContainEqual(expect.objectContaining({
-			releaseRules,
-		}));
+	afterEach(() => {
+		jest.resetModules();
+		jest.clearAllMocks();
+
+		result = null;
 	});
 
-	it('should be able to accept a custom preset through an environment variable', () => {
-		expect(env).toBeCalledWith('RELEASE_PLUGIN_PRESET', expect.any(Function));
-		expect(PLUGIN_NPM[1]?.preset).not.toBeUndefined();
+	afterAll(() => {
+		result = null;
+	});
+
+	it('should return a plugin spec given a plugin which is not checked for enablement', () => {
+		expect(error).toBeNull();
+		expect(result).not.toBeNull();
+	});
+
+	it('should return null given a changelog plugin configuration when the changelog plugin is disabled', () => {
+		expect(error).toBeNull();
+		expect(result).toBeNull();
+	});
+
+	it('should return null given an exec plugin configuration with no defined options', () => {
+		expect(error).toBeNull();
+		expect(result).toBeNull();
+	});
+
+	it('should return a plugin spec given an exec plugin configuration with defined options', () => {
+		expect(error).toBeNull();
+		expect(result).not.toBeNull();
+	});
+
+	it('should return null given a slack plugin configuration when the slack plugin is disabled', () => {
+		expect(error).toBeNull();
+		expect(result).toBeNull();
 	});
 });
 

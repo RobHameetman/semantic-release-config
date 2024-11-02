@@ -1,67 +1,55 @@
-import { onTest } from '@test/utils/onTest';
-import { env } from '@utils/functions/environment/env';
+import { mockEnv } from '@@/utils/mockEnv';
 import { isEnvDefinedOr } from './isEnvDefinedOr';
 
 describe('isEnvDefinedOr()', () => {
-	let error: Error | null = null;
-	let result: unknown = null;
-	let index = 1;
+	let processEnv: NodeJS.ProcessEnv | null = null;
 
-	beforeEach(() => {
-		try {
-			result = onTest(index, {
-				1: () => {
-					process.env.TEST_ENV_VALUE = 'true';
-				},
-				2: () => {
-					process.env.TEST_ENV_VALUE = 'test';
-				},
-				3: () => {
-					process.env.TEST_ENV_VALUE = '';
-				},
-			});
+	beforeAll(() => {
+		processEnv = process.env;
 
-			result = env('TEST_ENV_VALUE', isEnvDefinedOr('ALTERNATIVE_TEST_ENV_VALUE'));
-		} catch (thrown) {
-			error = !(thrown instanceof Error) ? (thrown as Error) : new Error();
-			console.error(thrown);
-		}
+		mockEnv('TEST_ENV_DEFINED')
+			.mockReturnValueOnce('test')
+			.mockReturnValueOnce('test')
+			.mockReturnValueOnce('')
+			.mockReturnValue(undefined);
+
+		mockEnv('TEST_ENV_UNDEFINED').mockReturnValue(undefined);
+		mockEnv('TEST_ENV_UNDEFINED_AGAIN').mockReturnValue(undefined);
 	});
 
 	afterEach(() => {
-		delete process.env.TEST_ENV_VALUE;
-
-		error = null;
-		result = null;
-
-		index += 1;
+		jest.resetModules();
+		jest.clearAllMocks();
 	});
 
-	it('should return true given an environment variable with the value "true"', () => {
-		expect(index).toBe(1);
-		expect(error).toBeNull();
+	afterAll(() => {
+		jest.restoreAllMocks();
 
-		expect(result).toBe(true);
+		process.env = processEnv as NodeJS.ProcessEnv;
+		processEnv = null;
 	});
 
-	it('should return true given an environment variable with the value "test"', () => {
-		expect(index).toBe(2);
-		expect(error).toBeNull();
-
-		expect(result).toBe(true);
+	it('should return true given the name of an environment variable which is defined', () => {
+		expect(isEnvDefinedOr('TEST_ENV_DEFINED')(undefined)).toBe(true);
 	});
 
-	it('should return false given an environment variable with the value ""', () => {
-		expect(index).toBe(3);
-		expect(error).toBeNull();
-
-		expect(result).toBe(false);
+	it('should return true given the names of one environment variable which is defined', () => {
+		expect(isEnvDefinedOr(['TEST_ENV_UNDEFINED', 'TEST_ENV_UNDEFINED_AGAIN', 'TEST_ENV_DEFINED'])(undefined)).toBe(true);
 	});
 
-	it('should return false given an undefined environment variable', () => {
-		expect(index).toBe(4);
-		expect(error).toBeNull();
+	it('should return false given the names of no environment variables which are defined', () => {
+		expect(isEnvDefinedOr(['TEST_ENV_UNDEFINED', 'TEST_ENV_UNDEFINED_AGAIN'])(undefined)).toBe(false);
+	});
 
-		expect(result).toBe(false);
+	it('should return false given an empty string', () => {
+		expect(isEnvDefinedOr('TEST_ENV_DEFINED')(undefined)).toBe(false);
+	});
+
+	it('should return false given an empty array with an empty string', () => {
+		expect(isEnvDefinedOr([''])(undefined)).toBe(false);
+	});
+
+	it('should return false given an empty array', () => {
+		expect(isEnvDefinedOr([])(undefined)).toBe(false);
 	});
 });

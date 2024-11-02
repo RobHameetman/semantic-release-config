@@ -1,7 +1,8 @@
-import { env } from '@utils/functions/environment/env';
-import { isEnvTrue } from '@utils/functions/environment/isEnvTrue';
+import type { ReleaseRules } from '@/utils/types/misc/ReleaseRules';
+import { env } from '@/utils/functions/environment/env';
+import { isEnvTrue } from '@/utils/functions/environment/isEnvTrue';
 
-export const CONDITIONAL_RELEASE_RULES = [
+export const CONDITIONAL_RELEASE_RULES: ReleaseRules = [
 	/**
 	 * @example
 	 * "docs(README): Add missing environment variable [PROJ-1234]"
