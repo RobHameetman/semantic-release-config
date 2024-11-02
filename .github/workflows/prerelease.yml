@@ -5,6 +5,7 @@ name: Pre-release
 on:
   push:
     branches:
+      - '**'
       - '!main'
 
 jobs:
