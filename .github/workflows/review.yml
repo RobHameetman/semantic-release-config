@@ -27,5 +27,3 @@ jobs:
     name: TEST
     if: github.repository.archived != true
     uses: ./.github/workflows/test.yml
-    with:
-      dist: dist
