@@ -5,19 +5,12 @@ name: Release
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
-    types:
-      - closed
+      - '**'
 
 jobs:
   build:
     name: BUILD
-    if: >-
-      github.event.pull_request.merged == true &&
-      github.repository.archived != true
+    if: github.repository.archived != true
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     uses: ./.github/workflows/build.yml
@@ -28,9 +21,7 @@ jobs:
   publish:
     name: PUBLISH
     needs: [build]
-    if: >-
-      github.event.pull_request.merged == true &&
-      github.repository.archived != true
+    if: github.repository.archived != true
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
