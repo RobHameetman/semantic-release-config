@@ -1,5 +1,6 @@
 import { isUndefined } from '@rob.hameetman/type-guards';
-import type { EnvValue } from '@utils/types/EnvValue';
+import { isEnv } from '@/utils/functions/environment/isEnv';
+import type { EnvValue } from '@/utils/types/misc/EnvValue';
 
 /**
  * Determine if the value of an environment variable is defined.
@@ -17,4 +18,4 @@ import type { EnvValue } from '@utils/types/EnvValue';
  * string.
  */
 export const isEnvDefined = (value: EnvValue) =>
-	value !== '' && !isUndefined(value);
+	!isEnv('')(value) && !isUndefined(value);

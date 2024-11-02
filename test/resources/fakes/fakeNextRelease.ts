@@ -30,6 +30,14 @@ export const fakeNextRelease = ({
 
 	if (version) {
 		nextRelease.version = version;
+
+		if (isString(version) && version.includes('-')) {
+			const [ preid, update ] = version.split('-').at(1)?.split('.') || [];
+
+			nextRelease.type = 'prerelease';
+			nextRelease.prereleaseType = `${preid}-${update}`;
+			nextRelease.prerelease = true;
+		}
 	} else if (isPrerelease) {
 		const $update = isNumber(update) ? update : faker.number.int({ min: 1, max: 20 });
 

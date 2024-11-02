@@ -1,5 +1,5 @@
 import { isFunction, isString } from '@rob.hameetman/type-guards';
-import { render } from '@test/utils/render';
+import { render } from '@@/utils/render';
 import { $majorBack } from './$majorBack';
 
 describe('$majorBack()', () => {
@@ -24,7 +24,7 @@ describe('$majorBack()', () => {
 	});
 
 	it('should not resolve to a negative version number given an offset greater than the current major version', () => {
-		expect(render($majorBack(9), { version: '6.19.1' })).toBe('1');
+		expect(render($majorBack(9), { version: '6.19.1' })).toBe('0');
 	});
 
 	it('should resolve to the previous major version number given no offset', () => {

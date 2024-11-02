@@ -1,4 +1,7 @@
+import { commitWithReleaseRules } from '@@/utils/commitWithReleaseRules';
 import { MINOR_RELEASE_RULES } from './minor';
+
+const commit = commitWithReleaseRules(MINOR_RELEASE_RULES);
 
 describe('MINOR_RELEASE_RULES', () => {
 	it('should be an array', () => {
@@ -9,6 +12,15 @@ describe('MINOR_RELEASE_RULES', () => {
 		expect(MINOR_RELEASE_RULES).toContainEqual(expect.objectContaining({
 			release: expect.stringMatching(/^minor$/),
 		}));
+	});
+
+	it('should match conventional commits correctly', () => {
+		expect(commit('feat(auth): Add auth feature [PROJ-1234]')).toBeAMinorRelease();
+		expect(commit('FEAT(auth): Add auth feature [PROJ-1234]')).toBeAMinorRelease();
+		expect(commit('minor(auth): Add auth feature [PROJ-1234]')).toBeAMinorRelease();
+		expect(commit('feat(minor): Add auth feature [PROJ-1234]')).toBeAMinorRelease();
+		expect(commit('release(1.2.0): Add auth feature [PROJ-1234]')).toBeAMinorRelease();
+		expect(commit('release: 1.2.0 - Add auth feature [PROJ-1234]')).toBeAMinorRelease();
 	});
 });
 

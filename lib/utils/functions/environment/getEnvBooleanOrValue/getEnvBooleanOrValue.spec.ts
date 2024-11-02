@@ -1,4 +1,4 @@
-import { onTest } from '@test/utils/onTest';
+import { onTest } from '@@/utils/onTest';
 import { getEnvBooleanOrValue } from './getEnvBooleanOrValue';
 
 describe('getEnvBooleanOrValue()', () => {

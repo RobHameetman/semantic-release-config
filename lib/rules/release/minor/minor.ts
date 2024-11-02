@@ -1,4 +1,6 @@
-export const MINOR_RELEASE_RULES = [
+import type { ReleaseRules } from '@/utils/types/misc/ReleaseRules';
+
+export const MINOR_RELEASE_RULES: ReleaseRules = [
 	/**
 	 * Defaults
 	 */
@@ -12,6 +14,11 @@ export const MINOR_RELEASE_RULES = [
 	 * "minor(auth): Add auth feature [PROJ-1234]"
 	 */
 	{ type: 'minor', release: 'minor' },
+	/**
+	 * @example
+	 * "feat(minor): Add auth feature [PROJ-1234]"
+	 */
+	{ scope: 'minor', release: 'minor' },
 	/**
 	 * @example
 	 * "release(1.2.0): Add auth feature [PROJ-1234]"

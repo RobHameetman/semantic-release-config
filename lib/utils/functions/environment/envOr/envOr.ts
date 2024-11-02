@@ -1,6 +1,5 @@
-import { isString } from '@rob.hameetman/type-guards';
-import { isEnvDefined } from '@utils/functions/environment/isEnvDefined';
-import type { EnvValue } from '@utils/types/EnvValue';
+import { isString } from '@rob.hameetman/type-guards';;
+import type { EnvValue } from '@/utils/types/misc/EnvValue';
 
 /**
  * Use the provided value of an environment variable or try an alternative.
@@ -20,4 +19,6 @@ export const envOr = (altEnvName: string | Array<string>) =>
 	(value: EnvValue) => value ||
 		(isString(altEnvName)
 			? process.env[altEnvName]
-			: altEnvName.map((envName) => process.env[envName]).find(isEnvDefined));
+			: altEnvName.reduce<string | undefined>(
+				(val, envName) => val ? val : process.env[envName], undefined
+			));

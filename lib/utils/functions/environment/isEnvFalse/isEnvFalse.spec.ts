@@ -1,76 +1,49 @@
-import { onTest } from '@test/utils/onTest';
+import { mockEnv } from '@@/utils/mockEnv';
 import { isEnvFalse } from './isEnvFalse';
 
 describe('isEnvFalse()', () => {
-	let error: Error | null = null;
-	let result: unknown = null;
-	let index = 1;
+	let processEnv: NodeJS.ProcessEnv | null = null;
 
-	beforeEach(() => {
-		try {
-			result = onTest(index, {
-				1: () => {
-					process.env.TEST_ENV_VALUE = 'false';
-				},
-				2: () => {
-					process.env.TEST_ENV_VALUE = 'true';
-				},
-				3: () => {
-					process.env.TEST_ENV_VALUE = 'test';
-				},
-				4: () => {
-					process.env.TEST_ENV_VALUE = '';
-				},
-			});
+	beforeAll(() => {
+		processEnv = process.env;
 
-			result = isEnvFalse(process.env.TEST_ENV_VALUE);
-		} catch (thrown) {
-			error = !(thrown instanceof Error) ? (thrown as Error) : new Error();
-			console.error(thrown);
-		}
+		mockEnv('TEST_ENV_VALUE')
+			.mockReturnValueOnce('false')
+			.mockReturnValueOnce('true')
+			.mockReturnValueOnce('test')
+			.mockReturnValueOnce('')
+			.mockReturnValue(undefined);
 	});
 
 	afterEach(() => {
-		delete process.env.TEST_ENV_VALUE;
+		jest.resetModules();
+		jest.clearAllMocks();
+	});
 
-		error = null;
-		result = null;
+	afterAll(() => {
+		jest.restoreAllMocks();
 
-		index += 1;
+		process.env = processEnv as NodeJS.ProcessEnv;
+		processEnv = null;
 	});
 
 	it('should return true given an environment variable with the value "false"', () => {
-		expect(index).toBe(1);
-		expect(error).toBeNull();
-
-		expect(result).toBe(true);
+		expect(isEnvFalse(process.env.TEST_ENV_VALUE)).toBe(true);
 	});
 
 	it('should return false given an environment variable with the value "true"', () => {
-		expect(index).toBe(2);
-		expect(error).toBeNull();
-
-		expect(result).toBe(false);
+		expect(isEnvFalse(process.env.TEST_ENV_VALUE)).toBe(false);
 	});
 
 	it('should return false given an environment variable with the value "test"', () => {
-		expect(index).toBe(3);
-		expect(error).toBeNull();
-
-		expect(result).toBe(false);
+		expect(isEnvFalse(process.env.TEST_ENV_VALUE)).toBe(false);
 	});
 
 	it('should return false given an environment variable with the value ""', () => {
-		expect(index).toBe(4);
-		expect(error).toBeNull();
-
-		expect(result).toBe(false);
+		expect(isEnvFalse(process.env.TEST_ENV_VALUE)).toBe(false);
 	});
 
 	it('should return false given an undefined environment variable', () => {
-		expect(index).toBe(5);
-		expect(error).toBeNull();
-
-		expect(result).toBe(false);
+		expect(isEnvFalse(process.env.TEST_ENV_VALUE)).toBe(false);
 	});
 });

@@ -1,5 +1,5 @@
-import { getEnvValue } from '@utils/functions/environment/getEnvValue';
-import { EnvValue } from '@utils/types/EnvValue';
+import { getEnvValue } from '@/utils/functions/environment/getEnvValue';
+import { EnvValue } from '@/utils/types/misc/EnvValue';
 
 /**
  * A callback function to transform the value of the environment variable.
