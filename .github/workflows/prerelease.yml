@@ -1,11 +1,11 @@
 # yaml-language-server: $schema=./_schema.json
 
-name: Release
+name: Pre-release
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - '!main'
 
 jobs:
   build:
