@@ -6,26 +6,38 @@ on:
   workflow_call:
     secrets:
       NPM_TOKEN:
-        description: 'A token used for authorized access to NPM'
+        description: >
+          A token used for authorized access to NPM
         required: true
     inputs:
       dist:
-        description: The directory where the package will be built
+        description: >
+          The directory where the package will be built
         default: dist
         required: false
         type: string
       node:
-        description: The version of Node.js used
+        description: >
+          The version of Node.js used
         default: '20'
         required: false
         type: string
+      ref:
+        description: >
+          The branch, tag or SHA to checkout. When checking out the repository
+          that triggered a workflow, this defaults to the reference or SHA for
+          that event.  Otherwise, uses the default branch.
+        required: false
+        type: string
       skip:
-        description: Skip jobs
+        description: >
+          Skip jobs
         default: false
         required: false
         type: boolean
       debug:
-        description: Debug jobs
+        description: >
+          Debug jobs
         default: false
         required: false
         type: boolean
@@ -38,7 +50,10 @@ env:
   timeout-setup: 10
   timeout-build: 60
   # Environment Variables
+  __SKIP: ${{ inputs.skip }}
+  __DEBUG: ${{ vars.CI_DEBUG || inputs.debug }}
   CI: true
+  CI_DEBUG: ${{ vars.CI_DEBUG }}
   CI_TIMEOUT_SETUP: ${{ vars.CI_TIMEOUT_SETUP }}
   CI_TIMEOUT_BUILD: ${{ vars.CI_TIMEOUT_BUILD }}
   NODE_ENV: production
@@ -55,7 +70,7 @@ jobs:
         id: init
         run: |
           echo "__SKIP=${{ inputs.skip }}" >> $GITHUB_ENV
-          echo "__DEBUG=${{ env.CI_DEBUG || env.debug || inputs.debug }}" >> $GITHUB_ENV
+          echo "__DEBUG=${{ env.CI_DEBUG || inputs.debug }}" >> $GITHUB_ENV
           echo "__TIMEOUT_SETUP=${{ env.CI_TIMEOUT_SETUP || fromJSON(env.timeout-setup) }}" >> $GITHUB_ENV
           echo "__TIMEOUT_BUILD=${{ env.CI_TIMEOUT_BUILD || fromJSON(env.timeout-build) }}" >> $GITHUB_ENV
 
@@ -73,12 +88,15 @@ jobs:
       - name: Checkout
         id: clone
         uses: actions/checkout@v3
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        timeout-minutes: ${{ fromJSON(env.CI_TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          ref: ${{ inputs.ref || github.event.pull_request.base.ref || github.head_ref }}
 
       - name: Dependencies
         id: setup
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        timeout-minutes: ${{ fromJSON(env.CI_TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
         env:
           # 'development' is required instead of 'production' here so that NPM includes devDependencies (like Rollup).
@@ -88,13 +106,13 @@ jobs:
 
       - name: Build
         id: build
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_BUILD) }}
+        timeout-minutes: ${{ fromJSON(env.CI_TIMEOUT_BUILD) }}
         if: fromJSON(env.__SKIP) != true
         run: npm run build
 
       - name: Cache
         id: cache
-        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_BUILD) }}
+        timeout-minutes: ${{ fromJSON(env.CI_TIMEOUT_BUILD) }}
         if: fromJSON(env.__SKIP) != true
         uses: actions/upload-artifact@v3
         with:
