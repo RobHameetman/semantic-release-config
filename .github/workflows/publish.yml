@@ -32,6 +32,13 @@ on:
         default: '20'
         required: false
         type: string
+      ref:
+        description: >
+          The branch, tag or SHA to checkout. When checking out the repository
+          that triggered a workflow, this defaults to the reference or SHA for
+          that event.  Otherwise, uses the default branch.
+        required: false
+        type: string
       skip:
         description: Skip jobs
         default: false
@@ -128,7 +135,7 @@ jobs:
         if: fromJSON(env.__SKIP) != true
         with:
           token: ${{ secrets.GH_TOKEN }}
-          ref: ${{ github.event.pull_request.base.ref }}
+          ref: ${{ inputs.ref || github.event.pull_request.base.ref || github.head_ref }}
 
       - name: Dependencies
         id: install
