@@ -6,6 +6,7 @@
   <a href="https://github.com/RobHameetman/semantic-release-config">
     <img src="./.github/img/logo.png" alt="Logo" width="75" height="112">
   </a>
+
   <p align="center">
     <br />
     A package for centralized release management configuration.
