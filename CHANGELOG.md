@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 (2024-11-03)
+
+
+### Features
+
+* Add standardized configs ([32c3b65](https://github.com/RobHameetman/semantic-release-config/commit/32c3b6511643f009f96307e0e036dec58d62f1c9))
+* **setup:** Run setup script ([a3d40a7](https://github.com/RobHameetman/semantic-release-config/commit/a3d40a79850926144ba1e2c93676c97fab815b3a))
+
 ## [1.0.0-alpha.36](https://github.com/RobHameetman/semantic-release-config/compare/1.0.0-alpha.35...1.0.0-alpha.36) (2024-10-29)
 
 
