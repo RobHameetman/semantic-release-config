@@ -89,8 +89,8 @@ jobs:
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
         with:
-          token: ${{ secrets.GH_TOKEN }}
-          ref: ${{ inputs.ref || github.event.pull_request.base.ref }}
+          token: ${{ secrets.GH_TOKEN || github.token }}
+          ref: ${{ inputs.ref || github.event.pull_request.base.ref || github.head_ref }}
 
       - name: Dependencies
         id: setup

@@ -134,7 +134,7 @@ jobs:
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GH_TOKEN || github.token }}
           fetch-depth: 0
           ref: ${{ inputs.ref || github.event.pull_request.base.ref || github.head_ref }}
 
