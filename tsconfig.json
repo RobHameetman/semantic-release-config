@@ -12,8 +12,8 @@
 		"noImplicitThis": true,
 		"outDir": "./dist",
 		"paths": {
-			"@/*": ["./lib/*"],
-			"@@/*": ["./test/resources/*"]
+			"#$/*": ["./test/resources/*"],
+			"#*": ["./lib/*"]
 		},
 		"removeComments": true,
 		"resolveJsonModule": true,
