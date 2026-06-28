@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 /**
  * Mocks the "RELEASE_PUBLISH_FROM_DIST" environment variable.

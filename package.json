@@ -6,6 +6,10 @@
 	"author": "Robert H. Hameetman (https://www.robhameetman.com/)",
 	"homepage": "https://www.npmjs.org/package/@rob.hameetman/semantic-release-config",
 	"license": "MIT",
+	"imports": {
+		"#$/*": "./test/resources/*",
+		"#*": "./lib/*"
+	},
 	"exports": {
 		".": "./dist/index.min.js",
 		"./canary": "./dist/canary.js",
@@ -156,8 +160,8 @@
 			"json"
 		],
 		"moduleNameMapper": {
-			"^@/(.*)": "<rootDir>/lib/$1",
-			"^@@/*": "<rootDir>/test/resources/$1",
+			"^#\\$/(.*)$": "<rootDir>/test/resources/$1",
+			"^#(.*)$": "<rootDir>/lib/$1",
 			"^(\\.{1,2}/.*)\\.js$": "$1"
 		},
 		"preset": "ts-jest/presets/default-esm",

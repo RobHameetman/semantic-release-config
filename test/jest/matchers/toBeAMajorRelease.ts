@@ -1,6 +1,6 @@
 import micromatch from 'micromatch';
-import { isCommitMatchGroups } from '@/utils/types/matches/CommitMatchGroups';
-import { ReleaseRule } from '@/utils/types/misc/ReleaseRule';
+import { isCommitMatchGroups } from '#utils/types/matches/CommitMatchGroups';
+import { ReleaseRule } from '#utils/types/misc/ReleaseRule';
 
 const TO_BE_A_MAJOR_RELEASE = 'toBeAMajorRelease';
 

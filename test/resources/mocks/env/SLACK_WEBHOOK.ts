@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 /**
  * Mocks the "SLACK_WEBHOOK" environment variable.

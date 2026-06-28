@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 /**
  * Mocks the "RELEASE_NOTIFICATION_SLACK_TOKEN" environment variable.

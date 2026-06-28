@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 /**
  * Mocks the "RELEASE_DISABLE_CHANGELOG" environment variable.
