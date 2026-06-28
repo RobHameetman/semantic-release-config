@@ -85,7 +85,7 @@ jobs:
 
       - name: Checkout
         id: clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
         with:
@@ -112,7 +112,7 @@ jobs:
         id: cache
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_BUILD) }}
         if: fromJSON(env.__SKIP) != true
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: ${{ inputs.dist }}

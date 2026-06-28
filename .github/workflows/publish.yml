@@ -130,7 +130,7 @@ jobs:
 
       - name: Checkout
         id: clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
         with:
@@ -162,7 +162,7 @@ jobs:
 
       - name: Setup
         id: setup
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
         if: fromJSON(env.__SKIP) != true
         with:
