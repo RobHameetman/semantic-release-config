@@ -29,7 +29,7 @@ on:
         type: boolean
       node:
         description: The version of Node.js used
-        default: '20'
+        default: '22'
         required: false
         type: string
       ref:
@@ -51,7 +51,7 @@ permissions:
 env:
   # General Options
   name: semantic-release-config
-  node: '20'
+  node: '22'
   debug: false
   # Timeouts (in minutes)
   timeout-setup: 10
@@ -100,9 +100,9 @@ jobs:
   publish:
     name: Publish
     if: github.repository.archived != true
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     container:
-      image: node:20
+      image: node:22
     permissions:
       contents: write
       issues: write
@@ -137,6 +137,13 @@ jobs:
           token: ${{ secrets.GH_TOKEN || github.token }}
           fetch-depth: 0
           ref: ${{ inputs.ref || github.event.pull_request.base.ref || github.head_ref }}
+
+      - name: Upgrade npm
+        id: npm
+        timeout-minutes: ${{ fromJSON(env.__TIMEOUT_SETUP) }}
+        if: fromJSON(env.__SKIP) != true
+        # npm trusted publishing (OIDC) requires npm >= 11.5.1; the node:22 image ships npm 10.x.
+        run: npm i -g npm@latest
 
       - name: Dependencies
         id: install
@@ -186,9 +193,11 @@ jobs:
         id: publish
         timeout-minutes: ${{ fromJSON(env.__TIMEOUT_RELEASE) }}
         if: fromJSON(env.__SKIP) != true
+        # No NPM_TOKEN here: npm publish authenticates via OIDC trusted publishing
+        # (id-token: write above). Install-time auth for private @rob.hameetman/*
+        # deps is handled in the Dependencies step.
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           pwd
           npx semantic-release
