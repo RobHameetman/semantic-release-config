@@ -1,6 +1,7 @@
 import type { BranchObject } from 'semantic-release';
 import {
 	CHANGELOG_ENABLED,
+	PROVENANCE_ENABLED,
 	PUBLISH_FROM_DIST,
 	PLUGIN_PRESET,
 	SLACK_ENABLED,
@@ -48,6 +49,7 @@ export default createConfig({
 		}]),
 		plugin(['@semantic-release/npm', {
 			pkgRoot: PUBLISH_FROM_DIST ? 'dist' : '.',
+			provenance: PROVENANCE_ENABLED,
 		}]),
 		plugin(['semantic-release-npm-deprecate', {
 			deprecations: [

@@ -29,8 +29,8 @@
 		"url": "https://github.com/RobHameetman/semantic-release-config/issues"
 	},
 	"engines": {
-		"node": ">=22.3.0",
-		"npm": ">=10.8.1"
+		"node": ">=22.14.0",
+		"npm": ">=11.5.1"
 	},
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,13 +47,13 @@
 	"dependencies": {
 		"@rob.hameetman/type-guards": "1.1.0",
 		"@semantic-release/changelog": "6.0.3",
-		"@semantic-release/commit-analyzer": "11.0.0",
+		"@semantic-release/commit-analyzer": "13.0.1",
 		"@semantic-release/error": "4.0.0",
-		"@semantic-release/exec": "6.0.3",
+		"@semantic-release/exec": "7.1.0",
 		"@semantic-release/git": "10.0.1",
-		"@semantic-release/github": "9.2.1",
-		"@semantic-release/npm": "11.0.0",
-		"@semantic-release/release-notes-generator": "12.0.0",
+		"@semantic-release/github": "12.0.8",
+		"@semantic-release/npm": "13.1.5",
+		"@semantic-release/release-notes-generator": "14.1.1",
 		"conventional-changelog-conventionalcommits": "7.0.2",
 		"lodash.template": "4.5.0",
 		"micromatch": "4.0.5",

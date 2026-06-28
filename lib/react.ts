@@ -3,6 +3,7 @@ import {
 	COMMIT_SHA_SHORT,
 	DATE_HASH,
 	PLUGIN_PRESET,
+	PROVENANCE_ENABLED,
 	PUBLISH_FROM_DIST,
 	SLACK_ENABLED,
 	VERSION_COMMIT_MESSAGE,
@@ -47,6 +48,7 @@ export default createConfig({
 		}]),
 		plugin(['@semantic-release/npm', {
 			pkgRoot: PUBLISH_FROM_DIST ? 'dist' : '.',
+			provenance: PROVENANCE_ENABLED,
 		}]),
 		plugin(['@semantic-release/git', {
 			message: `${VERSION_COMMIT_TYPE}(\${nextRelease.version}): ${VERSION_COMMIT_MESSAGE} [${VERSION_COMMIT_MODIFIER}]\n\n\${nextRelease.notes}`,
