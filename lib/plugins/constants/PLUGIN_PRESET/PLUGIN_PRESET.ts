@@ -1,5 +1,5 @@
-import { PluginPreset } from '@/plugins/enums/PluginPreset';
-import { env } from '@/utils/functions/environment/env';
+import { PluginPreset } from '#plugins/enums/PluginPreset';
+import { env } from '#utils/functions/environment/env';
 
 /**
  * The preset used by commit analyzer and release notes generator plugins. This

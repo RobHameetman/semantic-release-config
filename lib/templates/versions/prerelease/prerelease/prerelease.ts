@@ -1,4 +1,4 @@
-import { preidWithPrerelease } from '@/templates/versions/prerelease/preidWithPrerelease';
+import { preidWithPrerelease } from '#templates/versions/prerelease/preidWithPrerelease';
 
 /**
  * Retrieve the prerelease version number from the release context.

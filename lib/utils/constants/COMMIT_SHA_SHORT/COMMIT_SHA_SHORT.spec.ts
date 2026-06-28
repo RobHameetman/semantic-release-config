@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 describe('COMMIT_SHA_SHORT', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;

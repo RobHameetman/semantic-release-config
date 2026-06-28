@@ -1,4 +1,4 @@
-import { env } from '@/utils/functions/environment/env';
+import { env } from '#utils/functions/environment/env';
 
 export const DEFAULT_VERSION_COMMIT_MESSAGE = 'Update package.json to new version';
 

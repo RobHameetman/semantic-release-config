@@ -1,5 +1,5 @@
 import { isEnumKey } from '@rob.hameetman/type-guards';
-import type { PR_PRERELEASE_STRATEGY } from '@/utils/constants/PR_PRERELEASE_STRATEGY';
+import type { PR_PRERELEASE_STRATEGY } from '#utils/constants/PR_PRERELEASE_STRATEGY';
 
 /**
  * Various strategies for generating a pre-release identifier. These are used as

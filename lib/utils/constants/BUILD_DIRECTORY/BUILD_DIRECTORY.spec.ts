@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 describe('BUILD_DIRECTORY', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;

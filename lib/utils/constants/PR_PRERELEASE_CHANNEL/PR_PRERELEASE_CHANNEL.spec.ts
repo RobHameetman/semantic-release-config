@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 describe('PR_PRERELEASE_CHANNEL', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;
@@ -23,8 +23,8 @@ describe('PR_PRERELEASE_CHANNEL', () => {
 		CI_SHA_SHORT = faker.git.commitSha().slice(0, 8);
 		CURRENT_BRANCH = faker.git.branch();
 
-		({ DATE } = await import('@/utils/constants/DATE'));
-		({ DATE_HASH } = await import('@/utils/constants/DATE_HASH'));
+		({ DATE } = await import('#utils/constants/DATE'));
+		({ DATE_HASH } = await import('#utils/constants/DATE_HASH'));
 
 		mockEnv('RELEASE_PR_PRERELEASE_CHANNEL')
 			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_CHANNEL)

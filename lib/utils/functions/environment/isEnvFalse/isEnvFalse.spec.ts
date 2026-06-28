@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 import { isEnvFalse } from './isEnvFalse';
 
 describe('isEnvFalse()', () => {

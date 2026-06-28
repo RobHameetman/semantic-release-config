@@ -1,4 +1,4 @@
-jest.unstable_mockModule('@/templates/ranges/$prereleasesForVersion', () => ({
+jest.unstable_mockModule('#templates/ranges/$prereleasesForVersion', () => ({
 	$prereleasesForVersion: jest.fn(() => '>= 1.1.2-rc.0 < 1.1.2'),
 }));
 
@@ -7,7 +7,7 @@ describe('supportPrereleasesBeforeRelease()', () => {
 	let supportPrereleasesBeforeRelease: ((prerelease: string) => unknown) | null = null;
 
 	beforeAll(async () => {
-		({ $prereleasesForVersion } = await import('@/templates/ranges/$prereleasesForVersion'));
+		({ $prereleasesForVersion } = await import('#templates/ranges/$prereleasesForVersion'));
 		({ supportPrereleasesBeforeRelease } = await import('./supportPrereleasesBeforeRelease'));
 	});
 

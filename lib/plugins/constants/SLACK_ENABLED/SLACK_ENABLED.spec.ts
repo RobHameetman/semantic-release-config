@@ -1,5 +1,5 @@
 import { isBoolean } from '@rob.hameetman/type-guards';
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 describe('SLACK_ENABLED', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;

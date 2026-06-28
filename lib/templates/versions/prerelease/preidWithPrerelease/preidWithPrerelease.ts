@@ -1,4 +1,4 @@
-import { vparse } from '@/templates/versions/misc/vparse';
+import { vparse } from '#templates/versions/misc/vparse';
 
 /**
  * Retrieve the prerelease preid with prerelease version from the release context.

@@ -1,4 +1,4 @@
-import { env } from '@/utils/functions/environment/env';
+import { env } from '#utils/functions/environment/env';
 
 export const DEFAULT_BUILD_DIRECTORY = 'dist';
 

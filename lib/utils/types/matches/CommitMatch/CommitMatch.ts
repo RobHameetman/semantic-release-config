@@ -1,9 +1,9 @@
 import { isArray, isString } from '@rob.hameetman/type-guards';
-import { CommitMatchGroup } from '@/utils/enums/CommitMatchGroup';
-import { TypeOfCommit, isTypeOfCommit } from '@/utils/types/commit/TypeOfCommit';
-import { ScopeOfCommit, isScopeOfCommit } from '@/utils/types/commit/ScopeOfCommit';
-import { SubjectOfCommit, isSubjectOfCommit } from '@/utils/types/commit/SubjectOfCommit';
-import { CommitMatchGroups, isCommitMatchGroups } from '@/utils/types/matches/CommitMatchGroups';
+import { CommitMatchGroup } from '#utils/enums/CommitMatchGroup';
+import { TypeOfCommit, isTypeOfCommit } from '#utils/types/commit/TypeOfCommit';
+import { ScopeOfCommit, isScopeOfCommit } from '#utils/types/commit/ScopeOfCommit';
+import { SubjectOfCommit, isSubjectOfCommit } from '#utils/types/commit/SubjectOfCommit';
+import { CommitMatchGroups, isCommitMatchGroups } from '#utils/types/matches/CommitMatchGroups';
 
 /**
  * Represents a {@link RegExpMatch} array for a semantic version string.

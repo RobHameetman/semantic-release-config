@@ -1,4 +1,4 @@
-import { patch } from '@/templates/versions/patch/patch';
+import { patch } from '#templates/versions/patch/patch';
 
 /**
  * Retrieve a previous patch version number from the release context in a

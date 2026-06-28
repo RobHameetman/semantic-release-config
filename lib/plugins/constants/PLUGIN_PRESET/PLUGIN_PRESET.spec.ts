@@ -1,6 +1,6 @@
 import { isString } from '@rob.hameetman/type-guards';
-import { PluginPreset } from '@/plugins/enums/PluginPreset';
-import { mockEnv } from '@@/utils/mockEnv';
+import { PluginPreset } from '#plugins/enums/PluginPreset';
+import { mockEnv } from '#$/utils/mockEnv';
 
 describe('PLUGIN_PRESET', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;

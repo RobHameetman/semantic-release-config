@@ -1,6 +1,6 @@
 import { isFunction, isString } from '@rob.hameetman/type-guards';
-import { render } from '@@/utils/render';
-import { versionsOf } from '@@/utils/versionsOf';
+import { render } from '#$/utils/render';
+import { versionsOf } from '#$/utils/versionsOf';
 import { $supportLatestMajorRelease } from './$supportLatestMajorRelease';
 
 describe('$supportLatestMajorRelease()', () => {

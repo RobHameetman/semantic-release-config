@@ -1,5 +1,5 @@
 import { isString } from '@rob.hameetman/type-guards';
-import { clockify as pad } from '@@/utils/clockify';
+import { clockify as pad } from '#$/utils/clockify';
 
 const CURRENT_YEAR = new Date().getFullYear();
 const CURRENT_MONTH = new Date().getMonth();
@@ -7,11 +7,11 @@ const CURRENT_DAY = new Date().getDate();
 const CURRENT_HOUR = new Date().getHours();
 const CURRENT_MINUTE = new Date().getMinutes();
 
-jest.unstable_mockModule('@/utils/constants/DATE', () => ({
+jest.unstable_mockModule('#utils/constants/DATE', () => ({
 	DATE: new Date(CURRENT_YEAR, CURRENT_MONTH - 1, CURRENT_DAY, CURRENT_HOUR, CURRENT_MINUTE, CURRENT_MINUTE),
 }));
 
-const { DATE_HASH } = await import('@/utils/constants/DATE_HASH');
+const { DATE_HASH } = await import('#utils/constants/DATE_HASH');
 
 describe('DATETIME_HASH', () => {
 	let DATETIME_HASH: unknown = null;

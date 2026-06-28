@@ -1,8 +1,8 @@
 import type { BranchObject } from 'semantic-release';
 import { faker } from '@faker-js/faker';
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
-jest.unstable_mockModule('@/utils/types/state/Branch', () => ({
+jest.unstable_mockModule('#utils/types/state/Branch', () => ({
 	Branch: class {
 		static set = jest.fn();
 	},
@@ -22,7 +22,7 @@ describe('branches()', () => {
 		mockEnv('CI_COMMIT_BRANCH')
 			.mockReturnValue(CI_COMMIT_BRANCH);
 
-		({ Branch } = await import('@/utils/types/state/Branch'));
+		({ Branch } = await import('#utils/types/state/Branch'));
 		({ branches } = await import('./branches'));
 	});
 

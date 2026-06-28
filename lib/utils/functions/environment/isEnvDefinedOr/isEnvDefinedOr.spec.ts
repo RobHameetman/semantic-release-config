@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 import { isEnvDefinedOr } from './isEnvDefinedOr';
 
 describe('isEnvDefinedOr()', () => {

@@ -1,8 +1,8 @@
 import { isObject } from '@rob.hameetman/type-guards';
-import { CommitMatchGroup } from '@/utils/enums/CommitMatchGroup';
-import { ScopeOfCommit, isScopeOfCommit } from '@/utils/types/commit/ScopeOfCommit';
-import { SubjectOfCommit, isSubjectOfCommit } from '@/utils/types/commit/SubjectOfCommit';
-import { TypeOfCommit, isTypeOfCommit } from '@/utils/types/commit/TypeOfCommit';
+import { CommitMatchGroup } from '#utils/enums/CommitMatchGroup';
+import { ScopeOfCommit, isScopeOfCommit } from '#utils/types/commit/ScopeOfCommit';
+import { SubjectOfCommit, isSubjectOfCommit } from '#utils/types/commit/SubjectOfCommit';
+import { TypeOfCommit, isTypeOfCommit } from '#utils/types/commit/TypeOfCommit';
 
 /**
  * A type alias used to avoid a break on line `29`.

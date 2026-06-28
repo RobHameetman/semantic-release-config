@@ -1,11 +1,11 @@
 import { isString } from '@rob.hameetman/type-guards';
-import { clockify as pad } from '@@/utils/clockify';
+import { clockify as pad } from '#$/utils/clockify';
 
 const CURRENT_YEAR = new Date().getFullYear();
 const CURRENT_MONTH = new Date().getMonth();
 const CURRENT_DAY = new Date().getDate();
 
-jest.unstable_mockModule('@/utils/constants/DATE', () => ({
+jest.unstable_mockModule('#utils/constants/DATE', () => ({
 	DATE: new Date(CURRENT_YEAR, CURRENT_MONTH - 1, CURRENT_DAY, 12, 33, 41),
 }));
 

@@ -1,5 +1,5 @@
-import { $supportLatestPrerelease } from '@/templates/ranges/$supportLatestPrerelease';
-import { preid } from '@/templates/versions/prerelease/preid';
+import { $supportLatestPrerelease } from '#templates/ranges/$supportLatestPrerelease';
+import { preid } from '#templates/versions/prerelease/preid';
 
 /**
  * Support only the latest prerelease version for a given version. For example,

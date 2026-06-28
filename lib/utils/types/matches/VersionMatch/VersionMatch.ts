@@ -1,16 +1,16 @@
 import { isArray, isString } from '@rob.hameetman/type-guards';
-import { VersionMatchGroup } from '@/utils/enums/VersionMatchGroup';
-import { BuildOfVersion, isBuildOfVersion } from '@/utils/types/semver/BuildOfVersion';
-import { CommitOfVersion, isCommitOfVersion } from '@/utils/types/semver/CommitOfVersion';
-import { DateOfVersion, isDateOfVersion } from '@/utils/types/semver/DateOfVersion';
-import { MajorOfVersion, isMajorOfVersion } from '@/utils/types/semver/MajorOfVersion';
-import { MinorOfVersion, isMinorOfVersion } from '@/utils/types/semver/MinorOfVersion';
-import { PatchOfVersion, isPatchOfVersion } from '@/utils/types/semver/PatchOfVersion';
-import { PreidOfVersion, isPreidOfVersion } from '@/utils/types/semver/PreidOfVersion';
-import { PrOfVersion, isPrOfVersion } from '@/utils/types/semver/PrOfVersion';
-import { TypeOfVersion, isTypeOfVersion } from '@/utils/types/semver/TypeOfVersion';
-import { PrereleaseOfVersion, isPrereleaseOfVersion } from '@/utils/types/semver/PrereleaseOfVersion';
-import { VersionMatchGroups, isVersionMatchGroups } from '@/utils/types/matches/VersionMatchGroups';
+import { VersionMatchGroup } from '#utils/enums/VersionMatchGroup';
+import { BuildOfVersion, isBuildOfVersion } from '#utils/types/semver/BuildOfVersion';
+import { CommitOfVersion, isCommitOfVersion } from '#utils/types/semver/CommitOfVersion';
+import { DateOfVersion, isDateOfVersion } from '#utils/types/semver/DateOfVersion';
+import { MajorOfVersion, isMajorOfVersion } from '#utils/types/semver/MajorOfVersion';
+import { MinorOfVersion, isMinorOfVersion } from '#utils/types/semver/MinorOfVersion';
+import { PatchOfVersion, isPatchOfVersion } from '#utils/types/semver/PatchOfVersion';
+import { PreidOfVersion, isPreidOfVersion } from '#utils/types/semver/PreidOfVersion';
+import { PrOfVersion, isPrOfVersion } from '#utils/types/semver/PrOfVersion';
+import { TypeOfVersion, isTypeOfVersion } from '#utils/types/semver/TypeOfVersion';
+import { PrereleaseOfVersion, isPrereleaseOfVersion } from '#utils/types/semver/PrereleaseOfVersion';
+import { VersionMatchGroups, isVersionMatchGroups } from '#utils/types/matches/VersionMatchGroups';
 
 /**
  * Represents a {@link RegExpMatch} array for a semantic version string.

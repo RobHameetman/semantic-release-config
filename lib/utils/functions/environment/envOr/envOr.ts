@@ -1,5 +1,5 @@
 import { isString } from '@rob.hameetman/type-guards';;
-import type { EnvValue } from '@/utils/types/misc/EnvValue';
+import type { EnvValue } from '#utils/types/misc/EnvValue';
 
 /**
  * Use the provided value of an environment variable or try an alternative.

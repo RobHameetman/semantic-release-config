@@ -1,4 +1,4 @@
-import { isEnv } from '@/utils/functions/environment/isEnv';
+import { isEnv } from '#utils/functions/environment/isEnv';
 
 /**
  * Determine if the value of an environment variable is true.

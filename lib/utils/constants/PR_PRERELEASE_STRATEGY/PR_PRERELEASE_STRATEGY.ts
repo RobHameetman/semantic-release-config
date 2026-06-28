@@ -1,5 +1,5 @@
-import { env } from '@/utils/functions/environment/env';
-import { PrPrereleaseStrategy } from '@/utils/enums/PrPrereleaseStrategy';
+import { env } from '#utils/functions/environment/env';
+import { PrPrereleaseStrategy } from '#utils/enums/PrPrereleaseStrategy';
 
 /**
  * The strategy used to determine the prerelease version of a branch or pull

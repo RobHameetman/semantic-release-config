@@ -1,4 +1,4 @@
-jest.unstable_mockModule('@/templates/ranges/$supportLatestMinorRelease', () => ({
+jest.unstable_mockModule('#templates/ranges/$supportLatestMinorRelease', () => ({
 	$supportLatestMinorRelease: jest.fn(() => '>= 1.1.0 < 1.2.0'),
 }));
 
@@ -7,7 +7,7 @@ describe('supportLatestMinorRelease()', () => {
 	let supportLatestMinorRelease: (() => unknown) | null = null;
 
 	beforeAll(async () => {
-		({ $supportLatestMinorRelease } = await import('@/templates/ranges/$supportLatestMinorRelease'));
+		({ $supportLatestMinorRelease } = await import('#templates/ranges/$supportLatestMinorRelease'));
 		({ supportLatestMinorRelease } = await import('./supportLatestMinorRelease'));
 	});
 

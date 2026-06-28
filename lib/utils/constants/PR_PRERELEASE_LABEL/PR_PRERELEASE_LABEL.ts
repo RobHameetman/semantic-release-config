@@ -1,7 +1,7 @@
-import { PR_PRERELEASE_STRATEGY } from '@/utils/constants/PR_PRERELEASE_STRATEGY';
-import { PrPrereleaseLabel } from '@/utils/enums/PrPrereleaseLabel';
-import { PrPrereleaseStrategy } from '@/utils/enums/PrPrereleaseStrategy';
-import { env } from '@/utils/functions/environment/env';
+import { PR_PRERELEASE_STRATEGY } from '#utils/constants/PR_PRERELEASE_STRATEGY';
+import { PrPrereleaseLabel } from '#utils/enums/PrPrereleaseLabel';
+import { PrPrereleaseStrategy } from '#utils/enums/PrPrereleaseStrategy';
+import { env } from '#utils/functions/environment/env';
 
 const value = env('RELEASE_PR_PRERELEASE_LABEL');
 const label = PrPrereleaseLabel[(value || 'default') as keyof typeof PrPrereleaseLabel];

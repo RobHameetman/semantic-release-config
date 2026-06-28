@@ -1,6 +1,6 @@
-import { VersionMatchGroup } from '@/utils/enums/VersionMatchGroup';
-import { SEMVER_REGEX } from '@/utils/regex/SEMVER_REGEX';
-import { VersionMatch } from '@/utils/types/matches/VersionMatch';
+import { VersionMatchGroup } from '#utils/enums/VersionMatchGroup';
+import { SEMVER_REGEX } from '#utils/regex/SEMVER_REGEX';
+import { VersionMatch } from '#utils/types/matches/VersionMatch';
 
 /**
  * A semantic version object representing "nextRelease.version" with methods

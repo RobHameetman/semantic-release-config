@@ -1,6 +1,6 @@
 import { isNonEmptyString, isUndefined } from '@rob.hameetman/type-guards';
-import { VersionMatchGroup } from '@/utils/enums/VersionMatchGroup';
-import { SEMVER_REGEX } from '@/utils/regex/SEMVER_REGEX';
+import { VersionMatchGroup } from '#utils/enums/VersionMatchGroup';
+import { SEMVER_REGEX } from '#utils/regex/SEMVER_REGEX';
 
 /**
  * Infer the build metadata of a semantic version string for a PR prerelease

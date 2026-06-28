@@ -1,5 +1,5 @@
 import { isFunction, isString } from '@rob.hameetman/type-guards';
-import { render } from '@@/utils/render';
+import { render } from '#$/utils/render';
 import { preidWithPrerelease } from './preidWithPrerelease';
 
 describe('preidWithPrerelease()', () => {

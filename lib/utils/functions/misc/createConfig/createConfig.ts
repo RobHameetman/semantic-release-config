@@ -1,6 +1,6 @@
 import type { Options, PluginSpec } from 'semantic-release';
-import { env } from '@/utils/functions/environment/env';
-import { isEnvTrue } from '@/utils/functions/environment/isEnvTrue';
+import { env } from '#utils/functions/environment/env';
+import { isEnvTrue } from '#utils/functions/environment/isEnvTrue';
 
 /**
  * A partial semantic-release configuration for branches and plugins. See the

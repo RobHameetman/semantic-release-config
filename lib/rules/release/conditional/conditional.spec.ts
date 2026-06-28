@@ -1,4 +1,4 @@
-import { ReleaseRules } from '@/utils/types/misc/ReleaseRules';
+import { ReleaseRules } from '#utils/types/misc/ReleaseRules';
 
 describe('CONDITIONAL_RELEASE_RULES', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;

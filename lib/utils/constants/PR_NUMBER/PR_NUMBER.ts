@@ -4,11 +4,11 @@ import { readFileSync as _readFileSync } from 'fs';
 import { exec as _exec } from 'child_process';
 import { promisify } from 'util';
 import { isUndefined } from '@rob.hameetman/type-guards';
-import { CURRENT_BRANCH } from '@/utils/constants/CURRENT_BRANCH';
-import { REPO_NAME } from '@/utils/constants/REPO_NAME';
-import { REPO_TOKEN } from '@/utils/constants/REPO_TOKEN';
-import { env } from '@/utils/functions/environment/env';
-import { envOr } from '@/utils/functions/environment/envOr';
+import { CURRENT_BRANCH } from '#utils/constants/CURRENT_BRANCH';
+import { REPO_NAME } from '#utils/constants/REPO_NAME';
+import { REPO_TOKEN } from '#utils/constants/REPO_TOKEN';
+import { env } from '#utils/functions/environment/env';
+import { envOr } from '#utils/functions/environment/envOr';
 
 type PullRequestSchema = components['schemas']['pull-request-simple'];
 type PullRequestData = Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'];

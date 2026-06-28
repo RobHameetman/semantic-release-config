@@ -1,5 +1,5 @@
 import { isBoolean } from '@rob.hameetman/type-guards';
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 describe('PUBLISH_FROM_DIST', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;

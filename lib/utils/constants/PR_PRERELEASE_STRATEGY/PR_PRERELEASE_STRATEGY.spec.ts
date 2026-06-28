@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 describe('PR_PRERELEASE_STRATEGY', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;

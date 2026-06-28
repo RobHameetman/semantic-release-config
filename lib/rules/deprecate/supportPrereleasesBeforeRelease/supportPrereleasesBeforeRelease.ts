@@ -1,5 +1,5 @@
-import { $prereleasesForVersion } from '@/templates/ranges/$prereleasesForVersion';
-import { preid } from '@/templates/versions/prerelease/preid';
+import { $prereleasesForVersion } from '#templates/ranges/$prereleasesForVersion';
+import { preid } from '#templates/versions/prerelease/preid';
 
 /**
  * Deprecates any prerelease versions for a given release version. For example,

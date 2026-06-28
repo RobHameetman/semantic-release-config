@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils';
+import { mockEnv } from '#$/utils';
 import { versionCommitMessage } from './versionCommitMessage';
 
 describe('versionCommitMessage()', () => {

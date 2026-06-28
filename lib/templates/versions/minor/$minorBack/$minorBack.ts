@@ -1,4 +1,4 @@
-import { minorBack } from '@/templates/versions/minor/minorBack';
+import { minorBack } from '#templates/versions/minor/minorBack';
 
 /**
  * Retrieve a previous minor version number from the release context in a

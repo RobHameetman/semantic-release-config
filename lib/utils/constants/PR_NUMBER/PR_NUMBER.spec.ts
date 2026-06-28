@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 const { OPEN_PR_NUMBER, getMockExec } = (() => {
 	const OPEN_PR_NUMBER = faker.number.int({ min: 1, max: 100});

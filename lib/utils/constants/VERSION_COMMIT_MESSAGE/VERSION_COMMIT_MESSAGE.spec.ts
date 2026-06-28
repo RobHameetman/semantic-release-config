@@ -1,4 +1,4 @@
-import { mockEnv } from '@@/utils/mockEnv';
+import { mockEnv } from '#$/utils/mockEnv';
 
 describe('VERSION_COMMIT_MESSAGE', () => {
 	let processEnv: NodeJS.ProcessEnv | null = null;

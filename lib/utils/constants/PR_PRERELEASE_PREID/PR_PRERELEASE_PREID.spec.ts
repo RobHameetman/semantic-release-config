@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { mockEnv } from '@@/utils/mockEnv';
-import { PrPrereleaseLabel } from '@/utils/enums/PrPrereleaseLabel';
-import { randomPrPrereleaseLabel } from '@/utils/enums/PrPrereleaseLabel/__test__';
+import { mockEnv } from '#$/utils/mockEnv';
+import { PrPrereleaseLabel } from '#utils/enums/PrPrereleaseLabel';
+import { randomPrPrereleaseLabel } from '#utils/enums/PrPrereleaseLabel/__test__';
 
 const CURRENT_YEAR = new Date().getFullYear();
 const CURRENT_MONTH = new Date().getMonth();
@@ -9,7 +9,7 @@ const CURRENT_DAY = new Date().getDate();
 const CURRENT_HOUR = new Date().getHours();
 const CURRENT_MINUTE = new Date().getMinutes();
 
-jest.unstable_mockModule('@/utils/constants/DATE', () => ({
+jest.unstable_mockModule('#utils/constants/DATE', () => ({
 	DATE: new Date(CURRENT_YEAR, CURRENT_MONTH - 1, CURRENT_DAY, CURRENT_HOUR, CURRENT_MINUTE, CURRENT_MINUTE),
 }));
 
@@ -36,9 +36,9 @@ describe('PR_PRERELEASE_PREID', () => {
 		CI_SHA_SHORT = faker.git.commitSha().slice(0, 8);
 		CURRENT_BRANCH = faker.git.branch();
 
-		({ DATE } = await import('@/utils/constants/DATE'));
-		({ DATE_HASH } = await import('@/utils/constants/DATE_HASH'));
-		({ DATETIME_HASH } = await import('@/utils/constants/DATETIME_HASH'));
+		({ DATE } = await import('#utils/constants/DATE'));
+		({ DATE_HASH } = await import('#utils/constants/DATE_HASH'));
+		({ DATETIME_HASH } = await import('#utils/constants/DATETIME_HASH'));
 
 		mockEnv('RELEASE_PR_PRERELEASE_PREID')
 			.mockReturnValueOnce(RELEASE_PR_PRERELEASE_PREID)

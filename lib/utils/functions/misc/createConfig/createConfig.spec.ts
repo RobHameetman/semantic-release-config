@@ -1,10 +1,10 @@
 import { BranchObject } from 'semantic-release';
 import { faker } from '@faker-js/faker';
-import { fakeBranches } from '@@/fakes/fakeBranches';
-import { fakeRules } from '@@/fakes/fakeRules';
-import { mockEnv } from '@@/utils/mockEnv';
+import { fakeBranches } from '#$/fakes/fakeBranches';
+import { fakeRules } from '#$/fakes/fakeRules';
+import { mockEnv } from '#$/utils/mockEnv';
 
-jest.unstable_mockModule('@/utils/functions/environment/env', () => ({
+jest.unstable_mockModule('#utils/functions/environment/env', () => ({
 	env: jest.fn((variable: string) => {
 		return ({
 			RELEASE_DEBUG: () => process.env.RELEASE_DEBUG === 'true',

@@ -1,11 +1,11 @@
 import { isArray } from '@rob.hameetman/type-guards';
-import { $ifPrerelease } from '@/templates/conditional';
-import { major } from '@/templates/versions/major/major';
-import { minor } from '@/templates/versions/minor/minor';
-import { patch } from '@/templates/versions/patch/patch';
-import { preid } from '@/templates/versions/prerelease/preid';
-import { prerelease } from '@/templates/versions/prerelease/prerelease';
-import { prereleaseBack } from '@/templates/versions/prerelease/prereleaseBack';
+import { $ifPrerelease } from '#templates/conditional';
+import { major } from '#templates/versions/major/major';
+import { minor } from '#templates/versions/minor/minor';
+import { patch } from '#templates/versions/patch/patch';
+import { preid } from '#templates/versions/prerelease/preid';
+import { prerelease } from '#templates/versions/prerelease/prerelease';
+import { prereleaseBack } from '#templates/versions/prerelease/prereleaseBack';
 
 /**
  * Support only the latest prerelease version for a given release version. For
